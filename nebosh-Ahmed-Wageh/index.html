@@ -57,6 +57,7 @@
     font-size: 3.57vw;
     line-height: 1.32;
     color: #4a4a4a;
+    pointer-events: none; /* لضمان أن النقر يمر إلى الصورة */
   }
 
   .label {
@@ -91,7 +92,7 @@
 </head>
 <body>
 <div class="container" onclick="window.location.href='https://www.nebosh.org.uk/'">
-  <!-- إضافة width و height تقديرية لمنع "القفزة" عند التحميل -->
+  <!-- إضافة width و height تقديرية لمنع "القفزة" عند التحميل في كروم -->
   <img src="https://credential-registry.github.io/verify/cx.png"
        width="772"
        height="1000"
