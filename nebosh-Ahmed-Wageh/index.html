@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 
 <head>
 
@@ -9,7 +9,7 @@
 content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <meta name="theme-color"
-content="#ececec">
+content="#ffffff">
 
 <title>NEBOSH Certificate Validation</title>
 
@@ -49,36 +49,47 @@ content="https://credential-registry.github.io/verify/cx.png">
 
 <style>
 
+/* Reset */
+
 *{
+margin:0;
+padding:0;
 box-sizing:border-box;
 -webkit-text-size-adjust:100%;
 }
 
+/* Base */
+
 html,body{
-margin:0;
-padding:0;
 width:100%;
-background:#ececec;
+background:#ffffff;
 overflow-x:hidden;
+font-family:'Arimo',sans-serif;
 }
 
-body{
-display:block;
-}
+/* Main Container */
 
 .container{
 position:relative;
 width:100%;
 max-width:772px;
 margin:auto;
-background:#ececec;
+background:#ffffff;
+cursor:pointer;
 }
+
+/* Certificate Image */
 
 .container img{
 width:100%;
-display:block;
 height:auto;
+display:block;
+object-fit:contain;
+user-select:none;
+-webkit-user-drag:none;
 }
+
+/* Overlay Text */
 
 .info{
 
@@ -90,8 +101,6 @@ left:7.5%;
 
 width:86%;
 
-font-family:'Arimo',sans-serif;
-
 font-size:3.57vw;
 
 line-height:1.32;
@@ -100,33 +109,42 @@ color:#4a4a4a;
 
 }
 
+/* Bold Labels */
+
 .label{
 font-weight:700;
 }
+
+/* Rows */
 
 .row{
 margin-bottom:0.15vw;
 }
 
-@media(min-width:772px){
+/* Desktop */
 
-.container{
-width:772px;
-}
+@media (min-width:772px){
 
 .info{
 
-top:922px;
-
-left:58px;
-
-width:664px;
-
 font-size:27.6px;
+
 }
 
 .row{
 margin-bottom:2px;
+}
+
+}
+
+/* Mobile Fine Tuning */
+
+@media (max-width:480px){
+
+.info{
+
+font-size:3.57vw;
+
 }
 
 }
