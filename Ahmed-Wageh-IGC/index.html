@@ -3,102 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
-<title>NEBOSH Certificate Validation - Ahmed Wageh Ibrahim Elgabaly</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>NEBOSH Certificate - Ahmed Wageh</title>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap" rel="stylesheet">
-<meta property="og:title" content="NEBOSH Certificate Validation - Ahmed Wageh">
-<meta property="og:description" content="Official credential verification registry for Ahmed Wageh Ibrahim Elgabaly">
-<meta property="og:image" content="https://credential-registry.github.io/verify/cx.png">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="NEBOSH Certificate Validation">
-<meta name="twitter:description" content="Official credential verification registry.">
-<meta name="twitter:image" content="https://credential-registry.github.io/verify/cx.png">
 <style>
-  /* إعادة تعيين كامل */
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-
-  html, body {
-    width: 100%;
-    background: #ffffff;
+  body {
+    background: white;
     font-family: 'Arimo', sans-serif;
-    overflow-x: hidden;
   }
-
-  /* الحاوية الرئيسية - تمتد بعرض الشاشة كاملاً على الموبايل */
   .container {
     position: relative;
     width: 100%;
-    background: #ffffff;
     cursor: pointer;
   }
-
-  /* الصورة تغطي العرض بالكامل وتحافظ على نسبتها */
   .container img {
     width: 100%;
     height: auto;
     display: block;
-    user-select: none;
-    -webkit-user-drag: none;
   }
-
-  /* النص المتراكب بنفس الموضع الدقيق */
   .info {
     position: absolute;
-    top: 59.9%;
-    left: 7.5%;
+    top: 59.9%;        /* ← غيّر هذه القيمة */
+    left: 7.5%;        /* ← غيّر هذه القيمة */
     width: 86%;
-    font-size: 3.57vw;
+    font-size: 3.57vw; /* ← غيّر هذه القيمة */
     line-height: 1.32;
     color: #4a4a4a;
-    pointer-events: none; /* لضمان أن النقر يمر إلى الصورة */
   }
-
   .label {
     font-weight: 700;
   }
-
   .row {
     margin-bottom: 0.15vw;
   }
-
-  /* فقط للشاشات العريضة (أكبر من 772px) يتم توسيط الصورة بحد أقصى */
   @media (min-width: 772px) {
-    .container {
-      max-width: 772px;
-      margin: 0 auto;
-    }
-    .info {
-      font-size: 27.6px;
-    }
-    .row {
-      margin-bottom: 2px;
-    }
-  }
-
-  /* تحسين بسيط للشاشات الصغيرة جداً */
-  @media (max-width: 480px) {
-    .info {
-      font-size: 4vw;
-    }
+    .container { max-width: 772px; margin: 0 auto; }
+    .info { font-size: 27.6px; }
+    .row { margin-bottom: 2px; }
   }
 </style>
 </head>
 <body>
 <div class="container" onclick="window.location.href='https://www.nebosh.org.uk/'">
-  <!-- الأبعاد المسبقة للصورة تمنع الـ Layout Shift في كروم -->
-  <img src="https://credential-registry.github.io/verify/cx.png"
-       width="772"
-       height="1000"
-       loading="eager"
-       decoding="async"
-       alt="NEBOSH Certificate">
+  <img src="https://credential-registry.github.io/verify/cx.png" width="772" height="1000" alt="Certificate">
   <div class="info">
     <div class="row"><span class="label">Learner Name:</span> Ahmed Wageh Ibrahim Elgabaly</div>
     <div class="row"><span class="label">Learner Number:</span> 00694915</div>
