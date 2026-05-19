@@ -1,52 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<meta name="theme-color"
-content="#ececec">
-
-<title>NEBOSH Certificate Validation</title>
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap"
-rel="stylesheet">
-
-<meta property="og:title"
-content="NEBOSH Certificate Validation">
-
-<meta property="og:description"
-content="Official credential verification registry.">
-
-<meta property="og:image"
-content="https://credential-registry.github.io/verify/cx.png">
-
-<meta property="og:type"
-content="website">
-
-<meta name="twitter:card"
-content="summary_large_image">
-
-<meta name="twitter:title"
-content="NEBOSH Certificate Validation">
-
-<meta name="twitter:description"
-content="Official credential verification registry.">
-
-<meta name="twitter:image"
-content="https://credential-registry.github.io/verify/cx.png">
-
 <style>
 
 *{
@@ -57,8 +8,9 @@ box-sizing:border-box;
 html,body{
 margin:0;
 padding:0;
-background:#ececec;
+width:100%;
 overflow-x:hidden;
+background:#ececec;
 }
 
 body{
@@ -69,14 +21,12 @@ justify-content:center;
 .container{
 position:relative;
 width:772px;
-min-width:772px;
-max-width:772px;
+max-width:100%;
 cursor:pointer;
-transform-origin:top center;
 }
 
 .container img{
-width:772px;
+width:100%;
 display:block;
 height:auto;
 }
@@ -85,15 +35,15 @@ height:auto;
 
 position:absolute;
 
-top:922px;
+top:59.95%;
 
-left:58px;
+left:7.5%;
 
-width:664px;
+width:86%;
 
 font-family:'Arimo',sans-serif;
 
-font-size:27.6px;
+font-size:3.57vw;
 
 line-height:1.32;
 
@@ -106,72 +56,26 @@ font-weight:700;
 }
 
 .row{
+margin-bottom:0.15vw;
+}
+
+@media(min-width:772px){
+
+.info{
+
+top:922px;
+
+left:58px;
+
+width:664px;
+
+font-size:27.6px;
+}
+
+.row{
 margin-bottom:2px;
-}
-
-@media(max-width:772px){
-
-body{
-justify-content:flex-start;
-}
-
-.container{
-
-transform:scale(calc(100vw / 772));
-
-margin-bottom:-260px;
-
 }
 
 }
 
 </style>
-
-</head>
-
-<body>
-
-<div class="container"
-onclick="window.location.href='https://www.nebosh.org.uk/'">
-
-<img src="https://credential-registry.github.io/verify/cx.png">
-
-<div class="info">
-
-<div class="row">
-<span class="label">Learner Name:</span>
-Ahmed Wageh Ibrahim Elgabaly
-</div>
-
-<div class="row">
-<span class="label">Learner Number:</span>
-00694915
-</div>
-
-<div class="row">
-<span class="label">Qualification Name:</span>
-NEBOSH International General Certificate in Occupational Health and Safety
-</div>
-
-<div class="row">
-<span class="label">SQA Reference:</span>
-R630 04
-</div>
-
-<div class="row">
-<span class="label">Date Awarded:</span>
-20/04/2026
-</div>
-
-<div class="row">
-<span class="label">Certificate log Number:</span>
-00695637/169426
-</div>
-
-</div>
-
-</div>
-
-</body>
-
-</html>
