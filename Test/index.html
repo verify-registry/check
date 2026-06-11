@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <title>NEBOSH VALIDATION</title>
+  <base href=".">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="https://nebosh-validation.verisecure.org/assets/corp_logo.gif">
+  
+  <!-- Fonts & Material Icons -->
+  <style>
+    @font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBGEe.woff2) format('woff2');}
+    @font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBGEe.woff2) format('woff2');}
+    @font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBGEe.woff2) format('woff2');}
+    @font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');}
+    .material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}
+  </style>
 
+  <!-- Extracted Styles -->
+  <style>
+    html{--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87)}
+    body{margin:0;font-family:Roboto,Helvetica Neue,sans-serif;height:100%}
+    @media (min-width: 800px){.sections-container{display:grid;grid-template-columns:1fr auto 1fr auto 1fr}}
+    .sections-container{width:calc(100% - 20px)}
+    .fields-container{width:calc(100% - 20px);display:flex;flex-direction:column;padding:10px}
+    .field-container{display:grid;width:100%;grid-template-columns:auto 20px 1fr;align-items:center}
+    .field-container > div{margin-bottom:10px;height:100%}
+    .highlighted{font-weight:400;border-radius:20px;padding:20px;background-color:#e6e6fa}
+    @media (min-width: 800px){.auth-section{display:grid;grid-template-columns:1fr auto 1fr}}
+    .auth-section{width:calc(100% - 20px);padding:10px}
+    .auth-container{max-width:500px;width:100%;display:flex;flex-direction:column;margin-bottom:10px;align-items:center;text-align:center}
+    .auth-inputs{margin-top:20px;width:100%;display:flex;flex-direction:row;align-items:center}
+    
+    /* Material Input overrides */
+    .mdc-text-field{border-radius:4px 4px 0 0;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;background-color: whitesmoke;}
+    .mdc-text-field__input{height:28px;width:100%;border:none;background:none;padding:0;outline:none;}
+    .mdc-text-field--filled{height:56px;}
+    .mdc-line-ripple::before{position:absolute;bottom:0;left:0;width:100%;border-bottom:1px solid rgba(0,0,0,.42);content:"";}
+    .mdc-floating-label{position:absolute;top:50%;transform:translateY(-50%);pointer-events:none;left:16px;font-family:Roboto, sans-serif;}
+    
+    /* Buttons */
+    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;background:rgba(0,0,0,0);padding:0 16px;border-radius:4px;height:36px;font-family:Roboto,sans-serif;font-weight:500;letter-spacing:.089em;text-transform:uppercase;}
+    .mdc-button--raised{box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);}
+    .mdc-button:disabled{cursor:default;pointer-events:none;background-color:rgba(0,0,0,.12);color:rgba(0,0,0,.38);}
+    .mdc-button__label{position:relative;z-index:1;}
+    .mdc-button__icon{margin-right:8px;font-size:18px;}
+  </style>
+</head>
+<body class="mat-typography">
+  <app-root>
+    <div style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap;">
+      <!-- غير مسار الصورة هنا لو حابب، بس الأفضل تسيبها NeboshLogo.jpg وترفع الصورة معاها -->
+      <img src="NeboshLogo.jpg" style="width: 250px;">
+    </div>
+    <app-confirm-request>
+      <div>
+        <div class="sections-container">
+          <div></div>
+          <div class="fields-container">
+            <h3>Details Requested</h3>
+            <div class="field-container">
+              <div><strong>Certificate Name: </strong></div>
+              <div style="flex-grow: 1;"></div>
+              <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
+              
+              <div><strong>Certificate Date: </strong></div>
+              <div style="flex-grow: 1;"></div>
+              <div> 13/08/2025 </div>
+              
+              <div><strong>Qualification: </strong></div>
+              <div style="flex-grow: 1;"></div>
+              <div> NEBOSH International General Certificate in Occupational Health and Safety </div>
+              
+              <div><strong>Master log certificate No: </strong></div>
+              <div style="flex-grow: 1;"></div>
+              <div> 00922069/1533915 </div>
+            </div>
+          </div>
+          <div></div>
+          <div class="fields-container">
+            <h3>Requester Details</h3>
+            <div class="field-container">
+              <div><strong>Requested By: </strong></div>
+              <div style="flex-grow: 1;"></div>
+              <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
+              
+              <div><strong>Organisation: </strong></div>
+              <div style="flex-grow: 1;"></div>
+              <div> Egyptian Ministry of Health </div>
+              
+              <div><strong>Email: </strong></div>
+              <div style="flex-grow: 1;"></div>
+              <div> essam.a36@yahoo.com </div>
+              
+              <div><strong>Requested: </strong></div>
+              <div style="flex-grow: 1;"></div>
+              <div> 20/05/2026 19:31 </div>
+            </div>
+          </div>
+          <div></div>
+        </div>
+        
+        <div class="auth-section">
+          <div></div>
+          <div class="auth-container">
+            <div class="highlighted">
+              <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
+              <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
+            </div>
+            
+            <div class="auth-inputs">
+              <div>
+                <mat-form-field>
+                  <div class="mdc-text-field mdc-text-field--filled">
+                    <label class="mdc-floating-label">Auth. Code</label>
+                    <input matinput="" placeholder="Authentication code..." class="mdc-text-field__input" aria-invalid="false" aria-required="false">
+                    <div class="mdc-line-ripple"></div>
+                  </div>
+                </mat-form-field>
+              </div>
+              <div style="flex-grow: 1;"></div>
+              <div>
+                <button class="mdc-button mdc-button--raised" disabled="true" style="color: red; background-color: white;">
+                  <mat-icon class="material-icons mdc-button__icon">cancel</mat-icon>
+                  <span class="mdc-button__label">Deny</span>
+                </button> &nbsp; 
+                <button class="mdc-button mdc-button--raised" disabled="true" style="color: green; background-color: white;">
+                  <mat-icon class="material-icons mdc-button__icon">check</mat-icon>
+                  <span class="mdc-button__label">Accept</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div></div>
+        </div>
+      </div>
+    </app-confirm-request>
+  </app-root>
+</body>
+</html>
