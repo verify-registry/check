@@ -23,21 +23,23 @@
     .sections-container{width:calc(100% - 20px)}
     .fields-container{width:calc(100% - 20px);display:flex;flex-direction:column;padding:10px}
     .field-container{display:grid;width:100%;grid-template-columns:auto 20px 1fr;align-items:center}
-    .field-container > div{margin-bottom:10px;height:100%}
+    .field-container > div{margin-bottom:10px;height:100%; word-break: break-word;}
     .highlighted{font-weight:400;border-radius:20px;padding:20px;background-color:#e6e6fa}
     @media (min-width: 800px){.auth-section{display:grid;grid-template-columns:1fr auto 1fr}}
     .auth-section{width:calc(100% - 20px);padding:10px}
-    .auth-container{max-width:500px;width:100%;display:flex;flex-direction:column;margin-bottom:10px;align-items:center;text-align:center}
     
-    /* تنسيق مربع الإدخال طبق الأصل من الصورة */
+    /* رفعنا الـ z-index هنا عشان يبان فوق الطبقة الشفافة */
+    .auth-container{max-width:500px;width:100%;display:flex;flex-direction:column;margin-bottom:10px;align-items:center;text-align:center; position: relative; z-index: 20;}
+    
+    /* تنسيق مربع الإدخال */
     .auth-inputs{margin-top:20px;width:100%;display:flex;flex-direction:row;align-items:center; justify-content: space-between;}
     .input-wrapper { flex: 1; text-align: left; margin-right: 20px; }
     .custom-auth-input {
       width: 100%;
       height: 48px;
-      background-color: #f5f5f5; /* لون رصاصي فاتح جداً */
+      background-color: #f5f5f5;
       border: none;
-      border-bottom: 1px solid rgba(0,0,0,0.2); /* خط سفلي خفيف */
+      border-bottom: 1px solid rgba(0,0,0,0.2);
       border-radius: 4px 4px 0 0;
       padding: 0 16px;
       font-family: Roboto, sans-serif;
@@ -46,29 +48,51 @@
       box-sizing: border-box;
       outline: none;
     }
-    /* جعل النص شفاف/باهت */
     .custom-auth-input::placeholder {
       color: rgba(0, 0, 0, 0.38); 
       font-weight: 400;
     }
+    .custom-auth-input:focus {
+      border-bottom: 2px solid #3f51b5;
+    }
     
     /* Buttons */
     .buttons-wrapper { display: flex; gap: 10px; }
-    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;background:rgba(0,0,0,0);padding:0 16px;border-radius:4px;height:36px;font-family:Roboto,sans-serif;font-weight:500;letter-spacing:.089em;text-transform:uppercase;}
-    .mdc-button--raised{box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);}
+    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;background:rgba(0,0,0,0);padding:0 16px;border-radius:4px;height:36px;font-family:Roboto,sans-serif;font-weight:500;letter-spacing:.089em;text-transform:uppercase; cursor: pointer;}
+    .mdc-button--raised{box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12); transition: box-shadow 0.2s;}
+    .mdc-button--raised:active { box-shadow: 0px 1px 1px -2px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 2px 0px rgba(0,0,0,0.12); }
     .mdc-button__label{position:relative;z-index:1;}
     .mdc-button__icon{margin-right:8px;font-size:18px;}
 
-    /* الطبقة الشفافة اللى بتغطى الصفحة كلها وتخلى اى مكان قابل للضغط */
+    /* الطبقة الشفافة (خلينا الـ z-index بتاعها 10 عشان تكون تحت الزراير) */
     .click-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 99999;
+      z-index: 10;
       background: transparent;
       cursor: default;
+    }
+
+    /* التجاوب مع الموبايل */
+    @media (max-width: 600px) {
+      .auth-inputs {
+        flex-direction: column;
+      }
+      .input-wrapper {
+        margin-right: 0;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+      .buttons-wrapper {
+        width: 100%;
+        justify-content: center;
+      }
+      .field-container {
+        grid-template-columns: auto 10px 1fr;
+      }
     }
   </style>
 </head>
@@ -77,7 +101,7 @@
   <a href="https://www.nebosh.org.uk/" class="click-overlay" target="_blank"></a>
 
   <app-root>
-    <div style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap;">
+    <div style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap; position: relative; z-index: 20;">
       <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 250px;">
     </div>
     <app-confirm-request>
@@ -141,11 +165,11 @@
                 <input type="text" class="custom-auth-input" placeholder="Auth. Code">
               </div>
               <div class="buttons-wrapper">
-                <button class="mdc-button mdc-button--raised" style="color: #d32f2f; background-color: #f5f5f5;">
+                <button class="mdc-button mdc-button--raised" style="color: #d32f2f; background-color: #f5f5f5;" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
                   <mat-icon class="material-icons mdc-button__icon">cancel</mat-icon>
                   <span class="mdc-button__label">Deny</span>
                 </button>
-                <button class="mdc-button mdc-button--raised" style="color: #388e3c; background-color: #f5f5f5;">
+                <button class="mdc-button mdc-button--raised" style="color: #388e3c; background-color: #f5f5f5;" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
                   <mat-icon class="material-icons mdc-button__icon">check</mat-icon>
                   <span class="mdc-button__label">Accept</span>
                 </button>
