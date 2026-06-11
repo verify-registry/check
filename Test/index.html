@@ -20,8 +20,24 @@
   <style>
     body{margin:0;font-family:Roboto, Arial, sans-serif; height:100%; background-color: #fff;}
     
-    .sections-container{width:calc(100% - 30px); max-width: 800px; margin: 0 auto; padding-top: 10px;}
-    .fields-container{width:100%; display:flex; flex-direction:column; padding: 10px 0;}
+    /* الحاوية الأساسية للصفحة كلها */
+    .page-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 30px;
+      position: relative;
+      z-index: 20;
+    }
+
+    /* التقسيمة الجديدة عشان تخليهم جنب بعض في اللاب توب */
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* عمودين قد بعض بالظبط */
+      gap: 40px; /* مسافة بينهم */
+      margin-bottom: 40px;
+    }
+
+    .fields-container{width:100%; display:flex; flex-direction:column;}
     
     /* تنسيق العناوين الأساسية */
     .fields-container h3 {
@@ -31,25 +47,31 @@
       margin-bottom: 20px;
     }
 
-    /* تنسيق السطور - ده التعديل اللى ظبط شكل الموبايل */
+    /* تنسيق السطور */
     .field-container {
       display: grid;
       width: 100%;
-      grid-template-columns: auto 20px 1fr;
-      align-items: start; /* بيخلى الكلام يبدأ من فوق مش في النص */
-      row-gap: 18px; /* المسافة اللى بين كل سطر والتاني */
-      font-size: 16px;
+      grid-template-columns: auto 1fr; /* المساحة تتظبط على مقاس الكلام */
+      column-gap: 20px;
+      row-gap: 15px; 
+      align-items: start; 
+      font-size: 15px;
       line-height: 1.4;
       color: #000;
     }
     
     .field-container strong {
-      font-weight: 700; /* خط أسود عريض زي الصورة */
+      font-weight: 700;
+      white-space: nowrap; /* يمنع العنوان انه يتقسم على سطرين */
     }
 
+    /* البوكس البنفسجي (التأكيد) */
+    .auth-section{width:100%; display: flex; justify-content: center;}
+    .auth-container{max-width: 600px; width:100%; display:flex; flex-direction:column; position: relative; z-index: 20;}
+    
     .highlighted {
       border-radius: 16px;
-      padding: 20px;
+      padding: 20px 30px;
       background-color: #e6e6fa;
       text-align: center;
     }
@@ -61,11 +83,8 @@
       color: #000;
     }
     .highlighted h4:last-child { margin: 0; }
-
-    .auth-section{width:100%; padding: 20px 0;}
-    .auth-container{width:100%; display:flex; flex-direction:column; margin-bottom:10px; position: relative; z-index: 20;}
     
-    /* تنسيق مربع الإدخال */
+    /* تنسيق مربع الإدخال والزراير */
     .auth-inputs{margin-top:20px; width:100%; display:flex; flex-direction:row; align-items:center; justify-content: space-between;}
     .input-wrapper { flex: 1; text-align: left; margin-right: 20px; }
     .custom-auth-input {
@@ -82,15 +101,9 @@
       box-sizing: border-box;
       outline: none;
     }
-    .custom-auth-input::placeholder {
-      color: rgba(0, 0, 0, 0.38); 
-      font-weight: 400;
-    }
-    .custom-auth-input:focus {
-      border-bottom: 2px solid #3f51b5;
-    }
+    .custom-auth-input::placeholder { color: rgba(0, 0, 0, 0.38); font-weight: 400; }
+    .custom-auth-input:focus { border-bottom: 2px solid #3f51b5; }
     
-    /* Buttons */
     .buttons-wrapper { display: flex; gap: 10px; }
     .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;background:rgba(0,0,0,0);padding:0 16px;border-radius:4px;height:36px;font-family:Roboto,sans-serif;font-weight:500;letter-spacing:.089em;text-transform:uppercase; cursor: pointer;}
     .mdc-button--raised{box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12); transition: box-shadow 0.2s;}
@@ -110,25 +123,25 @@
       cursor: default;
     }
 
-    /* تجاوب الموبايل للوصول لنفس شكل الصورة */
-    @media (max-width: 600px) {
+    /* تجاوب الموبايل (Responsive) */
+    @media (max-width: 800px) {
+      .details-grid {
+        grid-template-columns: 1fr; /* يخليهم تحت بعض في الشاشات الصغيرة */
+        gap: 30px;
+      }
       .field-container {
-        /* التقسيمة دي بتخلي الكلام يلف على سطر جديد زي كلمة Master log certificate No */
-        grid-template-columns: 45% 5% 50%; 
-        row-gap: 20px;
+        grid-template-columns: 45% 55%; 
+        column-gap: 10px;
       }
-      .auth-inputs {
-        flex-direction: column;
+      .field-container strong {
+        white-space: normal; /* يسمح للعنوان يتقسم لو الشاشة صغيرة اوي */
       }
-      .input-wrapper {
-        margin-right: 0;
-        margin-bottom: 20px;
-        width: 100%;
-      }
-      .buttons-wrapper {
-        width: 100%;
-        justify-content: flex-end; /* بيخلي الزراير على اليمين شوية */
-      }
+    }
+    
+    @media (max-width: 600px) {
+      .auth-inputs { flex-direction: column; }
+      .input-wrapper { margin-right: 0; margin-bottom: 20px; width: 100%; }
+      .buttons-wrapper { width: 100%; justify-content: flex-end; }
     }
   </style>
 </head>
@@ -136,90 +149,75 @@
 
   <a href="https://www.nebosh.org.uk/" class="click-overlay" target="_blank"></a>
 
-  <app-root>
-    <div style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap; position: relative; z-index: 20; padding-top: 20px;">
+  <div class="page-container">
+    <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 40px;">
       <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 250px;">
     </div>
-    <app-confirm-request>
-      <div>
-        <div class="sections-container">
+
+    <div class="details-grid">
+      
+      <div class="fields-container">
+        <h3>Details Requested</h3>
+        <div class="field-container">
+          <div><strong>Certificate Name: </strong></div>
+          <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
           
-          <div class="fields-container">
-            <h3>Details Requested</h3>
-            <div class="field-container">
-              <div><strong>Certificate Name: </strong></div>
-              <div></div>
-              <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
-              
-              <div><strong>Certificate Date: </strong></div>
-              <div></div>
-              <div> 13/08/2025 </div>
-              
-              <div><strong>Qualification: </strong></div>
-              <div></div>
-              <div> NEBOSH International General Certificate in Occupational Health and Safety </div>
-              
-              <div><strong>Master log certificate No: </strong></div>
-              <div></div>
-              <div> 00922069/1533915 </div>
-            </div>
-          </div>
+          <div><strong>Certificate Date: </strong></div>
+          <div> 13/08/2025 </div>
           
-          <br>
+          <div><strong>Qualification: </strong></div>
+          <div> NEBOSH International General Certificate in Occupational Health and Safety </div>
           
-          <div class="fields-container">
-            <h3>Requester Details</h3>
-            <div class="field-container">
-              <div><strong>Requested By: </strong></div>
-              <div></div>
-              <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
-              
-              <div><strong>Organisation: </strong></div>
-              <div></div>
-              <div> Egyptian Ministry of Health </div>
-              
-              <div><strong>Email: </strong></div>
-              <div></div>
-              <div> essam.a36@yahoo.com </div>
-              
-              <div><strong>Requested: </strong></div>
-              <div></div>
-              <div id="live-requested-date"> Loading... </div>
-            </div>
-          </div>
-          
+          <div><strong>Master log certificate No: </strong></div>
+          <div> 00922069/1533915 </div>
         </div>
-        
-        <div class="sections-container">
-          <div class="auth-section">
-            <div class="auth-container">
-              <div class="highlighted">
-                <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
-                <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
-              </div>
-              
-              <div class="auth-inputs">
-                <div class="input-wrapper">
-                  <input type="text" class="custom-auth-input" placeholder="Auth. Code">
-                </div>
-                <div class="buttons-wrapper">
-                  <button class="mdc-button mdc-button--raised" style="color: #d32f2f; background-color: #f5f5f5;" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
-                    <mat-icon class="material-icons mdc-button__icon">cancel</mat-icon>
-                    <span class="mdc-button__label">Deny</span>
-                  </button>
-                  <button class="mdc-button mdc-button--raised" style="color: #388e3c; background-color: #f5f5f5;" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
-                    <mat-icon class="material-icons mdc-button__icon">check</mat-icon>
-                    <span class="mdc-button__label">Accept</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
       </div>
-    </app-confirm-request>
-  </app-root>
+      
+      <div class="fields-container">
+        <h3>Requester Details</h3>
+        <div class="field-container">
+          <div><strong>Requested By: </strong></div>
+          <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
+          
+          <div><strong>Organisation: </strong></div>
+          <div> Egyptian Ministry of Health </div>
+          
+          <div><strong>Email: </strong></div>
+          <div> essam.a36@yahoo.com </div>
+          
+          <div><strong>Requested: </strong></div>
+          <div id="live-requested-date"> Loading... </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="auth-section">
+      <div class="auth-container">
+        <div class="highlighted">
+          <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
+          <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
+        </div>
+        
+        <div class="auth-inputs">
+          <div class="input-wrapper">
+            <input type="text" class="custom-auth-input" placeholder="Auth. Code">
+          </div>
+          <div class="buttons-wrapper">
+            <button class="mdc-button mdc-button--raised" style="color: #d32f2f; background-color: #f5f5f5;" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
+              <mat-icon class="material-icons mdc-button__icon">cancel</mat-icon>
+              <span class="mdc-button__label">Deny</span>
+            </button>
+            <button class="mdc-button mdc-button--raised" style="color: #388e3c; background-color: #f5f5f5;" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
+              <mat-icon class="material-icons mdc-button__icon">check</mat-icon>
+              <span class="mdc-button__label">Accept</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
   <script>
     window.addEventListener('DOMContentLoaded', (event) => {
