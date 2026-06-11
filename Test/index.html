@@ -28,19 +28,34 @@
     @media (min-width: 800px){.auth-section{display:grid;grid-template-columns:1fr auto 1fr}}
     .auth-section{width:calc(100% - 20px);padding:10px}
     .auth-container{max-width:500px;width:100%;display:flex;flex-direction:column;margin-bottom:10px;align-items:center;text-align:center}
-    .auth-inputs{margin-top:20px;width:100%;display:flex;flex-direction:row;align-items:center}
     
-    /* Material Input overrides */
-    .mdc-text-field{border-radius:4px 4px 0 0;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;background-color: whitesmoke;}
-    .mdc-text-field__input{height:28px;width:100%;border:none;background:none;padding:0;outline:none;}
-    .mdc-text-field--filled{height:56px;}
-    .mdc-line-ripple::before{position:absolute;bottom:0;left:0;width:100%;border-bottom:1px solid rgba(0,0,0,.42);content:"";}
-    .mdc-floating-label{position:absolute;top:50%;transform:translateY(-50%);pointer-events:none;left:16px;font-family:Roboto, sans-serif;}
+    /* تنسيق مربع الإدخال طبق الأصل من الصورة */
+    .auth-inputs{margin-top:20px;width:100%;display:flex;flex-direction:row;align-items:center; justify-content: space-between;}
+    .input-wrapper { flex: 1; text-align: left; margin-right: 20px; }
+    .custom-auth-input {
+      width: 100%;
+      height: 48px;
+      background-color: #f5f5f5; /* لون رصاصي فاتح جداً */
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0,0.2); /* خط سفلي خفيف */
+      border-radius: 4px 4px 0 0;
+      padding: 0 16px;
+      font-family: Roboto, sans-serif;
+      font-size: 16px;
+      color: rgba(0,0,0,0.87);
+      box-sizing: border-box;
+      outline: none;
+    }
+    /* جعل النص شفاف/باهت */
+    .custom-auth-input::placeholder {
+      color: rgba(0, 0, 0, 0.38); 
+      font-weight: 400;
+    }
     
     /* Buttons */
+    .buttons-wrapper { display: flex; gap: 10px; }
     .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;background:rgba(0,0,0,0);padding:0 16px;border-radius:4px;height:36px;font-family:Roboto,sans-serif;font-weight:500;letter-spacing:.089em;text-transform:uppercase;}
     .mdc-button--raised{box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);}
-    .mdc-button:disabled{cursor:default;pointer-events:none;background-color:rgba(0,0,0,.12);color:rgba(0,0,0,.38);}
     .mdc-button__label{position:relative;z-index:1;}
     .mdc-button__icon{margin-right:8px;font-size:18px;}
 
@@ -122,22 +137,15 @@
             </div>
             
             <div class="auth-inputs">
-              <div>
-                <mat-form-field>
-                  <div class="mdc-text-field mdc-text-field--filled">
-                    <label class="mdc-floating-label">Auth. Code</label>
-                    <input matinput="" placeholder="Authentication code..." class="mdc-text-field__input" aria-invalid="false" aria-required="false">
-                    <div class="mdc-line-ripple"></div>
-                  </div>
-                </mat-form-field>
+              <div class="input-wrapper">
+                <input type="text" class="custom-auth-input" placeholder="Auth. Code">
               </div>
-              <div style="flex-grow: 1;"></div>
-              <div>
-                <button class="mdc-button mdc-button--raised" disabled="true" style="color: red; background-color: white;">
+              <div class="buttons-wrapper">
+                <button class="mdc-button mdc-button--raised" style="color: #d32f2f; background-color: #f5f5f5;">
                   <mat-icon class="material-icons mdc-button__icon">cancel</mat-icon>
                   <span class="mdc-button__label">Deny</span>
-                </button> &nbsp; 
-                <button class="mdc-button mdc-button--raised" disabled="true" style="color: green; background-color: white;">
+                </button>
+                <button class="mdc-button mdc-button--raised" style="color: #388e3c; background-color: #f5f5f5;">
                   <mat-icon class="material-icons mdc-button__icon">check</mat-icon>
                   <span class="mdc-button__label">Accept</span>
                 </button>
@@ -153,20 +161,13 @@
   <script>
     window.addEventListener('DOMContentLoaded', (event) => {
       const now = new Date();
-      
-      // ظبط اليوم والشهر عشان يظهروا برقمين دايماً (مثال: 05 بدل 5)
       const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0'); // الشهور بتبدأ من 0
+      const month = String(now.getMonth() + 1).padStart(2, '0'); 
       const year = now.getFullYear();
-      
-      // ظبط الساعات والدقائق
       const hours = String(now.getHours()).padStart(2, '0');
       const minutes = String(now.getMinutes()).padStart(2, '0');
       
-      // تجميع التاريخ والوقت بنفس التنسيق بالظبط
       const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
-      
-      // وضع النتيجة داخل العنصر المخصص
       document.getElementById('live-requested-date').innerText = ' ' + formattedDateTime + ' ';
     });
   </script>
