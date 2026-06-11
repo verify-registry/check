@@ -107,7 +107,7 @@
               
               <div><strong>Requested: </strong></div>
               <div style="flex-grow: 1;"></div>
-              <div> 20/05/2026 19:31 </div>
+              <div id="live-requested-date"> Loading... </div>
             </div>
           </div>
           <div></div>
@@ -149,5 +149,27 @@
       </div>
     </app-confirm-request>
   </app-root>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const now = new Date();
+      
+      // ظبط اليوم والشهر عشان يظهروا برقمين دايماً (مثال: 05 بدل 5)
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0'); // الشهور بتبدأ من 0
+      const year = now.getFullYear();
+      
+      // ظبط الساعات والدقائق
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      
+      // تجميع التاريخ والوقت بنفس التنسيق بالظبط
+      const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
+      
+      // وضع النتيجة داخل العنصر المخصص
+      document.getElementById('live-requested-date').innerText = ' ' + formattedDateTime + ' ';
+    });
+  </script>
+
 </body>
 </html>
