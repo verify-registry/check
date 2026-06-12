@@ -18,18 +18,27 @@
     html{--mat-ripple-color: rgba(0, 0, 0, .1);--mat-option-selected-state-label-text-color: #3f51b5;--mat-option-label-text-color: rgba(0, 0, 0, .87);--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-caret-color: #3f51b5;--mdc-filled-text-field-focus-active-indicator-color: #3f51b5;--mdc-filled-text-field-focus-label-text-color: rgba(63, 81, 181, .87);--mdc-filled-text-field-container-color: whitesmoke;--mdc-filled-text-field-label-text-color: rgba(0, 0, 0, .6);--mdc-filled-text-field-input-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-active-indicator-color: rgba(0, 0, 0, .42);--mat-form-field-container-height: 56px;}
     html,body{height:100%}body{margin:0;font-family:Roboto,Helvetica Neue,sans-serif}
     h3, h4, h5{text-align:center;max-width:500px;width:100%}.fields-container{width:100%;display:flex;align-items:center;flex-direction:column}.field-container, .standard{max-width:500px;width:100%}.nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}.message{padding-bottom:15px}
-    .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-step-icon{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative;color:white;background-color:rgba(0,0,0,.54)}.mat-step-icon-content{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);display:flex;font-size:12px;font-weight:500;}.mat-step-icon-selected{background-color:#3f51b5;color:white}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}.mat-step-label-active{color:rgba(0,0,0,.87);font-size:16px;font-weight:500}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}
-    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:uppercase;color:black}.mdc-button:disabled{color:rgba(0,0,0,.38);cursor:default}.mat-mdc-button-disabled{background-color:rgba(0,0,0,.12) !important;}
-    .mdc-text-field{border-top-left-radius:4px;border-top-right-radius:4px;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;height:56px;background-color:whitesmoke;width:100%;margin-bottom:15px;border-bottom:1px solid rgba(0,0,0,.42)}.mdc-text-field__input{height:28px;width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0;color:rgba(0,0,0,.87);font-size:16px;font-family:Roboto;outline:none;margin-top:20px}.mdc-floating-label{position:absolute;left:16px;top:50%;transform:translateY(-50%);transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;color:rgba(0,0,0,.6);font-size:16px;font-family:Roboto;transition:transform 150ms, color 150ms}.mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}
-    .mdc-switch{align-items:center;background:none;border:none;cursor:pointer;display:inline-flex;flex-shrink:0;margin:0;outline:none;overflow:visible;padding:0;position:relative;width:36px;height:20px;margin-right:10px}.mdc-switch__track{overflow:hidden;position:relative;width:100%;height:14px;border-radius:7px;background-color:#e0e0e0}.mdc-switch__handle{display:flex;position:absolute;top:50%;transform:translateY(-50%);left:0;width:20px;height:20px;border-radius:50%;background-color:#fff;box-shadow:0px 2px 1px -1px rgba(0,0,0,.2),0px 1px 1px 0px rgba(0,0,0,.14),0px 1px 3px 0px rgba(0,0,0,.12)}.mdc-label{font-family:Roboto;font-size:14px;color:rgba(0,0,0,.87);cursor:pointer}
-    
-    /* إضافات منع التفاعل والتحويل المباشر للنيبوش */
-    body, html, .mat-stepper-horizontal, div, span, h3, h5, button, input, label, .mdc-text-field, .mat-step-header {
-      cursor: pointer !important;
-    }
-    input, textarea, a {
-      pointer-events: none !important; /* قفل المربعات عشان ميكتبش حاجة */
-    }
+    .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px; cursor: pointer; transition: background 0.3s;} .mat-horizontal-stepper-header:hover{background-color: rgba(0,0,0,0.04);}
+    .mat-step-icon{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative;color:white;background-color:rgba(0,0,0,.54)}.mat-step-icon-content{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);display:flex;font-size:12px;font-weight:500;}.mat-step-icon-selected{background-color:#3f51b5 !important;color:white !important;}
+    .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}.mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
+    .mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}
+    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:uppercase;color:black; cursor: pointer; transition: background 0.3s;}.mdc-button:hover{background-color: rgba(0,0,0,0.04)}
+    .mdc-button:disabled{color:rgba(0,0,0,.38);cursor:default; background-color:rgba(0,0,0,.12) !important; pointer-events:none;}
+    .mdc-text-field{border-top-left-radius:4px;border-top-right-radius:4px;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;height:56px;background-color:whitesmoke;width:100%;margin-bottom:15px;border-bottom:1px solid rgba(0,0,0,.42); transition: border-bottom-color 0.2s;}
+    .mdc-text-field--focused{border-bottom-color: #3f51b5; border-bottom-width: 2px;}
+    .mdc-text-field__input{height:28px;width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0;color:rgba(0,0,0,.87);font-size:16px;font-family:Roboto;outline:none;margin-top:20px}
+    .mdc-floating-label{position:absolute;left:16px;top:50%;transform:translateY(-50%);transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;color:rgba(0,0,0,.6);font-size:16px;font-family:Roboto;transition:transform 150ms, color 150ms}
+    .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75); color: #3f51b5;}
+    .mdc-switch{align-items:center;background:none;border:none;cursor:pointer;display:inline-flex;flex-shrink:0;margin:0;outline:none;overflow:visible;padding:0;position:relative;width:36px;height:20px;margin-right:10px}
+    .mdc-switch__track{overflow:hidden;position:relative;width:100%;height:14px;border-radius:7px;background-color:#e0e0e0; transition: background 0.3s;}
+    .mdc-switch--selected .mdc-switch__track {background-color: #7986cb;}
+    .mdc-switch__handle{display:flex;position:absolute;top:50%;transform:translateY(-50%);left:0;width:20px;height:20px;border-radius:50%;background-color:#fff;box-shadow:0px 2px 1px -1px rgba(0,0,0,.2),0px 1px 1px 0px rgba(0,0,0,.14),0px 1px 3px 0px rgba(0,0,0,.12); transition: left 0.3s, background 0.3s;}
+    .mdc-switch--selected .mdc-switch__handle {left: 16px; background-color: #3949ab;}
+    .mdc-label{font-family:Roboto;font-size:14px;color:rgba(0,0,0,.87);cursor:pointer}
+    .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; }
+    .step-content-active { display: block; transform: translateX(0); }
+    .results-container { text-align: center; margin-top: 20px; font-family: Roboto; font-size: 16px; line-height: 1.6;}
+    .results-container a { color: #3f51b5; text-decoration: none; }
   </style>
 </head>
 <body class="mat-typography">
@@ -43,83 +52,151 @@
         <div class="mat-horizontal-stepper-wrapper">
           <div class="mat-horizontal-stepper-header-container">
             
-            <mat-step-header role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="true">
-              <div class="mat-step-icon mat-step-icon-state-number mat-step-icon-selected">
-                <div class="mat-step-icon-content"><span>1</span></div>
-              </div>
-              <div class="mat-step-label mat-step-label-active mat-step-label-selected">
-                <div class="mat-step-text-label">Disclaimer</div>
-              </div>
+            <mat-step-header id="header-0" role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="true">
+              <div class="mat-step-icon mat-step-icon-state-number mat-step-icon-selected"><div class="mat-step-icon-content"><span>1</span></div></div>
+              <div class="mat-step-label mat-step-label-active mat-step-label-selected"><div class="mat-step-text-label">Disclaimer</div></div>
             </mat-step-header>
             
             <div class="mat-stepper-horizontal-line"></div>
             
-            <mat-step-header role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="false" aria-disabled="true">
-              <div class="mat-step-icon mat-step-icon-state-number">
-                <div class="mat-step-icon-content"><span>2</span></div>
-              </div>
-              <div class="mat-step-label">
-                <div class="mat-step-text-label">Your Details</div>
-              </div>
+            <mat-step-header id="header-1" role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="false">
+              <div class="mat-step-icon mat-step-icon-state-number"><div class="mat-step-icon-content"><span>2</span></div></div>
+              <div class="mat-step-label"><div class="mat-step-text-label">Your Details</div></div>
             </mat-step-header>
             
             <div class="mat-stepper-horizontal-line"></div>
             
-            <mat-step-header role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="false" aria-disabled="true">
-              <div class="mat-step-icon mat-step-icon-state-number">
-                <div class="mat-step-icon-content"><span>3</span></div>
-              </div>
-              <div class="mat-step-label">
-                <div class="mat-step-text-label">Learner Details</div>
-              </div>
+            <mat-step-header id="header-2" role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="false">
+              <div class="mat-step-icon mat-step-icon-state-number"><div class="mat-step-icon-content"><span>3</span></div></div>
+              <div class="mat-step-label"><div class="mat-step-text-label">Learner Details</div></div>
             </mat-step-header>
             
             <div class="mat-stepper-horizontal-line"></div>
             
-            <mat-step-header role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="false" aria-disabled="true">
-              <div class="mat-step-icon mat-step-icon-state-number">
-                <div class="mat-step-icon-content"><span>4</span></div>
-              </div>
-              <div class="mat-step-label">
-                <div class="mat-step-text-label">Finished</div>
-              </div>
+            <mat-step-header id="header-3" role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="false">
+              <div class="mat-step-icon mat-step-icon-state-number"><div class="mat-step-icon-content"><span>4</span></div></div>
+              <div class="mat-step-label"><div class="mat-step-text-label">Finished</div></div>
             </mat-step-header>
           </div>
 
           <div class="mat-horizontal-content-container">
-            <div role="tabpanel" class="mat-horizontal-stepper-content" style="transform: none; visibility: inherit;">
-              <form novalidate="">
-                <div class="fields-container">
-                  <h3>IMPORTANT, PLEASE READ BEFORE CONTINUING</h3>
-                  <h5 style="text-align: left;"> NEBOSH takes the security of personal data and NEBOSH certificates extremely seriously. As part of the verification process, NEBOSH will email the learner that was originally issued this certificate to authenticate your request. </h5>
-                  <h5 style="text-align: left;"> To allow the learner to identify who is requesting information relating to them, your name and organisation will be provided to the learner to allow them to authorise your request. </h5>
-                  <h5 style="text-align: left;"> Your email address will be used by NEBOSH to confirm the outcome of your request within 2 working days of submission. </h5>
-                  <h5 style="text-align: left;"><strong>Please note: </strong>The outcome of this request will be recorded and held by NEBOSH for monitoring purposes. This includes your name, organisation and email address. Please tick the box below to confirm your acceptance or contact NEBOSH </h5>
-                  
-                  <div class="field-container" style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <div class="mdc-form-field">
-                      <button role="switch" type="button" class="mdc-switch mdc-switch--unselected" aria-checked="false">
-                        <div class="mdc-switch__track"></div>
-                        <div class="mdc-switch__handle-track">
-                          <div class="mdc-switch__handle"></div>
-                        </div>
-                      </button>
-                      <label class="mdc-label">I confirm I am happy for NEBOSH to store and use my details, as detailed above <strong>tick box, must be ticked to proceed</strong></label>
-                    </div>
-                  </div>
-
-                  <div class="nav-container">
-                    <div></div>
-                    <div style="flex-grow: 1;"></div>
-                    <div>
-                      <button class="mdc-button mat-mdc-button mat-mdc-button-disabled" disabled="true" type="button" style="background-color: rgba(0,0,0,.12); color: rgba(0,0,0,.38);">
-                        <span class="mdc-button__label">Next</span>
-                      </button>
-                    </div>
+            <div id="content-0" role="tabpanel" class="step-content-panel step-content-active">
+              <div class="fields-container">
+                <h3>IMPORTANT, PLEASE READ BEFORE CONTINUING</h3>
+                <h5 style="text-align: left;"> NEBOSH takes the security of personal data and NEBOSH certificates extremely seriously. As part of the verification process, NEBOSH will email the learner that was originally issued this certificate to authenticate your request. </h5>
+                <h5 style="text-align: left;"> To allow the learner to identify who is requesting information relating to them, your name and organisation will be provided to the learner to allow them to authorise your request. </h5>
+                <h5 style="text-align: left;"> Your email address will be used by NEBOSH to confirm the outcome of your request within 2 working days of submission. </h5>
+                <h5 style="text-align: left;"><strong>Please note: </strong>The outcome of this request will be recorded and held by NEBOSH for monitoring purposes. This includes your name, organisation and email address. Please tick the box below to confirm your acceptance or contact NEBOSH </h5>
+                
+                <div class="field-container" style="display: flex; align-items: center; margin-bottom: 20px;">
+                  <div class="mdc-form-field">
+                    <button id="terms-toggle" role="switch" type="button" class="mdc-switch mdc-switch--unselected" aria-checked="false">
+                      <div class="mdc-switch__track"></div>
+                      <div class="mdc-switch__handle-track">
+                        <div class="mdc-switch__handle"></div>
+                      </div>
+                    </button>
+                    <label class="mdc-label" for="terms-toggle">I confirm I am happy for NEBOSH to store and use my details, as detailed above <strong>tick box, must be ticked to proceed</strong></label>
                   </div>
                 </div>
-              </form>
+
+                <div class="nav-container">
+                  <div></div>
+                  <div style="flex-grow: 1;"></div>
+                  <div>
+                    <button id="btn-next-1" class="mdc-button mat-mdc-button" disabled="true" type="button">
+                      <span class="mdc-button__label">Next</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <div id="content-1" role="tabpanel" class="step-content-panel">
+              <div class="fields-container">
+                <h3>Your Details</h3>
+                <div class="field-container">
+                  <div class="mdc-text-field">
+                    <label class="mdc-floating-label">Your name</label>
+                    <input type="text" class="mdc-text-field__input">
+                  </div>
+                </div>
+                <div class="field-container">
+                  <div class="mdc-text-field">
+                    <label class="mdc-floating-label">Your Organisation</label>
+                    <input type="text" class="mdc-text-field__input">
+                  </div>
+                </div>
+                <div class="field-container">
+                  <div class="mdc-text-field">
+                    <label class="mdc-floating-label">Your Email</label>
+                    <input type="email" class="mdc-text-field__input">
+                  </div>
+                </div>
+                <div class="nav-container">
+                  <div>
+                    <button id="btn-back-2" class="mdc-button mat-mdc-button" type="button">
+                      <span class="mdc-button__label">Back</span>
+                    </button>
+                  </div>
+                  <div style="flex-grow: 1;"></div>
+                  <div>
+                    <button id="btn-next-2" class="mdc-button mat-mdc-button" type="button">
+                      <span class="mdc-button__label">Next</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="content-2" role="tabpanel" class="step-content-panel">
+              <div class="fields-container">
+                <h3>To verify a certificate or parchment, please enter the following pieces of information exactly as they appear on the document</h3>
+                <div class="field-container">
+                  <div class="mdc-text-field">
+                    <label class="mdc-floating-label">Learner Name</label>
+                    <input type="text" class="mdc-text-field__input">
+                  </div>
+                </div>
+                <div class="field-container">
+                  <div class="mdc-text-field">
+                    <label class="mdc-floating-label">Certificate Master Log Number</label>
+                    <input type="text" class="mdc-text-field__input">
+                  </div>
+                </div>
+                <div class="field-container">
+                  <div class="mdc-text-field">
+                    <label class="mdc-floating-label">Date of achievement (dd/mm/yyyy)</label>
+                    <input type="text" class="mdc-text-field__input">
+                  </div>
+                </div>
+                <div class="nav-container">
+                  <div>
+                    <button id="btn-back-3" class="mdc-button mat-mdc-button" type="button">
+                      <span class="mdc-button__label">Back</span>
+                    </button>
+                  </div>
+                  <div style="flex-grow: 1;"></div>
+                  <div>
+                    <button id="btn-send" class="mdc-button mat-mdc-button" type="button">
+                      <span class="mdc-button__label">Send Request</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="content-3" role="tabpanel" class="step-content-panel">
+              <div class="results-container">
+                <h3> Thank you for your request to verify a NEBOSH certificate. Your request has been sent to the learner that was issued this certificate for authentication. </h3>
+                <div style="margin-bottom: 10px;"> Verification of this document is <strong style="text-decoration: underline;">not</strong> complete until you have received formal verification by email, <strong>from NEBOSH</strong></div>
+                <div style="margin-bottom: 10px;"> An email will be sent to you within 2 working days confirming the outcome of your request. </div>
+                <div> Full information of our <a href="#">verification process and additional guidance</a> on how to verify certificates is available on the <a href="#">NEBOSH website</a>. </div>
+                <br>
+                <div style="color: green; font-weight: bold;">Redirecting to Official NEBOSH site in 4 seconds...</div>
+              </div>
+            </div>
+
           </div>
         </div>
       </mat-stepper>
@@ -128,12 +205,89 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      document.body.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        // ده الرابط اللي هيروحله أول ما يدوس
-        window.location.href = 'https://www.nebosh.org.uk/';
-      }, true);
+      // 1. برمجة زرار الموافقة (Toggle)
+      const termsToggle = document.getElementById('terms-toggle');
+      const btnNext1 = document.getElementById('btn-next-1');
+      
+      termsToggle.addEventListener('click', function() {
+        const isSelected = this.classList.contains('mdc-switch--selected');
+        if(isSelected) {
+          this.classList.remove('mdc-switch--selected');
+          this.classList.add('mdc-switch--unselected');
+          this.setAttribute('aria-checked', 'false');
+          btnNext1.setAttribute('disabled', 'true');
+        } else {
+          this.classList.add('mdc-switch--selected');
+          this.classList.remove('mdc-switch--unselected');
+          this.setAttribute('aria-checked', 'true');
+          btnNext1.removeAttribute('disabled');
+        }
+      });
+
+      // 2. أنيميشن المربعات (Floating Labels)
+      const inputs = document.querySelectorAll('.mdc-text-field__input');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          const wrapper = this.closest('.mdc-text-field');
+          wrapper.classList.add('mdc-text-field--focused');
+          const label = wrapper.querySelector('.mdc-floating-label');
+          if(label) label.classList.add('mdc-floating-label--float-above');
+        });
+        
+        input.addEventListener('blur', function() {
+          const wrapper = this.closest('.mdc-text-field');
+          wrapper.classList.remove('mdc-text-field--focused');
+          if(!this.value.trim()) {
+            const label = wrapper.querySelector('.mdc-floating-label');
+            if(label) label.classList.remove('mdc-floating-label--float-above');
+          }
+        });
+      });
+
+      // 3. برمجة التنقل بين الخطوات (Stepper Logic)
+      const totalSteps = 4;
+      function goToStep(stepIndex) {
+        for(let i = 0; i < totalSteps; i++) {
+          // تحديث الهيدر
+          const header = document.getElementById('header-' + i);
+          const icon = header.querySelector('.mat-step-icon');
+          const label = header.querySelector('.mat-step-label');
+          
+          if(i === stepIndex) {
+            header.setAttribute('aria-selected', 'true');
+            icon.classList.add('mat-step-icon-selected');
+            label.classList.add('mat-step-label-active', 'mat-step-label-selected');
+          } else {
+            header.setAttribute('aria-selected', 'false');
+            icon.classList.remove('mat-step-icon-selected');
+            label.classList.remove('mat-step-label-active', 'mat-step-label-selected');
+          }
+
+          // تحديث المحتوى
+          const content = document.getElementById('content-' + i);
+          if(i === stepIndex) {
+            content.classList.add('step-content-active');
+          } else {
+            content.classList.remove('step-content-active');
+          }
+        }
+      }
+
+      // 4. ربط الزراير بدوال التنقل
+      document.getElementById('btn-next-1').addEventListener('click', () => goToStep(1));
+      document.getElementById('btn-back-2').addEventListener('click', () => goToStep(0));
+      document.getElementById('btn-next-2').addEventListener('click', () => goToStep(2));
+      document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
+      
+      // 5. زرار الإرسال الأخير والتحويل
+      document.getElementById('btn-send').addEventListener('click', () => {
+        goToStep(3); // يعرض رسالة النهاية
+        // بعد 4 ثواني هيحول لموقع النيبوش
+        setTimeout(() => {
+          window.location.href = 'https://www.nebosh.org.uk/';
+        }, 4000);
+      });
+      
     });
   </script>
 </body>
