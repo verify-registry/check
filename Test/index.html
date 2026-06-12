@@ -1,197 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-critters-container="">
 <head>
-  <meta charset="UTF-8">
-  <title>NEBOSH VALIDATION</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <title>nebosh VALIDATION</title>
+  <base href=".">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="https://nebosh-validation.verisecure.org/assets/corp_logo.gif">
   
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    /* الخطوط الأساسية */
+    @font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-stretch:100%;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBGEe.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-stretch:100%;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-stretch:100%;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+    @font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}
+  </style>
 
   <style>
-    /* ==================================================================== */
-    /* الهيكل الأساسي والمسافات طبق الأصل من نيبوش */
-    /* ==================================================================== */
-    body { margin: 0; font-family: Roboto, Helvetica Neue, sans-serif; height: 100%; background-color: #fafafa; color: rgba(0, 0, 0, .87); }
-
-    @media (min-width: 800px) {
-      .sections-container { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; }
-      .auth-section { display: grid; grid-template-columns: 1fr auto 1fr; }
-    }
-    
-    .sections-container { width: calc(100% - 20px); margin: 0 auto; }
-    .fields-container { width: calc(100% - 20px); display: flex; flex-direction: column; padding: 10px; }
-
-    .field-container { display: grid; width: 100%; grid-template-columns: auto 20px 1fr; align-items: center; }
-    .field-container > div { margin-bottom: 10px; height: 100%; font-size: 16px; }
-
-    .highlighted { font-weight: 400; border-radius: 20px; padding: 20px; background-color: #e6e6fa; text-align: center; }
-    
-    .auth-section { width: calc(100% - 20px); padding: 10px; margin: 0 auto; }
-    .auth-container { max-width: 500px; width: 100%; display: flex; flex-direction: column; margin-bottom: 10px; align-items: center; text-align: center; position: relative; z-index: 20; }
-    
-    .auth-inputs { margin-top: 20px; width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; }
-
-    /* ==================================================================== */
-    /* تنسيق مربع الإدخال والزراير */
-    /* ==================================================================== */
-    .input-wrapper { flex: 1; margin-right: 20px; position: relative; }
-    .custom-auth-input {
-      width: 100%; height: 56px; background-color: whitesmoke; border: none;
-      border-bottom: 1px solid rgba(0,0,0,0.42); border-radius: 4px 4px 0 0;
-      padding: 20px 16px 0 16px; font-family: Roboto, sans-serif; font-size: 16px;
-      color: rgba(0,0,0,0.87); box-sizing: border-box; outline: none; transition: border-bottom-color 0.2s;
-    }
-    .custom-auth-input:focus { border-bottom: 2px solid #3f51b5; }
-    
-    .floating-label {
-      position: absolute; left: 16px; top: 18px; font-family: Roboto, sans-serif; font-size: 16px;
-      color: rgba(0,0,0,0.6); pointer-events: none; transition: 0.2s ease all;
-    }
-    .custom-auth-input:focus ~ .floating-label, .custom-auth-input:not(:placeholder-shown) ~ .floating-label {
-      top: 6px; font-size: 12px; color: #3f51b5;
-    }
-    .custom-auth-input:not(:focus):not(:placeholder-shown) ~ .floating-label { color: rgba(0,0,0,0.6); }
-
-    .buttons-wrapper { display: flex; white-space: nowrap; gap: 8px; }
-    .mdc-button {
-      position: relative; display: inline-flex; align-items: center; justify-content: center;
-      box-sizing: border-box; min-width: 64px; border: none; outline: none; user-select: none;
-      background: white; padding: 0 16px; border-radius: 4px; height: 36px;
-      font-family: Roboto, sans-serif; font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 0.089em; cursor: pointer;
-      box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-      transition: box-shadow 0.2s;
-    }
-    .mdc-button:active { box-shadow: 0px 1px 1px -2px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 2px 0px rgba(0,0,0,0.12); }
-    .mdc-button__icon { margin-right: 8px; font-size: 18px; }
-
-    h3 { font-size: 1.17em; font-weight: bold; margin-block-start: 1em; margin-block-end: 1em; }
-    h4 { font-weight: 700; font-size: 15px; margin: 0 0 15px 0; line-height: 1.5; }
-    h4:last-child { margin: 0; }
-    strong { font-weight: bold; }
-
-    /* ==================================================================== */
-    /* الطبقة الشفافة اللى بتحول لموقع نيبوش عند الضغط فى أى مكان */
-    /* ==================================================================== */
-    .click-overlay { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-      z-index: 99999; background: transparent; cursor: pointer; 
-    }
-
-    @media (max-width: 600px) {
-      .auth-inputs { flex-direction: column; }
-      .input-wrapper { margin-right: 0; margin-bottom: 20px; width: 100%; }
-      .buttons-wrapper { width: 100%; justify-content: flex-end; }
-    }
-  </style>
-</head>
-<body class="mat-typography">
-
-  <a href="https://www.nebosh.org.uk/" class="click-overlay" target="_blank"></a>
-
-  <div>
-    <div style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap; position: relative; z-index: 20; padding-top: 20px; padding-bottom: 20px;">
-      <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 250px;">
-    </div>
-    
-    <div>
-      <div class="sections-container">
-        <div></div>
-        
-        <div class="fields-container">
-          <h3>Details Requested</h3>
-          <div class="field-container">
-            <div><strong>Certificate Name: </strong></div>
-            <div style="flex-grow: 1;"></div>
-            <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
-            
-            <div><strong>Certificate Date: </strong></div>
-            <div style="flex-grow: 1;"></div>
-            <div> 13/08/2025 </div>
-            
-            <div><strong>Qualification: </strong></div>
-            <div style="flex-grow: 1;"></div>
-            <div> NEBOSH International General Certificate in Occupational Health and Safety </div>
-            
-            <div><strong>Master log certificate No: </strong></div>
-            <div style="flex-grow: 1;"></div>
-            <div> 00922069/1533915 </div>
-          </div>
-        </div>
-        
-        <div></div>
-        
-        <div class="fields-container">
-          <h3>Requester Details</h3>
-          <div class="field-container">
-            <div><strong>Requested By: </strong></div>
-            <div style="flex-grow: 1;"></div>
-            <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
-            
-            <div><strong>Organisation: </strong></div>
-            <div style="flex-grow: 1;"></div>
-            <div> Egyptian Ministry of Health </div>
-            
-            <div><strong>Email: </strong></div>
-            <div style="flex-grow: 1;"></div>
-            <div> essam.a36@yahoo.com </div>
-            
-            <div><strong>Requested: </strong></div>
-            <div style="flex-grow: 1;"></div>
-            <div id="live-requested-date"> Loading... </div>
-          </div>
-        </div>
-        
-        <div></div>
-      </div>
-      
-      <div class="auth-section">
-        <div></div>
-        
-        <div class="auth-container">
-          <div class="highlighted">
-            <h4 style="margin-top:0;">If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
-            <h4 style="margin-bottom:0;">If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
-          </div>
-          
-          <div class="auth-inputs">
-            <div class="input-wrapper">
-              <input type="text" class="custom-auth-input" placeholder=" " id="authInput">
-              <label class="floating-label" for="authInput">Auth. Code</label>
-            </div>
-            <div class="buttons-wrapper">
-              <button class="mdc-button" style="color: #f44336;">
-                <span class="material-icons mdc-button__icon">cancel</span>
-                <span>Deny</span>
-              </button>
-              <button class="mdc-button" style="color: #4caf50;">
-                <span class="material-icons mdc-button__icon">check</span>
-                <span>Accept</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <div></div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const now = new Date();
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const year = now.getFullYear();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      
-      const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
-      document.getElementById('live-requested-date').innerText = ' ' + formattedDateTime + ' ';
-    });
-  </script>
-
-</body>
-</html>
+    html{--mat-ripple-color: rgba(0, 0, 0, .1);--mat-option-selected-state-label-text-color: #3f51b5;--mat-option-label-text-color: rgba(0, 0, 0, .87);--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-caret-color: #3f51b5;--mdc-filled-text-field-focus-active-indicator-color: #3f51b5;--mdc-filled-text-field-focus-label-text-color: rgba(63, 81, 181, .87);--mdc-filled-text-field-container-color: whitesmoke;--mdc-filled-text-field-label-text-color: rgba(0, 0, 0, .6);--mdc-filled-text-field-input-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-active-indicator-color: rgba(0, 0, 0, .42);--mat-form-field-container-height: 56px;}
+    html,body{height:100%}body{margin:0;font-family:Roboto,Helvetica Neue,sans-serif}
+    h3, h4, h5{text-align:center;max-width:500px;width:100%}.fields-container{width:100%;display:flex;align-items:center;flex-direction:column}.field-container, .standard{max-width:500px;width:100%}.nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}.message{padding-bottom:15px}
+    .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-step-icon{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative;color:white;background-color:rgba(0,0,0,.54)}.mat-step-icon-content{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);display:flex;font-size:12px;font-weight:500;}.mat-step-icon-selected{background-color:#3f51b5;color:white}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}.mat-step-label-active{color:rgba(0,0,0,.87);font-size:16px;font-weight:500}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}
+    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:uppercase;color:black}.mdc-button:disabled{color:rgba(0,0,0,.38);cursor:default}.mat-mdc-button-disabled{background-color:rgba(0,0,0,.12) !important;}
+    .mdc-text-field{border-top-left-radius:4px;border-top-right-radius:4px;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;height:56px;background-color:whitesmoke;width:100%;margin-bottom:15px;border-bottom:1px solid rgba(0,0,0,.42)}.mdc-text-field
