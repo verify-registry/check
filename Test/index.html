@@ -22,15 +22,19 @@
     .mat-step-icon{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative;color:white;background-color:rgba(0,0,0,.54)}.mat-step-icon-content{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);display:flex;font-size:12px;font-weight:500;}.mat-step-icon-selected{background-color:#3f51b5 !important;color:white !important;}
     .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}.mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
     .mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}
-    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:uppercase;color:black; cursor: pointer; transition: background 0.3s;}.mdc-button:hover{background-color: rgba(0,0,0,0.04)}
+    
+    /* تعديل الزراير عشان متكنش كابيتال */
+    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:none !important;color:black; cursor: pointer; transition: background 0.3s;}
+    .mdc-button:hover{background-color: rgba(0,0,0,0.04)}
     .mdc-button:disabled{color:rgba(0,0,0,.38);cursor:default; background-color:rgba(0,0,0,.12) !important; pointer-events:none;}
+    
     .mdc-text-field{border-top-left-radius:4px;border-top-right-radius:4px;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;height:56px;background-color:whitesmoke;width:100%;margin-bottom:15px;border-bottom:1px solid rgba(0,0,0,.42); transition: border-bottom-color 0.2s;}
     .mdc-text-field--focused{border-bottom-color: #3f51b5; border-bottom-width: 2px;}
     .mdc-text-field__input{height:28px;width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0;color:rgba(0,0,0,.87);font-size:16px;font-family:Roboto;outline:none;margin-top:20px}
     .mdc-floating-label{position:absolute;left:16px;top:50%;transform:translateY(-50%);transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;color:rgba(0,0,0,.6);font-size:16px;font-family:Roboto;transition:transform 150ms, color 150ms}
     .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75); color: #3f51b5;}
     
-    /* تنسيق الخطأ الأحمر لو الخانة فاضية (Validation Error State) - زي الصورة بالضبط */
+    /* تنسيق الخطأ الأحمر لو الخانة فاضية (Validation Error State) */
     .mdc-text-field--invalid { border-bottom-color: #f44336 !important; }
     .mdc-text-field--focused.mdc-text-field--invalid { border-bottom-width: 2px; }
     .mdc-text-field--invalid .mdc-floating-label { color: #f44336 !important; }
@@ -75,16 +79,16 @@
     .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
     .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    /* رسالة الخطأ النهائية المطابقة للصورة الجديدة */
+    /* رسالة الخطأ النهائية المطابقة للأصلية بالظبط */
     .validation-error-msg {
       color: rgba(0,0,0,0.87);
-      font-size: 14px;
+      font-size: 13.5px;
       font-family: Roboto, sans-serif;
-      margin-top: 20px;
+      margin-top: 25px;
       text-align: center;
       display: none;
       line-height: 1.5;
-      max-width: 550px;
+      max-width: 500px;
     }
     .validation-error-msg a {
       color: #3f51b5;
@@ -278,7 +282,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 0. برمجة الكابتشا الوهمية
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
@@ -292,7 +295,6 @@
         }, 800);
       });
 
-      // 1. برمجة زرار الموافقة (Toggle)
       const termsToggle = document.getElementById('terms-toggle');
       const btnNext1 = document.getElementById('btn-next-1');
       
@@ -311,36 +313,28 @@
         }
       });
 
-      // 2. أنيميشن المربعات (Floating Labels) وتنبيه الخطأ الأحمر (Validation Error)
       const inputs = document.querySelectorAll('.mdc-text-field__input');
       inputs.forEach(input => {
-        
-        // لما يدخل جوه المربع (Focus)
         input.addEventListener('focus', function() {
           const wrapper = this.closest('.mdc-text-field');
           wrapper.classList.add('mdc-text-field--focused');
-          // مش هنشيل الأحمر هنا، عشان تفضل حمرا لو هي فاضية
           const label = wrapper.querySelector('.mdc-floating-label');
           if(label) label.classList.add('mdc-floating-label--float-above');
         });
         
-        // لو بيكتب ويعدل (Input)
         input.addEventListener('input', function() {
            const wrapper = this.closest('.mdc-text-field');
            if(this.value.trim() !== '') {
              wrapper.classList.remove('mdc-text-field--invalid');
            } else {
-             // لو مسح كل حاجة، تحمر فوراً
              wrapper.classList.add('mdc-text-field--invalid');
            }
         });
 
-        // لما يطلع من المربع (Blur)
         input.addEventListener('blur', function() {
           const wrapper = this.closest('.mdc-text-field');
           wrapper.classList.remove('mdc-text-field--focused');
           if(this.value.trim() === '') {
-            // لو طلع وهو فاضي، نزّل الكلمة وحولها أحمر
             const label = wrapper.querySelector('.mdc-floating-label');
             if(label) label.classList.remove('mdc-floating-label--float-above');
             wrapper.classList.add('mdc-text-field--invalid');
@@ -350,7 +344,6 @@
         });
       });
 
-      // 3. برمجة التنقل بين الخطوات وأيقونات القلم
       const totalSteps = 4;
       function goToStep(stepIndex) {
         for(let i = 0; i < totalSteps; i++) {
@@ -385,7 +378,6 @@
         }
       }
 
-      // 4. ربط الزراير بدوال التنقل + فحص الفراغات
       document.getElementById('btn-next-1').addEventListener('click', () => goToStep(1));
       
       document.getElementById('btn-back-2').addEventListener('click', () => goToStep(0));
@@ -407,7 +399,6 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال الأخير (Validation Database)
       document.getElementById('btn-send').addEventListener('click', () => {
         
         const learnerInput = document.getElementById('val-learner-name');
@@ -431,7 +422,6 @@
         const masterLog = logInput.value.trim();
         const achieveDate = dateInput.value.trim().toLowerCase();
 
-        // البيانات الصحيحة
         const validName = "hussein hosny mohamed helal";
         const validLog1 = "00695637/169716";
         const validLog2 = "00694979"; 
