@@ -15,13 +15,13 @@
   </style>
 
   <style>
-    html{--mat-ripple-color: rgba(0, 0, 0, .1);--mat-option-selected-state-label-text-color: #3f51b5;--mat-option-label-text-color: rgba(0, 0, 0, .87);--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-caret-color: #3f51b5;--mdc-filled-text-field-focus-active-indicator-color: #3f51b5;--mdc-filled-text-field-focus-label-text-color: rgba(63, 81, 181, .87);--mdc-filled-text-field-container-color: whitesmoke;--mdc-filled-text-field-label-text-color: rgba(0, 0, 0, .6);--mdc-filled-text-field-input-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-active-indicator-color: rgba(0, 0, 0, .42);--mat-form-field-container-height: 56px;}
-    html,body{height:100%}body{margin:0;font-family:Roboto,Helvetica Neue,sans-serif}
+    html{--mat-ripple-color: rgba(0, 0, 0, .1);--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87);}
+    html,body{height:100%; margin:0; font-family:Roboto,Helvetica Neue,sans-serif;}
     h3, h4, h5{text-align:center;max-width:500px;width:100%}
     .fields-container{width:100%;display:flex;align-items:center;flex-direction:column}
-    .field-container, .standard{max-width:500px;width:100%}
+    .field-container{max-width:500px;width:100%}
     .nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}
-    .message{padding-bottom:15px}
+    
     .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white}
     .mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}
     .mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}
@@ -34,7 +34,7 @@
     .mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
     .mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}
     
-    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:none !important;color:black; cursor: pointer; transition: background 0.3s;}
+    .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;-webkit-appearance:none;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:none !important;color:black; cursor: pointer; transition: background 0.3s;}
     .mdc-button:hover{background-color: rgba(0,0,0,0.04)}
     .mdc-button:disabled{color:rgba(0,0,0,.38);cursor:default; background-color:rgba(0,0,0,.12) !important; pointer-events:none;}
     
@@ -62,20 +62,7 @@
     .results-container .result-text { font-size: 15px; margin-bottom: 25px; }
     .results-container a { color: #3f51b5; text-decoration: underline; }
 
-    .g-recaptcha-mock {
-      width: 304px;
-      height: 78px;
-      background: #f9f9f9;
-      border: 1px solid #d3d3d3;
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      padding: 0 12px;
-      box-sizing: border-box;
-      box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08);
-      cursor: pointer;
-      margin-top: 30px;
-    }
+    .g-recaptcha-mock { width: 304px; height: 78px; background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 3px; display: flex; align-items: center; padding: 0 12px; box-sizing: border-box; box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08); cursor: pointer; margin-top: 30px; }
     .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; }
     .g-recaptcha-mock:hover .rc-checkbox { border-color: #b2b2b2; }
     .rc-check { width: 22px; height: 22px; fill: #009E55; opacity: 0; transform: scale(0.5); transition: all 0.3s cubic-bezier(0.5, 0, 0.2, 1); }
@@ -98,29 +85,36 @@
       max-width: 550px;
     }
 
-    /* تنسيقات النتيجة الإنجليزية المخصوصة (Custom English Calendar) */
-    .custom-datepicker {
+    /* النتيجة الإنجليزية الأصلية (Angular Material Datepicker Clone) */
+    .mat-datepicker-content {
       position: absolute;
-      top: calc(100% + 5px);
+      bottom: calc(100% + 5px); /* بتفتح لفوق */
       right: 0;
-      width: 280px;
+      width: 296px;
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
       border-radius: 4px;
       z-index: 1000;
-      padding: 15px;
       display: none;
       font-family: Roboto, sans-serif;
-      color: rgba(0,0,0,0.87);
+      padding: 0;
     }
-    .cdp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: 500; font-size: 16px;}
-    .cdp-arrow { cursor: pointer; padding: 5px; border-radius: 50%; transition: background 0.2s; user-select: none; }
-    .cdp-arrow:hover { background: rgba(0,0,0,0.04); }
-    .cdp-days { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 12px; color: rgba(0,0,0,0.54); margin-bottom: 10px; font-weight: 500;}
-    .cdp-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 2px;}
-    .cdp-cell { padding: 8px 0; font-size: 14px; cursor: pointer; border-radius: 50%; transition: background 0.2s; }
-    .cdp-cell:hover { background: #e0e0e0; }
-    .cdp-cell.empty { pointer-events: none; }
+    .mat-calendar-header { padding: 8px 8px 0 8px; }
+    .mat-calendar-controls { display: flex; align-items: center; margin: 5% calc(33% / 7 - 16px); }
+    .mat-calendar-period-button { min-width: 0; margin: 0 8px; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; font-weight: 500; font-size: 14px; color: rgba(0,0,0,0.87); }
+    .mat-calendar-arrow { width: 10px; height: 5px; fill: currentColor; margin-left: 8px; }
+    .mat-calendar-spacer { flex: 1 1 auto; }
+    .mat-calendar-previous-button, .mat-calendar-next-button { background: transparent; border: none; cursor: pointer; color: rgba(0,0,0,0.54); padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;}
+    .mat-calendar-previous-button:hover, .mat-calendar-next-button:hover { background: rgba(0,0,0,0.04); }
+    .mat-calendar-content-table { padding: 0 8px 8px 8px; }
+    .mat-calendar-table { border-spacing: 0; border-collapse: collapse; width: 100%; }
+    .mat-calendar-table-header th { text-align: center; padding: 0 0 8px 0; font-weight: 400; font-size: 11px; color: rgba(0,0,0,0.54); }
+    .mat-calendar-body-label { height: 0; line-height: 0; text-align: left; padding-left: 16px; font-size: 14px; font-weight: 500; color: rgba(0,0,0,0.54); padding-top: 24px; padding-bottom: 8px; }
+    .mat-calendar-body-cell { width: 14.28%; height: 40px; text-align: center; cursor: pointer; position: relative; }
+    .mat-calendar-body-cell-content { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; margin: 0 auto; font-size: 13px; color: rgba(0,0,0,0.87); transition: background 0.2s;}
+    .mat-calendar-body-cell:hover .mat-calendar-body-cell-content { background-color: rgba(0,0,0,0.04); }
+    .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; border: 1px solid #3f51b5; }
+    .mat-calendar-body-cell.empty { pointer-events: none; }
   </style>
 </head>
 <body class="mat-typography">
@@ -264,23 +258,34 @@
                   </div>
                   
                   <div class="field-container" style="margin-bottom: 25px; position: relative;">
-                    <div class="mdc-text-field" style="margin-bottom: 2px;">
+                    <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px;">
                       <label class="mdc-floating-label">Date of achievement*</label>
-                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px;">
+                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px;" readonly>
                       <span class="material-icons" id="calendar-icon" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1; cursor: pointer;">calendar_today</span>
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
                     
-                    <div id="custom-datepicker" class="custom-datepicker">
-                        <div class="cdp-header">
-                            <span class="material-icons cdp-arrow" id="cdp-prev">chevron_left</span>
-                            <span id="cdp-month-year"></span>
-                            <span class="material-icons cdp-arrow" id="cdp-next">chevron_right</span>
+                    <div id="custom-datepicker" class="mat-datepicker-content">
+                        <div class="mat-calendar-header">
+                            <div class="mat-calendar-controls">
+                                <button class="mat-calendar-period-button" type="button">
+                                   <span id="cdp-month-year">JUN 2026</span>
+                                   <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
+                                </button>
+                                <div class="mat-calendar-spacer"></div>
+                                <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
+                                <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
+                            </div>
                         </div>
-                        <div class="cdp-days">
-                            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                        <div class="mat-calendar-content-table">
+                            <table class="mat-calendar-table">
+                                <thead class="mat-calendar-table-header">
+                                    <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+                                </thead>
+                                <tbody class="mat-calendar-table-body" id="cdp-grid">
+                                    </tbody>
+                            </table>
                         </div>
-                        <div id="cdp-grid" class="cdp-grid"></div>
                     </div>
                   </div>
                   
@@ -336,8 +341,9 @@
         }, 800);
       });
 
-      // 1. برمجة النتيجة الإنجليزية (Custom Calendar)
+      // 1. برمجة النتيجة الإنجليزية (Angular Material Clone)
       const dateInput = document.getElementById('val-date');
+      const dateWrapper = document.getElementById('date-wrapper');
       const calendarIcon = document.getElementById('calendar-icon');
       const datePicker = document.getElementById('custom-datepicker');
       const monthYearLabel = document.getElementById('cdp-month-year');
@@ -345,52 +351,106 @@
       const prevBtn = document.getElementById('cdp-prev');
       const nextBtn = document.getElementById('cdp-next');
 
-      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const monthNamesShort = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      const monthNamesFormat = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       let currentDate = new Date(); 
+      let selectedDate = null;
 
       function renderCalendar(date) {
           grid.innerHTML = '';
           const year = date.getFullYear();
           const month = date.getMonth();
-          monthYearLabel.textContent = `${monthNames[month]} ${year}`;
+          monthYearLabel.textContent = `${monthNamesShort[month]} ${year}`;
 
           const firstDayIndex = new Date(year, month, 1).getDay();
           const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-          for (let i = 0; i < firstDayIndex; i++) {
-              const cell = document.createElement('div');
-              cell.className = 'cdp-cell empty';
-              grid.appendChild(cell);
+          let tr = document.createElement('tr');
+          
+          // إضافة اسم الشهر في الخلفية (زي الصورة الأصلية)
+          if (firstDayIndex > 0) {
+              const tdLabel = document.createElement('td');
+              tdLabel.colSpan = firstDayIndex;
+              tdLabel.className = 'mat-calendar-body-label';
+              tdLabel.textContent = monthNamesShort[month];
+              tr.appendChild(tdLabel);
+          } else {
+              const labelTr = document.createElement('tr');
+              const tdLabel = document.createElement('td');
+              tdLabel.colSpan = 7;
+              tdLabel.className = 'mat-calendar-body-label';
+              tdLabel.textContent = monthNamesShort[month];
+              labelTr.appendChild(tdLabel);
+              grid.appendChild(labelTr);
           }
 
+          let currentDayOfWeek = firstDayIndex;
           for (let i = 1; i <= daysInMonth; i++) {
-              const cell = document.createElement('div');
-              cell.className = 'cdp-cell';
-              cell.textContent = i;
-              cell.addEventListener('click', (e) => {
+              const td = document.createElement('td');
+              td.className = 'mat-calendar-body-cell';
+              
+              const div = document.createElement('div');
+              div.className = 'mat-calendar-body-cell-content';
+              div.textContent = i;
+              
+              // تعليم اليوم اللي تم اختياره
+              if(selectedDate && selectedDate.getDate() === i && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) {
+                  td.classList.add('selected');
+              }
+              
+              td.appendChild(div);
+              tr.appendChild(td);
+
+              td.addEventListener('click', (e) => {
                   e.stopPropagation();
+                  selectedDate = new Date(year, month, i);
+                  
+                  // تنزيل التاريخ بصيغة: 20 Apr 2026
                   const dd = String(i).padStart(2, '0');
-                  const mm = String(month + 1).padStart(2, '0');
-                  const yyyy = year;
-                  dateInput.value = `${dd}/${mm}/${yyyy}`;
+                  const mmm = monthNamesFormat[month];
+                  dateInput.value = `${dd} ${mmm} ${year}`;
                   datePicker.style.display = 'none';
 
-                  const wrapper = dateInput.closest('.mdc-text-field');
-                  wrapper.classList.remove('mdc-text-field--invalid');
-                  wrapper.classList.add('mdc-text-field--focused');
-                  const label = wrapper.querySelector('.mdc-floating-label');
+                  // تعديل التنسيقات والألوان
+                  calendarIcon.style.color = 'rgba(0,0,0,0.54)';
+                  dateWrapper.classList.remove('mdc-text-field--invalid');
+                  dateWrapper.classList.add('mdc-text-field--focused');
+                  const label = dateWrapper.querySelector('.mdc-floating-label');
                   if(label) label.classList.add('mdc-floating-label--float-above');
-                  setTimeout(() => { wrapper.classList.remove('mdc-text-field--focused'); }, 100);
+                  setTimeout(() => { dateWrapper.classList.remove('mdc-text-field--focused'); }, 100);
               });
-              grid.appendChild(cell);
+
+              currentDayOfWeek++;
+              if (currentDayOfWeek > 6) {
+                  grid.appendChild(tr);
+                  tr = document.createElement('tr');
+                  currentDayOfWeek = 0;
+              }
+          }
+          
+          if (currentDayOfWeek > 0) {
+              for(let i=currentDayOfWeek; i<=6; i++){
+                   const emptyTd = document.createElement('td');
+                   tr.appendChild(emptyTd);
+              }
+              grid.appendChild(tr);
           }
       }
 
-      calendarIcon.addEventListener('click', (e) => {
+      function toggleCalendar(e) {
           e.stopPropagation();
-          datePicker.style.display = datePicker.style.display === 'block' ? 'none' : 'block';
-          renderCalendar(currentDate);
-      });
+          if(datePicker.style.display === 'block') {
+              datePicker.style.display = 'none';
+              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
+          } else {
+              datePicker.style.display = 'block';
+              calendarIcon.style.color = '#3f51b5'; // أيقونة زرقا وقت الفتح
+              renderCalendar(currentDate);
+          }
+      }
+
+      calendarIcon.addEventListener('click', toggleCalendar);
+      dateInput.addEventListener('click', toggleCalendar);
 
       prevBtn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -405,8 +465,9 @@
       });
 
       document.addEventListener('click', (e) => {
-          if (!datePicker.contains(e.target) && e.target !== calendarIcon) {
+          if (!datePicker.contains(e.target) && e.target !== calendarIcon && e.target !== dateInput) {
               datePicker.style.display = 'none';
+              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           }
       });
 
@@ -429,8 +490,8 @@
         }
       });
 
-      // 3. أنيميشن المربعات (Floating Labels) وتنبيه الخطأ الأحمر
-      const inputs = document.querySelectorAll('.mdc-text-field__input');
+      // 3. أنيميشن المربعات وتنبيه الخطأ الأحمر
+      const inputs = document.querySelectorAll('.mdc-text-field__input:not(#val-date)');
       inputs.forEach(input => {
         input.addEventListener('focus', function() {
           const wrapper = this.closest('.mdc-text-field');
