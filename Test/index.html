@@ -16,18 +16,13 @@
 
   <style>
     html{--mat-ripple-color: rgba(0, 0, 0, .1);--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87);}
-    html,body{height:100%; margin:0; font-family:Roboto,Helvetica Neue,sans-serif;}
+    html,body{height:100%; margin:0; font-family:Roboto,Helvetica Neue,sans-serif; position: relative;}
     h3, h4, h5{text-align:center;max-width:500px;width:100%}
     .fields-container{width:100%;display:flex;align-items:center;flex-direction:column}
     .field-container{max-width:500px;width:100%}
     .nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}
     
-    /* التعديل السحري هنا عشان المربع ميقصش النتيجة */
     .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white; overflow: visible !important;}
-    .mat-horizontal-content-container{overflow:visible !important; padding:0 24px 24px 24px}
-    .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; overflow: visible !important; }
-    .step-content-active { display: block; transform: translateX(0); }
-    
     .mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}
     .mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}
     .mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px; cursor: pointer; transition: background 0.3s;}
@@ -37,6 +32,10 @@
     .mat-step-icon-selected{background-color:#3f51b5 !important;color:white !important;}
     .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}
     .mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
+    
+    .mat-horizontal-content-container{overflow:visible !important; padding:0 24px 24px 24px}
+    .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; overflow: visible !important; }
+    .step-content-active { display: block; transform: translateX(0); }
     
     .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;-webkit-appearance:none;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:none !important;color:black; cursor: pointer; transition: background 0.3s;}
     .mdc-button:hover{background-color: rgba(0,0,0,0.04)}
@@ -88,16 +87,14 @@
     }
     .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
 
-    /* النتيجة الإنجليزية تفتح للأعلى وتتخطى كل الحواجز */
+    /* النتيجة الإنجليزية بقت حرة الحركة - Smart Overlay */
     .mat-datepicker-content {
       position: absolute;
-      bottom: calc(100% + 5px); /* ده اللي بيخليها تفتح فوق المربع مباشرة */
-      left: 0; /* محاذية للمربع من الشمال */
       width: 296px;
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
       border-radius: 4px;
-      z-index: 99999; 
+      z-index: 999999; 
       display: none;
       font-family: Roboto, sans-serif;
       padding: 0;
@@ -260,36 +257,13 @@
                     </div>
                   </div>
                   
-                  <div class="field-container" style="margin-bottom: 25px; position: relative; z-index: 9999;">
+                  <div class="field-container" style="margin-bottom: 25px;">
                     <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px; cursor: pointer;">
                       <label class="mdc-floating-label">Date of achievement*</label>
                       <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px; cursor: pointer;" readonly>
                       <span class="material-icons" id="calendar-icon" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;">calendar_today</span>
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
-                    
-                    <div id="custom-datepicker" class="mat-datepicker-content">
-                        <div class="mat-calendar-header">
-                            <div class="mat-calendar-controls">
-                                <button class="mat-calendar-period-button" type="button">
-                                   <span id="cdp-month-year">JUN 2026</span>
-                                   <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
-                                </button>
-                                <div class="mat-calendar-spacer"></div>
-                                <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
-                                <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
-                            </div>
-                        </div>
-                        <div class="mat-calendar-content-table">
-                            <table class="mat-calendar-table">
-                                <thead class="mat-calendar-table-header">
-                                    <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
-                                </thead>
-                                <tbody class="mat-calendar-table-body" id="cdp-grid">
-                                    </tbody>
-                            </table>
-                        </div>
-                    </div>
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
@@ -332,8 +306,32 @@
     </div>
   </app-root>
 
+  <div id="custom-datepicker" class="mat-datepicker-content">
+      <div class="mat-calendar-header">
+          <div class="mat-calendar-controls">
+              <button class="mat-calendar-period-button" type="button">
+                 <span id="cdp-month-year">JUN 2026</span>
+                 <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
+              </button>
+              <div class="mat-calendar-spacer"></div>
+              <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
+              <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
+          </div>
+      </div>
+      <div class="mat-calendar-content-table">
+          <table class="mat-calendar-table">
+              <thead class="mat-calendar-table-header">
+                  <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+              </thead>
+              <tbody class="mat-calendar-table-body" id="cdp-grid">
+                  </tbody>
+          </table>
+      </div>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // 0. الكابتشا
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
@@ -347,6 +345,7 @@
         }, 800);
       });
 
+      // 1. برمجة النتيجة الإنجليزية بالذكاء لتناسب الموبايل
       const dateInput = document.getElementById('val-date');
       const dateWrapper = document.getElementById('date-wrapper');
       const calendarIcon = document.getElementById('calendar-icon');
@@ -444,9 +443,30 @@
               datePicker.style.display = 'none';
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           } else {
+              renderCalendar(currentDate);
               datePicker.style.display = 'block';
               calendarIcon.style.color = '#3f51b5';
-              renderCalendar(currentDate);
+              
+              // Smart Overlay Position (عشان الموبايل)
+              const rect = dateWrapper.getBoundingClientRect();
+              const calHeight = datePicker.offsetHeight || 354;
+              
+              // تحديد تفتح فوق ولا تحت
+              if (window.innerHeight - rect.bottom >= calHeight || window.innerHeight - rect.bottom > rect.top) {
+                  datePicker.style.top = (rect.bottom + window.scrollY + 4) + 'px';
+              } else {
+                  datePicker.style.top = (rect.top + window.scrollY - calHeight - 4) + 'px';
+              }
+              
+              // تحديد اليمين والشمال عشان متخرجش بره الشاشة
+              let leftPos = rect.left + window.scrollX;
+              if (leftPos + 296 > window.innerWidth + window.scrollX) {
+                  leftPos = window.innerWidth + window.scrollX - 296 - 16;
+              }
+              if (leftPos < window.scrollX + 16) {
+                  leftPos = window.scrollX + 16;
+              }
+              datePicker.style.left = leftPos + 'px';
           }
       }
 
@@ -474,7 +494,16 @@
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           }
       });
+      
+      // إغلاق النتيجة عند تغيير حجم الشاشة (دوران الموبايل مثلاً)
+      window.addEventListener('resize', () => {
+          if(datePicker.style.display === 'block') {
+              datePicker.style.display = 'none';
+              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
+          }
+      });
 
+      // 2. زرار الموافقة (Toggle)
       const termsToggle = document.getElementById('terms-toggle');
       const btnNext1 = document.getElementById('btn-next-1');
       
@@ -493,6 +522,7 @@
         }
       });
 
+      // 3. أنيميشن المربعات وتنبيه الخطأ الأحمر
       const inputs = document.querySelectorAll('.mdc-text-field__input:not(#val-date)');
       inputs.forEach(input => {
         input.addEventListener('focus', function() {
@@ -524,6 +554,7 @@
         });
       });
 
+      // 4. التنقل بين الخطوات وأيقونات القلم
       const totalSteps = 4;
       function goToStep(stepIndex) {
         for(let i = 0; i < totalSteps; i++) {
@@ -579,6 +610,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
+      // 5. زرار الإرسال الأخير والـ Validation
       document.getElementById('btn-send').addEventListener('click', () => {
         
         const learnerInput = document.getElementById('val-learner-name');
