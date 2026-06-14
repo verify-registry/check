@@ -14,7 +14,6 @@
     @font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}
   </style>
 
-  <!-- تنسيقات الموقع الأصلية -->
   <style>
     html{--mat-ripple-color: rgba(0, 0, 0, .1);--mat-option-selected-state-label-text-color: #3f51b5;--mat-option-label-text-color: rgba(0, 0, 0, .87);--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-caret-color: #3f51b5;--mdc-filled-text-field-focus-active-indicator-color: #3f51b5;--mdc-filled-text-field-focus-label-text-color: rgba(63, 81, 181, .87);--mdc-filled-text-field-container-color: whitesmoke;--mdc-filled-text-field-label-text-color: rgba(0, 0, 0, .6);--mdc-filled-text-field-input-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-active-indicator-color: rgba(0, 0, 0, .42);--mat-form-field-container-height: 56px;}
     html,body{height:100%}body{margin:0;font-family:Roboto,Helvetica Neue,sans-serif}
@@ -115,6 +114,17 @@
       color: #999;
       margin-top: 2px;
     }
+    
+    /* رسالة الخطأ */
+    .validation-error-msg {
+      color: #d32f2f;
+      font-size: 14px;
+      font-family: Roboto, sans-serif;
+      margin-top: 15px;
+      text-align: center;
+      display: none;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body class="mat-typography">
@@ -123,7 +133,6 @@
       <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 250px;" alt="Nebosh Logo">
     </div>
     
-    <!-- صفحة الـ Captcha (اللي هتظهر في الأول) -->
     <div id="captcha-screen" style="display: flex; justify-content: center; width: 100%;">
       <div class="g-recaptcha-mock" id="mock-captcha">
         <div class="rc-checkbox" id="rc-checkbox">
@@ -139,35 +148,26 @@
       </div>
     </div>
 
-    <!-- الجزء بتاع الخطوات (مخفي في البداية) -->
     <div id="main-stepper" style="display: none;">
       <app-manual>
         <mat-stepper role="tablist" aria-orientation="horizontal" class="mat-stepper-horizontal mat-stepper-label-position-end">
           <div class="mat-horizontal-stepper-wrapper">
-            <!-- شريط الخطوات (الهيدر) -->
             <div class="mat-horizontal-stepper-header-container">
-              
               <mat-step-header id="header-0" role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="true">
                 <div class="mat-step-icon mat-step-icon-state-number mat-step-icon-selected"><div class="mat-step-icon-content"><span>1</span></div></div>
                 <div class="mat-step-label mat-step-label-active mat-step-label-selected"><div class="mat-step-text-label">Disclaimer</div></div>
               </mat-step-header>
-              
               <div class="mat-stepper-horizontal-line"></div>
-              
               <mat-step-header id="header-1" role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="false">
                 <div class="mat-step-icon mat-step-icon-state-number"><div class="mat-step-icon-content"><span>2</span></div></div>
                 <div class="mat-step-label"><div class="mat-step-text-label">Your Details</div></div>
               </mat-step-header>
-              
               <div class="mat-stepper-horizontal-line"></div>
-              
               <mat-step-header id="header-2" role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="false">
                 <div class="mat-step-icon mat-step-icon-state-number"><div class="mat-step-icon-content"><span>3</span></div></div>
                 <div class="mat-step-label"><div class="mat-step-text-label">Learner Details</div></div>
               </mat-step-header>
-              
               <div class="mat-stepper-horizontal-line"></div>
-              
               <mat-step-header id="header-3" role="tab" class="mat-step-header mat-horizontal-stepper-header mat-primary" aria-selected="false">
                 <div class="mat-step-icon mat-step-icon-state-number"><div class="mat-step-icon-content"><span>4</span></div></div>
                 <div class="mat-step-label"><div class="mat-step-text-label">Finished</div></div>
@@ -175,7 +175,6 @@
             </div>
 
             <div class="mat-horizontal-content-container">
-              <!-- محتوى الخطوة الأولى -->
               <div id="content-0" role="tabpanel" class="step-content-panel step-content-active">
                 <div class="fields-container">
                   <h3>IMPORTANT, PLEASE READ BEFORE CONTINUING</h3>
@@ -208,7 +207,6 @@
                 </div>
               </div>
 
-              <!-- محتوى الخطوة التانية -->
               <div id="content-1" role="tabpanel" class="step-content-panel">
                 <div class="fields-container">
                   <h3>Your Details</h3>
@@ -246,28 +244,32 @@
                 </div>
               </div>
 
-              <!-- محتوى الخطوة التالتة -->
               <div id="content-2" role="tabpanel" class="step-content-panel">
                 <div class="fields-container">
                   <h3>To verify a certificate or parchment, please enter the following pieces of information exactly as they appear on the document</h3>
                   <div class="field-container">
                     <div class="mdc-text-field">
                       <label class="mdc-floating-label">Learner Name</label>
-                      <input type="text" class="mdc-text-field__input">
+                      <input type="text" id="val-learner-name" class="mdc-text-field__input">
                     </div>
                   </div>
                   <div class="field-container">
                     <div class="mdc-text-field">
                       <label class="mdc-floating-label">Certificate Master Log Number</label>
-                      <input type="text" class="mdc-text-field__input">
+                      <input type="text" id="val-master-log" class="mdc-text-field__input">
                     </div>
                   </div>
                   <div class="field-container">
                     <div class="mdc-text-field">
                       <label class="mdc-floating-label">Date of achievement (dd/mm/yyyy)</label>
-                      <input type="text" class="mdc-text-field__input">
+                      <input type="text" id="val-date" class="mdc-text-field__input">
                     </div>
                   </div>
+                  
+                  <div id="error-message" class="validation-error-msg">
+                    We are unable to verify the details you have provided. Please check the information and try again.
+                  </div>
+
                   <div class="nav-container">
                     <div>
                       <button id="btn-back-3" class="mdc-button mat-mdc-button" type="button">
@@ -284,7 +286,6 @@
                 </div>
               </div>
 
-              <!-- محتوى الخطوة الرابعة والأخيرة -->
               <div id="content-3" role="tabpanel" class="step-content-panel">
                 <div class="results-container">
                   <h3>Thank you for your request to verify a NEBOSH certificate.<br>Your request has been sent to the learner that was issued<br>this certificate for authentication.</h3>
@@ -301,7 +302,6 @@
     </div>
   </app-root>
 
-  <!-- سكربت برمجة الخطوات والكابتشا -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // 0. برمجة الكابتشا الوهمية
@@ -312,7 +312,6 @@
 
       captchaBox.addEventListener('click', function() {
         rcCheckbox.classList.add('rc-checked');
-        // يستنى ثانية إلا ربع عشان الزائر يشوف علامة الصح وبعدين يفتح الفورم
         setTimeout(() => {
           captchaScreen.style.display = 'none';
           mainStepper.style.display = 'block';
@@ -396,15 +395,46 @@
       // 4. ربط الزراير بدوال التنقل
       document.getElementById('btn-next-1').addEventListener('click', () => goToStep(1));
       document.getElementById('btn-back-2').addEventListener('click', () => goToStep(0));
-      document.getElementById('btn-next-2').addEventListener('click', () => goToStep(2));
+      document.getElementById('btn-next-2').addEventListener('click', () => {
+        // إخفاء رسالة الخطأ لو رجع ومسح وكتب تاني
+        document.getElementById('error-message').style.display = 'none';
+        goToStep(2);
+      });
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال الأخير والتحويل
+      // 5. زرار الإرسال الأخير (Validation)
       document.getElementById('btn-send').addEventListener('click', () => {
-        goToStep(3);
-        setTimeout(() => {
-          window.location.href = 'https://www.nebosh.org.uk/';
-        }, 4000);
+        // سحب البيانات اللي العميل كتبها
+        const learnerName = document.getElementById('val-learner-name').value.trim().toLowerCase();
+        const masterLog = document.getElementById('val-master-log').value.trim();
+        const achieveDate = document.getElementById('val-date').value.trim().toLowerCase();
+
+        // البيانات الصحيحة اللي إنت طالبها
+        const validName = "hussein hosny mohamed helal";
+        const validLog1 = "00695637/169716";
+        const validLog2 = "00694979"; // حطيتها عشان لو كتب دي تمشي برضه
+        const validDate1 = "20/04/2026";
+        const validDate2 = "20 apr 2026";
+        const validDate3 = "20-04-2026";
+
+        // المراجعة والمقارنة
+        if (
+          learnerName === validName && 
+          (masterLog === validLog1 || masterLog === validLog2) && 
+          (achieveDate === validDate1 || achieveDate === validDate2 || achieveDate === validDate3)
+        ) {
+          // لو كل حاجة صح: شيل رسالة الخطأ وانقله للخطوة الأخيرة
+          document.getElementById('error-message').style.display = 'none';
+          goToStep(3);
+          
+          // بعد 4 ثواني يحوله للموقع الأصلي
+          setTimeout(() => {
+            window.location.href = 'https://www.nebosh.org.uk/';
+          }, 4000);
+        } else {
+          // لو البيانات غلط: طلعله رسالة الخطأ الحمرا
+          document.getElementById('error-message').style.display = 'block';
+        }
       });
       
     });
