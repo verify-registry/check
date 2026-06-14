@@ -33,7 +33,6 @@
     .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}
     .mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
     
-    /* فك الحظر عن الحدود عشان النتيجة متتقصش */
     .mat-horizontal-content-container{overflow:visible !important; padding:0 24px 24px 24px}
     .mat-horizontal-stepper-content { overflow: visible !important; }
     
@@ -81,12 +80,11 @@
     .validation-error-msg { color: rgba(0,0,0,0.87); font-size: 13.5px; font-family: Roboto, sans-serif; margin-top: 25px; text-align: center; display: none; line-height: 1.5; max-width: 500px; }
     .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
 
-    /* النتيجة الإنجليزية الأصلية تفتح للأعلى لتجنب القطع */
+    /* النتيجة تفتح للأعلى وتتحاذى مع اليمين (فوق الأيقونة بالظبط) */
     .mat-datepicker-content {
       position: absolute;
-      bottom: 100%; /* تفتح للأعلى */
-      left: 0; 
-      margin-bottom: 8px; /* مسافة بينها وبين الحقل */
+      bottom: calc(100% + 5px); /* تفتح للأعلى مع مسافة بسيطة */
+      right: 0; /* تتحاذى مع يمين المربع (مكان الأيقونة) */
       width: 296px;
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
@@ -254,36 +252,38 @@
                     </div>
                   </div>
                   
-                  <div class="field-container" style="margin-bottom: 25px; position: relative; z-index: 9999;">
-                    <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px; cursor: pointer;">
-                      <label class="mdc-floating-label">Date of achievement*</label>
-                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px; cursor: pointer;" readonly>
-                      <span class="material-icons" id="calendar-icon" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;">calendar_today</span>
+                  <div class="field-container" style="margin-bottom: 25px;">
+                    <div style="position: relative; z-index: 9999;">
+                      <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px; cursor: pointer;">
+                        <label class="mdc-floating-label">Date of achievement*</label>
+                        <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px; cursor: pointer;" readonly>
+                        <span class="material-icons" id="calendar-icon" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;">calendar_today</span>
+                      </div>
+                      
+                      <div id="custom-datepicker" class="mat-datepicker-content">
+                          <div class="mat-calendar-header">
+                              <div class="mat-calendar-controls">
+                                  <button class="mat-calendar-period-button" type="button">
+                                     <span id="cdp-month-year">JUN 2026</span>
+                                     <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
+                                  </button>
+                                  <div class="mat-calendar-spacer"></div>
+                                  <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
+                                  <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
+                              </div>
+                          </div>
+                          <div class="mat-calendar-content-table">
+                              <table class="mat-calendar-table">
+                                  <thead class="mat-calendar-table-header">
+                                      <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+                                  </thead>
+                                  <tbody class="mat-calendar-table-body" id="cdp-grid">
+                                      </tbody>
+                              </table>
+                          </div>
+                      </div>
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
-                    
-                    <div id="custom-datepicker" class="mat-datepicker-content">
-                        <div class="mat-calendar-header">
-                            <div class="mat-calendar-controls">
-                                <button class="mat-calendar-period-button" type="button">
-                                   <span id="cdp-month-year">JUN 2026</span>
-                                   <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
-                                </button>
-                                <div class="mat-calendar-spacer"></div>
-                                <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
-                                <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
-                            </div>
-                        </div>
-                        <div class="mat-calendar-content-table">
-                            <table class="mat-calendar-table">
-                                <thead class="mat-calendar-table-header">
-                                    <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
-                                </thead>
-                                <tbody class="mat-calendar-table-body" id="cdp-grid">
-                                    </tbody>
-                            </table>
-                        </div>
-                    </div>
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
