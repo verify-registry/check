@@ -23,7 +23,6 @@
     .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}.mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
     .mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}
     
-    /* تعديل الزراير عشان متكنش كابيتال */
     .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:none !important;color:black; cursor: pointer; transition: background 0.3s;}
     .mdc-button:hover{background-color: rgba(0,0,0,0.04)}
     .mdc-button:disabled{color:rgba(0,0,0,.38);cursor:default; background-color:rgba(0,0,0,.12) !important; pointer-events:none;}
@@ -34,7 +33,7 @@
     .mdc-floating-label{position:absolute;left:16px;top:50%;transform:translateY(-50%);transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;color:rgba(0,0,0,.6);font-size:16px;font-family:Roboto;transition:transform 150ms, color 150ms}
     .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75); color: #3f51b5;}
     
-    /* تنسيق الخطأ الأحمر لو الخانة فاضية (Validation Error State) */
+    /* تنسيق الخطأ الأحمر */
     .mdc-text-field--invalid { border-bottom-color: #f44336 !important; }
     .mdc-text-field--focused.mdc-text-field--invalid { border-bottom-width: 2px; }
     .mdc-text-field--invalid .mdc-floating-label { color: #f44336 !important; }
@@ -79,7 +78,7 @@
     .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
     .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    /* رسالة الخطأ النهائية المطابقة للأصلية بالظبط */
+    /* رسالة الخطأ النهائية */
     .validation-error-msg {
       color: rgba(0,0,0,0.87);
       font-size: 13.5px;
@@ -93,6 +92,20 @@
     .validation-error-msg a {
       color: #3f51b5;
       text-decoration: underline;
+    }
+    
+    /* حيلة لإخفاء شكل الـ Datepicker الافتراضي وتكبير مساحته للضغط */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      background: transparent;
+      bottom: 0;
+      color: transparent;
+      cursor: pointer;
+      height: auto;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: auto;
     }
   </style>
 </head>
@@ -232,10 +245,13 @@
                   </div>
                   
                   <div class="field-container" style="margin-bottom: 25px;">
-                    <div class="mdc-text-field" style="margin-bottom: 2px;">
+                    <div class="mdc-text-field" style="margin-bottom: 2px; position: relative;">
                       <label class="mdc-floating-label">Date of achievement*</label>
-                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1;">
-                      <span class="material-icons" style="color: rgba(0,0,0,0.54); margin-left: 10px; cursor: pointer; align-self: center;">calendar_today</span>
+                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px;">
+                      
+                      <input type="date" id="hidden-date-picker" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); opacity: 0; width: 24px; height: 24px; cursor: pointer; z-index: 2;">
+                      
+                      <span class="material-icons" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;">calendar_today</span>
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
                   </div>
@@ -282,6 +298,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // 0. الكابتشا
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
@@ -295,6 +312,34 @@
         }, 800);
       });
 
+      // 1. برمجة الكاليندر (النتيجة)
+      const hiddenDatePicker = document.getElementById('hidden-date-picker');
+      const valDate = document.getElementById('val-date');
+      
+      hiddenDatePicker.addEventListener('change', function() {
+        if(this.value) {
+          // تحويل من yyyy-mm-dd لـ dd/mm/yyyy عشان تطابق الشكل
+          const d = new Date(this.value);
+          const day = ('0' + d.getDate()).slice(-2);
+          const month = ('0' + (d.getMonth() + 1)).slice(-2);
+          const year = d.getFullYear();
+          valDate.value = `${day}/${month}/${year}`;
+          
+          // تفعيل الأنيميشن وتشغيله وإزالة اللون الأحمر
+          const wrapper = valDate.closest('.mdc-text-field');
+          wrapper.classList.remove('mdc-text-field--invalid');
+          wrapper.classList.add('mdc-text-field--focused'); // عشان يبان إنه مركز
+          const label = wrapper.querySelector('.mdc-floating-label');
+          if(label) label.classList.add('mdc-floating-label--float-above');
+          
+          // نرجع نفقده التركيز عشان شكل المربع يرجع طبيعي بس الكلام يفضل فوق
+          setTimeout(() => {
+              wrapper.classList.remove('mdc-text-field--focused');
+          }, 100);
+        }
+      });
+
+      // 2. زرار الموافقة (Toggle)
       const termsToggle = document.getElementById('terms-toggle');
       const btnNext1 = document.getElementById('btn-next-1');
       
@@ -313,6 +358,7 @@
         }
       });
 
+      // 3. أنيميشن المربعات (Floating Labels) وتنبيه الخطأ الأحمر
       const inputs = document.querySelectorAll('.mdc-text-field__input');
       inputs.forEach(input => {
         input.addEventListener('focus', function() {
@@ -344,6 +390,7 @@
         });
       });
 
+      // 4. التنقل بين الخطوات وأيقونات القلم
       const totalSteps = 4;
       function goToStep(stepIndex) {
         for(let i = 0; i < totalSteps; i++) {
@@ -399,6 +446,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
+      // 5. زرار الإرسال الأخير (Validation)
       document.getElementById('btn-send').addEventListener('click', () => {
         
         const learnerInput = document.getElementById('val-learner-name');
