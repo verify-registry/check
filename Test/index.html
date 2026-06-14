@@ -9,7 +9,6 @@
   <link rel="icon" type="image/x-icon" href="https://nebosh-validation.verisecure.org/assets/corp_logo.gif">
   
   <style>
-    /* الخطوط الأساسية */
     @font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-stretch:100%;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBGEe.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-stretch:100%;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-stretch:100%;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
     @font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}
   </style>
@@ -17,10 +16,21 @@
   <style>
     html{--mat-ripple-color: rgba(0, 0, 0, .1);--mat-option-selected-state-label-text-color: #3f51b5;--mat-option-label-text-color: rgba(0, 0, 0, .87);--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-caret-color: #3f51b5;--mdc-filled-text-field-focus-active-indicator-color: #3f51b5;--mdc-filled-text-field-focus-label-text-color: rgba(63, 81, 181, .87);--mdc-filled-text-field-container-color: whitesmoke;--mdc-filled-text-field-label-text-color: rgba(0, 0, 0, .6);--mdc-filled-text-field-input-text-color: rgba(0, 0, 0, .87);--mdc-filled-text-field-active-indicator-color: rgba(0, 0, 0, .42);--mat-form-field-container-height: 56px;}
     html,body{height:100%}body{margin:0;font-family:Roboto,Helvetica Neue,sans-serif}
-    h3, h4, h5{text-align:center;max-width:500px;width:100%}.fields-container{width:100%;display:flex;align-items:center;flex-direction:column}.field-container, .standard{max-width:500px;width:100%}.nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}.message{padding-bottom:15px}
-    .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px; cursor: pointer; transition: background 0.3s;} .mat-horizontal-stepper-header:hover{background-color: rgba(0,0,0,0.04);}
-    .mat-step-icon{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative;color:white;background-color:rgba(0,0,0,.54)}.mat-step-icon-content{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);display:flex;font-size:12px;font-weight:500;}.mat-step-icon-selected{background-color:#3f51b5 !important;color:white !important;}
-    .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}.mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
+    h3, h4, h5{text-align:center;max-width:500px;width:100%}
+    .fields-container{width:100%;display:flex;align-items:center;flex-direction:column}
+    .field-container, .standard{max-width:500px;width:100%}
+    .nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}
+    .message{padding-bottom:15px}
+    .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white}
+    .mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}
+    .mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}
+    .mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px; cursor: pointer; transition: background 0.3s;}
+    .mat-horizontal-stepper-header:hover{background-color: rgba(0,0,0,0.04);}
+    .mat-step-icon{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative;color:white;background-color:rgba(0,0,0,.54)}
+    .mat-step-icon-content{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);display:flex;font-size:12px;font-weight:500;}
+    .mat-step-icon-selected{background-color:#3f51b5 !important;color:white !important;}
+    .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}
+    .mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
     .mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}
     
     .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;line-height:inherit;user-select:none;-webkit-appearance:none;overflow:visible;vertical-align:middle;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:none !important;color:black; cursor: pointer; transition: background 0.3s;}
@@ -33,7 +43,6 @@
     .mdc-floating-label{position:absolute;left:16px;top:50%;transform:translateY(-50%);transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;color:rgba(0,0,0,.6);font-size:16px;font-family:Roboto;transition:transform 150ms, color 150ms}
     .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75); color: #3f51b5;}
     
-    /* تنسيق الخطأ الأحمر */
     .mdc-text-field--invalid { border-bottom-color: #f44336 !important; }
     .mdc-text-field--focused.mdc-text-field--invalid { border-bottom-width: 2px; }
     .mdc-text-field--invalid .mdc-floating-label { color: #f44336 !important; }
@@ -52,7 +61,6 @@
     .results-container .result-text { font-size: 15px; margin-bottom: 25px; }
     .results-container a { color: #3f51b5; text-decoration: underline; }
 
-    /* تنسيقات الـ Captcha */
     .g-recaptcha-mock {
       width: 304px;
       height: 78px;
@@ -78,23 +86,17 @@
     .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
     .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    /* رسالة الخطأ النهائية */
     .validation-error-msg {
-      color: rgba(0,0,0,0.87);
+      color: #d32f2f;
       font-size: 13.5px;
       font-family: Roboto, sans-serif;
       margin-top: 25px;
       text-align: center;
       display: none;
       line-height: 1.5;
-      max-width: 500px;
-    }
-    .validation-error-msg a {
-      color: #3f51b5;
-      text-decoration: underline;
+      max-width: 550px;
     }
     
-    /* حيلة لإخفاء شكل الـ Datepicker الافتراضي وتكبير مساحته للضغط */
     input[type="date"]::-webkit-calendar-picker-indicator {
       background: transparent;
       bottom: 0;
@@ -228,7 +230,12 @@
 
               <div id="content-2" role="tabpanel" class="step-content-panel">
                 <div class="fields-container">
-                  <h3 style="max-width: 550px;">To verify a certificate or parchment, please enter the following pieces of information exactly as they appear on the document</h3>
+                  
+                  <h3 style="max-width: 650px; font-weight: 700; font-size: 19px; line-height: 1.3; margin-bottom: 25px;">
+                    To verify a certificate or parchment, please enter the<br>
+                    following pieces of information exactly as they appear on<br>
+                    the document
+                  </h3>
                   
                   <div class="field-container">
                     <div class="mdc-text-field">
@@ -249,7 +256,7 @@
                       <label class="mdc-floating-label">Date of achievement*</label>
                       <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px;">
                       
-                      <input type="date" id="hidden-date-picker" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); opacity: 0; width: 24px; height: 24px; cursor: pointer; z-index: 2;">
+                      <input type="date" id="hidden-date-picker" lang="en-US" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); opacity: 0; width: 24px; height: 24px; cursor: pointer; z-index: 2;">
                       
                       <span class="material-icons" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;">calendar_today</span>
                     </div>
@@ -257,11 +264,7 @@
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
-                    <strong>We are unable to verify this information please ensure all details match EXACTLY<br>the information printed on the certificate.</strong>
-                    <br><br>
-                    If you continue to be unsuccessful in your search please contact the<br>person whose certificate you are verifying or <a href="https://www.nebosh.org.uk/contact-us/" target="_blank">contact NEBOSH</a> for<br>further guidance.
-                    <br><br>
-                    Full information of our <a href="https://www.nebosh.org.uk/policies-and-procedures/verifications/" target="_blank">verification process</a> is also available on the<br><a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.
+                    We are unable to verify the details you have provided. Please check the information and try again.
                   </div>
 
                   <div class="nav-container" style="margin-top: 30px;">
@@ -298,7 +301,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 0. الكابتشا
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
@@ -312,34 +314,29 @@
         }, 800);
       });
 
-      // 1. برمجة الكاليندر (النتيجة)
       const hiddenDatePicker = document.getElementById('hidden-date-picker');
       const valDate = document.getElementById('val-date');
       
       hiddenDatePicker.addEventListener('change', function() {
         if(this.value) {
-          // تحويل من yyyy-mm-dd لـ dd/mm/yyyy عشان تطابق الشكل
           const d = new Date(this.value);
           const day = ('0' + d.getDate()).slice(-2);
           const month = ('0' + (d.getMonth() + 1)).slice(-2);
           const year = d.getFullYear();
           valDate.value = `${day}/${month}/${year}`;
           
-          // تفعيل الأنيميشن وتشغيله وإزالة اللون الأحمر
           const wrapper = valDate.closest('.mdc-text-field');
           wrapper.classList.remove('mdc-text-field--invalid');
-          wrapper.classList.add('mdc-text-field--focused'); // عشان يبان إنه مركز
+          wrapper.classList.add('mdc-text-field--focused'); 
           const label = wrapper.querySelector('.mdc-floating-label');
           if(label) label.classList.add('mdc-floating-label--float-above');
           
-          // نرجع نفقده التركيز عشان شكل المربع يرجع طبيعي بس الكلام يفضل فوق
           setTimeout(() => {
               wrapper.classList.remove('mdc-text-field--focused');
           }, 100);
         }
       });
 
-      // 2. زرار الموافقة (Toggle)
       const termsToggle = document.getElementById('terms-toggle');
       const btnNext1 = document.getElementById('btn-next-1');
       
@@ -358,7 +355,6 @@
         }
       });
 
-      // 3. أنيميشن المربعات (Floating Labels) وتنبيه الخطأ الأحمر
       const inputs = document.querySelectorAll('.mdc-text-field__input');
       inputs.forEach(input => {
         input.addEventListener('focus', function() {
@@ -390,7 +386,6 @@
         });
       });
 
-      // 4. التنقل بين الخطوات وأيقونات القلم
       const totalSteps = 4;
       function goToStep(stepIndex) {
         for(let i = 0; i < totalSteps; i++) {
@@ -446,7 +441,6 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال الأخير (Validation)
       document.getElementById('btn-send').addEventListener('click', () => {
         
         const learnerInput = document.getElementById('val-learner-name');
