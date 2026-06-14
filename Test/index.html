@@ -22,7 +22,7 @@
     .field-container{max-width:500px;width:100%}
     .nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}
     
-    .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white}
+    .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white; overflow: visible !important;}
     .mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}
     .mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}
     .mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px; cursor: pointer; transition: background 0.3s;}
@@ -33,8 +33,9 @@
     .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}
     .mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
     
-    /* تم تغيير overflow:hidden إلى visible عشان النتيجة متتقطعش */
-    .mat-horizontal-content-container{overflow:visible;padding:0 24px 24px 24px}
+    /* فك الحظر عن الحدود عشان النتيجة متتقصش */
+    .mat-horizontal-content-container{overflow:visible !important; padding:0 24px 24px 24px}
+    .mat-horizontal-stepper-content { overflow: visible !important; }
     
     .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;-webkit-appearance:none;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:none !important;color:black; cursor: pointer; transition: background 0.3s;}
     .mdc-button:hover{background-color: rgba(0,0,0,0.04)}
@@ -56,6 +57,7 @@
     .mdc-switch__handle{display:flex;position:absolute;top:50%;transform:translateY(-50%);left:0;width:20px;height:20px;border-radius:50%;background-color:#fff;box-shadow:0px 2px 1px -1px rgba(0,0,0,.2),0px 1px 1px 0px rgba(0,0,0,.14),0px 1px 3px 0px rgba(0,0,0,.12); transition: left 0.3s, background 0.3s;}
     .mdc-switch--selected .mdc-switch__handle {left: 16px; background-color: #3949ab;}
     .mdc-label{font-family:Roboto;font-size:14px;color:rgba(0,0,0,.87);cursor:pointer}
+    
     .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; }
     .step-content-active { display: block; transform: translateX(0); }
     
@@ -76,27 +78,20 @@
     .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
     .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    .validation-error-msg {
-      color: #d32f2f;
-      font-size: 13.5px;
-      font-family: Roboto, sans-serif;
-      margin-top: 25px;
-      text-align: center;
-      display: none;
-      line-height: 1.5;
-      max-width: 550px;
-    }
+    .validation-error-msg { color: rgba(0,0,0,0.87); font-size: 13.5px; font-family: Roboto, sans-serif; margin-top: 25px; text-align: center; display: none; line-height: 1.5; max-width: 500px; }
+    .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
 
-    /* تنسيقات النتيجة الإنجليزية الأصلية - معدلة عشان تظهر بالجمب ومش مقطوعة */
+    /* النتيجة الإنجليزية الأصلية تفتح للأعلى لتجنب القطع */
     .mat-datepicker-content {
       position: absolute;
-      top: 0; /* بتفتح وتغطي المربع من فوق */
-      left: 0; /* محاذية للشمال */
+      bottom: 100%; /* تفتح للأعلى */
+      left: 0; 
+      margin-bottom: 8px; /* مسافة بينها وبين الحقل */
       width: 296px;
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
       border-radius: 4px;
-      z-index: 9999; /* عشان تبقى فوق أي حاجة تانية */
+      z-index: 99999; 
       display: none;
       font-family: Roboto, sans-serif;
       padding: 0;
@@ -116,8 +111,6 @@
     .mat-calendar-body-cell { width: 14.28%; height: 40px; text-align: center; cursor: pointer; position: relative; }
     .mat-calendar-body-cell-content { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; margin: 0 auto; font-size: 13px; color: rgba(0,0,0,0.87); transition: background 0.2s;}
     .mat-calendar-body-cell:hover .mat-calendar-body-cell-content { background-color: rgba(0,0,0,0.04); }
-    
-    /* لون التحديد مطابق للصورة */
     .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; }
   </style>
 </head>
@@ -261,7 +254,7 @@
                     </div>
                   </div>
                   
-                  <div class="field-container" style="margin-bottom: 25px; position: relative;">
+                  <div class="field-container" style="margin-bottom: 25px; position: relative; z-index: 9999;">
                     <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px; cursor: pointer;">
                       <label class="mdc-floating-label">Date of achievement*</label>
                       <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px; cursor: pointer;" readonly>
@@ -294,7 +287,11 @@
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
-                    We are unable to verify the details you have provided. Please check the information and try again.
+                    <strong>We are unable to verify this information please ensure all details match EXACTLY<br>the information printed on the certificate.</strong>
+                    <br><br>
+                    If you continue to be unsuccessful in your search please contact the<br>person whose certificate you are verifying or <a href="https://www.nebosh.org.uk/contact-us/" target="_blank">contact NEBOSH</a> for<br>further guidance.
+                    <br><br>
+                    Full information of our <a href="https://www.nebosh.org.uk/policies-and-procedures/verifications/" target="_blank">verification process</a> is also available on the<br><a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.
                   </div>
 
                   <div class="nav-container" style="margin-top: 30px;">
