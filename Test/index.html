@@ -29,6 +29,11 @@
     .mdc-text-field__input{height:28px;width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0;color:rgba(0,0,0,.87);font-size:16px;font-family:Roboto;outline:none;margin-top:20px}
     .mdc-floating-label{position:absolute;left:16px;top:50%;transform:translateY(-50%);transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;color:rgba(0,0,0,.6);font-size:16px;font-family:Roboto;transition:transform 150ms, color 150ms}
     .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75); color: #3f51b5;}
+    
+    /* تنسيق الخطأ الأحمر (Validation Error State) */
+    .mdc-text-field--invalid { border-bottom-color: #f44336 !important; border-bottom-width: 2px; }
+    .mdc-text-field--invalid .mdc-floating-label { color: #f44336 !important; }
+
     .mdc-switch{align-items:center;background:none;border:none;cursor:pointer;display:inline-flex;flex-shrink:0;margin:0;outline:none;overflow:visible;padding:0;position:relative;width:36px;height:20px;margin-right:10px}
     .mdc-switch__track{overflow:hidden;position:relative;width:100%;height:14px;border-radius:7px;background-color:#e0e0e0; transition: background 0.3s;}
     .mdc-switch--selected .mdc-switch__track {background-color: #7986cb;}
@@ -58,64 +63,18 @@
       cursor: pointer;
       margin-top: 30px;
     }
-    .rc-checkbox {
-      width: 28px;
-      height: 28px;
-      background: #fff;
-      border: 2px solid #c1c1c1;
-      border-radius: 2px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: border 0.2s;
-    }
-    .g-recaptcha-mock:hover .rc-checkbox {
-      border-color: #b2b2b2;
-    }
-    .rc-check {
-      width: 22px;
-      height: 22px;
-      fill: #009E55;
-      opacity: 0;
-      transform: scale(0.5);
-      transition: all 0.3s cubic-bezier(0.5, 0, 0.2, 1);
-    }
-    .rc-checked .rc-check {
-      opacity: 1;
-      transform: scale(1);
-    }
-    .rc-text {
-      font-family: Roboto, sans-serif;
-      font-size: 14px;
-      color: #222;
-      margin-left: 12px;
-      font-weight: 400;
-    }
-    .rc-spacer {
-      flex-grow: 1;
-    }
-    .rc-logo-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .rc-logo-container img {
-      width: 32px;
-      margin-bottom: 2px;
-    }
-    .rc-logo-text {
-      font-family: Roboto, sans-serif;
-      font-size: 10px;
-      color: #555;
-    }
-    .rc-logo-terms {
-      font-family: Roboto, sans-serif;
-      font-size: 8px;
-      color: #999;
-      margin-top: 2px;
-    }
+    .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; }
+    .g-recaptcha-mock:hover .rc-checkbox { border-color: #b2b2b2; }
+    .rc-check { width: 22px; height: 22px; fill: #009E55; opacity: 0; transform: scale(0.5); transition: all 0.3s cubic-bezier(0.5, 0, 0.2, 1); }
+    .rc-checked .rc-check { opacity: 1; transform: scale(1); }
+    .rc-text { font-family: Roboto, sans-serif; font-size: 14px; color: #222; margin-left: 12px; font-weight: 400; }
+    .rc-spacer { flex-grow: 1; }
+    .rc-logo-container { display: flex; flex-direction: column; align-items: center; }
+    .rc-logo-container img { width: 32px; margin-bottom: 2px; }
+    .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
+    .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    /* رسالة الخطأ */
+    /* رسالة الخطأ النهائية */
     .validation-error-msg {
       color: #d32f2f;
       font-size: 14px;
@@ -212,19 +171,19 @@
                   <h3>Your Details</h3>
                   <div class="field-container">
                     <div class="mdc-text-field">
-                      <label class="mdc-floating-label">Your name</label>
+                      <label class="mdc-floating-label">Your name*</label>
                       <input type="text" class="mdc-text-field__input">
                     </div>
                   </div>
                   <div class="field-container">
                     <div class="mdc-text-field">
-                      <label class="mdc-floating-label">Your Organisation</label>
+                      <label class="mdc-floating-label">Your Organisation*</label>
                       <input type="text" class="mdc-text-field__input">
                     </div>
                   </div>
                   <div class="field-container">
                     <div class="mdc-text-field">
-                      <label class="mdc-floating-label">Your Email</label>
+                      <label class="mdc-floating-label">Your Email*</label>
                       <input type="email" class="mdc-text-field__input">
                     </div>
                   </div>
@@ -246,24 +205,29 @@
 
               <div id="content-2" role="tabpanel" class="step-content-panel">
                 <div class="fields-container">
-                  <h3>To verify a certificate or parchment, please enter the following pieces of information exactly as they appear on the document</h3>
+                  <h3 style="max-width: 550px;">To verify a certificate or parchment, please enter the following pieces of information exactly as they appear on the document</h3>
+                  
                   <div class="field-container">
                     <div class="mdc-text-field">
-                      <label class="mdc-floating-label">Learner Name</label>
+                      <label class="mdc-floating-label">Learner Name*</label>
                       <input type="text" id="val-learner-name" class="mdc-text-field__input">
                     </div>
                   </div>
+                  
                   <div class="field-container">
                     <div class="mdc-text-field">
-                      <label class="mdc-floating-label">Certificate Master Log Number</label>
+                      <label class="mdc-floating-label">Certificate Master Log Number*</label>
                       <input type="text" id="val-master-log" class="mdc-text-field__input">
                     </div>
                   </div>
-                  <div class="field-container">
-                    <div class="mdc-text-field">
-                      <label class="mdc-floating-label">Date of achievement (dd/mm/yyyy)</label>
-                      <input type="text" id="val-date" class="mdc-text-field__input">
+                  
+                  <div class="field-container" style="margin-bottom: 25px;">
+                    <div class="mdc-text-field" style="margin-bottom: 2px;">
+                      <label class="mdc-floating-label">Date of achievement*</label>
+                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1;">
+                      <span class="material-icons" style="color: rgba(0,0,0,0.54); margin-left: 10px; cursor: pointer; align-self: center;">calendar_today</span>
                     </div>
+                    <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
@@ -337,22 +301,38 @@
         }
       });
 
-      // 2. أنيميشن المربعات (Floating Labels)
+      // 2. أنيميشن المربعات (Floating Labels) وتنبيه الخطأ الأحمر (Validation Error)
       const inputs = document.querySelectorAll('.mdc-text-field__input');
       inputs.forEach(input => {
+        
+        // لما يدخل جوه المربع (Focus)
         input.addEventListener('focus', function() {
           const wrapper = this.closest('.mdc-text-field');
           wrapper.classList.add('mdc-text-field--focused');
+          wrapper.classList.remove('mdc-text-field--invalid'); // شيل الأحمر لو هيبدأ يكتب
           const label = wrapper.querySelector('.mdc-floating-label');
           if(label) label.classList.add('mdc-floating-label--float-above');
         });
         
+        // لو كتب أي حاجة شيل الأحمر
+        input.addEventListener('input', function() {
+           const wrapper = this.closest('.mdc-text-field');
+           if(this.value.trim() !== '') {
+             wrapper.classList.remove('mdc-text-field--invalid');
+           }
+        });
+
+        // لما يطلع من المربع (Blur)
         input.addEventListener('blur', function() {
           const wrapper = this.closest('.mdc-text-field');
           wrapper.classList.remove('mdc-text-field--focused');
-          if(!this.value.trim()) {
+          if(this.value.trim() === '') {
+            // لو طلع وهو فاضي، نزّل الكلمة وحولها أحمر
             const label = wrapper.querySelector('.mdc-floating-label');
             if(label) label.classList.remove('mdc-floating-label--float-above');
+            wrapper.classList.add('mdc-text-field--invalid');
+          } else {
+            wrapper.classList.remove('mdc-text-field--invalid');
           }
         });
       });
@@ -392,47 +372,76 @@
         }
       }
 
-      // 4. ربط الزراير بدوال التنقل
+      // 4. ربط الزراير بدوال التنقل + فحص الفراغات (Empty check)
       document.getElementById('btn-next-1').addEventListener('click', () => goToStep(1));
+      
       document.getElementById('btn-back-2').addEventListener('click', () => goToStep(0));
+      
       document.getElementById('btn-next-2').addEventListener('click', () => {
-        // إخفاء رسالة الخطأ لو رجع ومسح وكتب تاني
+        // مراجعة الحقول الفاضية في الخطوة التانية
+        const step2Inputs = document.querySelectorAll('#content-1 .mdc-text-field__input');
+        let hasEmpty = false;
+        step2Inputs.forEach(input => {
+          if (input.value.trim() === '') {
+            input.closest('.mdc-text-field').classList.add('mdc-text-field--invalid');
+            hasEmpty = true;
+          }
+        });
+        if (hasEmpty) return; // لو في حاجة فاضية ميعديش
+
         document.getElementById('error-message').style.display = 'none';
         goToStep(2);
       });
+      
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال الأخير (Validation)
+      // 5. زرار الإرسال الأخير (Validation Database)
       document.getElementById('btn-send').addEventListener('click', () => {
-        // سحب البيانات اللي العميل كتبها
-        const learnerName = document.getElementById('val-learner-name').value.trim().toLowerCase();
-        const masterLog = document.getElementById('val-master-log').value.trim();
-        const achieveDate = document.getElementById('val-date').value.trim().toLowerCase();
+        
+        const learnerInput = document.getElementById('val-learner-name');
+        const logInput = document.getElementById('val-master-log');
+        const dateInput = document.getElementById('val-date');
+        
+        // مراجعة الفراغات الأول
+        let hasEmpty = false;
+        [learnerInput, logInput, dateInput].forEach(input => {
+          if (input.value.trim() === '') {
+            input.closest('.mdc-text-field').classList.add('mdc-text-field--invalid');
+            hasEmpty = true;
+          }
+        });
 
-        // البيانات الصحيحة اللي إنت طالبها
+        if (hasEmpty) {
+            document.getElementById('error-message').style.display = 'none'; // نخفي الرسالة عشان ده مجرد نقص بيانات مش غلط
+            return; 
+        }
+
+        // لو كله مليان، نسحب الداتا ونراجعها
+        const learnerName = learnerInput.value.trim().toLowerCase();
+        const masterLog = logInput.value.trim();
+        const achieveDate = dateInput.value.trim().toLowerCase();
+
+        // البيانات الصحيحة
         const validName = "hussein hosny mohamed helal";
         const validLog1 = "00695637/169716";
-        const validLog2 = "00694979"; // حطيتها عشان لو كتب دي تمشي برضه
+        const validLog2 = "00694979"; 
         const validDate1 = "20/04/2026";
         const validDate2 = "20 apr 2026";
         const validDate3 = "20-04-2026";
 
-        // المراجعة والمقارنة
+        // المقارنة
         if (
           learnerName === validName && 
           (masterLog === validLog1 || masterLog === validLog2) && 
           (achieveDate === validDate1 || achieveDate === validDate2 || achieveDate === validDate3)
         ) {
-          // لو كل حاجة صح: شيل رسالة الخطأ وانقله للخطوة الأخيرة
           document.getElementById('error-message').style.display = 'none';
           goToStep(3);
           
-          // بعد 4 ثواني يحوله للموقع الأصلي
           setTimeout(() => {
             window.location.href = 'https://www.nebosh.org.uk/';
           }, 4000);
         } else {
-          // لو البيانات غلط: طلعله رسالة الخطأ الحمرا
           document.getElementById('error-message').style.display = 'block';
         }
       });
