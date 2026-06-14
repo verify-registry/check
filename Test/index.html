@@ -54,6 +54,7 @@
     .mdc-switch__handle{display:flex;position:absolute;top:50%;transform:translateY(-50%);left:0;width:20px;height:20px;border-radius:50%;background-color:#fff;box-shadow:0px 2px 1px -1px rgba(0,0,0,.2),0px 1px 1px 0px rgba(0,0,0,.14),0px 1px 3px 0px rgba(0,0,0,.12); transition: left 0.3s, background 0.3s;}
     .mdc-switch--selected .mdc-switch__handle {left: 16px; background-color: #3949ab;}
     .mdc-label{font-family:Roboto;font-size:14px;color:rgba(0,0,0,.87);cursor:pointer}
+    
     .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; }
     .step-content-active { display: block; transform: translateX(0); }
     
@@ -62,6 +63,7 @@
     .results-container .result-text { font-size: 15px; margin-bottom: 25px; }
     .results-container a { color: #3f51b5; text-decoration: underline; }
 
+    /* الكابتشا */
     .g-recaptcha-mock { width: 304px; height: 78px; background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 3px; display: flex; align-items: center; padding: 0 12px; box-sizing: border-box; box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08); cursor: pointer; margin-top: 30px; }
     .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; }
     .g-recaptcha-mock:hover .rc-checkbox { border-color: #b2b2b2; }
@@ -74,22 +76,14 @@
     .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
     .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    .validation-error-msg {
-      color: #d32f2f;
-      font-size: 13.5px;
-      font-family: Roboto, sans-serif;
-      margin-top: 25px;
-      text-align: center;
-      display: none;
-      line-height: 1.5;
-      max-width: 550px;
-    }
+    .validation-error-msg { color: rgba(0,0,0,0.87); font-size: 13.5px; font-family: Roboto, sans-serif; margin-top: 25px; text-align: center; display: none; line-height: 1.5; max-width: 500px; }
+    .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
 
-    /* النتيجة الإنجليزية الأصلية (Angular Material Datepicker Clone) */
+    /* النتيجة الإنجليزية المطابقة للأصل (Angular Material Datepicker) */
     .mat-datepicker-content {
       position: absolute;
-      bottom: calc(100% + 5px); /* بتفتح لفوق */
-      right: 0;
+      top: -10px; /* تفتح لفوق ومغطية المربع شوية */
+      left: 0;    /* محاذية للشمال تماماً */
       width: 296px;
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
@@ -101,10 +95,10 @@
     }
     .mat-calendar-header { padding: 8px 8px 0 8px; }
     .mat-calendar-controls { display: flex; align-items: center; margin: 5% calc(33% / 7 - 16px); }
-    .mat-calendar-period-button { min-width: 0; margin: 0 8px; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; font-weight: 500; font-size: 14px; color: rgba(0,0,0,0.87); }
+    .mat-calendar-period-button { min-width: 0; margin: 0 8px; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; font-weight: 500; font-size: 14px; color: rgba(0,0,0,0.87); outline: none;}
     .mat-calendar-arrow { width: 10px; height: 5px; fill: currentColor; margin-left: 8px; }
     .mat-calendar-spacer { flex: 1 1 auto; }
-    .mat-calendar-previous-button, .mat-calendar-next-button { background: transparent; border: none; cursor: pointer; color: rgba(0,0,0,0.54); padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;}
+    .mat-calendar-previous-button, .mat-calendar-next-button { background: transparent; border: none; cursor: pointer; color: rgba(0,0,0,0.54); padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; outline: none;}
     .mat-calendar-previous-button:hover, .mat-calendar-next-button:hover { background: rgba(0,0,0,0.04); }
     .mat-calendar-content-table { padding: 0 8px 8px 8px; }
     .mat-calendar-table { border-spacing: 0; border-collapse: collapse; width: 100%; }
@@ -258,10 +252,10 @@
                   </div>
                   
                   <div class="field-container" style="margin-bottom: 25px; position: relative;">
-                    <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px;">
+                    <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px; cursor: pointer;">
                       <label class="mdc-floating-label">Date of achievement*</label>
-                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px;" readonly>
-                      <span class="material-icons" id="calendar-icon" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1; cursor: pointer;">calendar_today</span>
+                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px; cursor: pointer;" readonly>
+                      <span class="material-icons" id="calendar-icon" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;">calendar_today</span>
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
                     
@@ -290,7 +284,11 @@
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
-                    We are unable to verify the details you have provided. Please check the information and try again.
+                    <strong>We are unable to verify this information please ensure all details match EXACTLY<br>the information printed on the certificate.</strong>
+                    <br><br>
+                    If you continue to be unsuccessful in your search please contact the<br>person whose certificate you are verifying or <a href="https://www.nebosh.org.uk/contact-us/" target="_blank">contact NEBOSH</a> for<br>further guidance.
+                    <br><br>
+                    Full information of our <a href="https://www.nebosh.org.uk/policies-and-procedures/verifications/" target="_blank">verification process</a> is also available on the<br><a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.
                   </div>
 
                   <div class="nav-container" style="margin-top: 30px;">
@@ -341,7 +339,7 @@
         }, 800);
       });
 
-      // 1. برمجة النتيجة الإنجليزية (Angular Material Clone)
+      // 1. برمجة النتيجة الإنجليزية المطابقة
       const dateInput = document.getElementById('val-date');
       const dateWrapper = document.getElementById('date-wrapper');
       const calendarIcon = document.getElementById('calendar-icon');
@@ -367,7 +365,6 @@
 
           let tr = document.createElement('tr');
           
-          // إضافة اسم الشهر في الخلفية (زي الصورة الأصلية)
           if (firstDayIndex > 0) {
               const tdLabel = document.createElement('td');
               tdLabel.colSpan = firstDayIndex;
@@ -393,7 +390,6 @@
               div.className = 'mat-calendar-body-cell-content';
               div.textContent = i;
               
-              // تعليم اليوم اللي تم اختياره
               if(selectedDate && selectedDate.getDate() === i && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) {
                   td.classList.add('selected');
               }
@@ -405,13 +401,11 @@
                   e.stopPropagation();
                   selectedDate = new Date(year, month, i);
                   
-                  // تنزيل التاريخ بصيغة: 20 Apr 2026
                   const dd = String(i).padStart(2, '0');
                   const mmm = monthNamesFormat[month];
                   dateInput.value = `${dd} ${mmm} ${year}`;
                   datePicker.style.display = 'none';
 
-                  // تعديل التنسيقات والألوان
                   calendarIcon.style.color = 'rgba(0,0,0,0.54)';
                   dateWrapper.classList.remove('mdc-text-field--invalid');
                   dateWrapper.classList.add('mdc-text-field--focused');
@@ -444,13 +438,12 @@
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           } else {
               datePicker.style.display = 'block';
-              calendarIcon.style.color = '#3f51b5'; // أيقونة زرقا وقت الفتح
+              calendarIcon.style.color = '#3f51b5';
               renderCalendar(currentDate);
           }
       }
 
-      calendarIcon.addEventListener('click', toggleCalendar);
-      dateInput.addEventListener('click', toggleCalendar);
+      dateWrapper.addEventListener('click', toggleCalendar);
 
       prevBtn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -464,8 +457,12 @@
           renderCalendar(currentDate);
       });
 
+      datePicker.addEventListener('click', (e) => {
+          e.stopPropagation();
+      });
+
       document.addEventListener('click', (e) => {
-          if (!datePicker.contains(e.target) && e.target !== calendarIcon && e.target !== dateInput) {
+          if (!datePicker.contains(e.target) && !dateWrapper.contains(e.target)) {
               datePicker.style.display = 'none';
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           }
