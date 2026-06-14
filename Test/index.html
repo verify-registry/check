@@ -32,7 +32,9 @@
     .mat-step-icon-selected{background-color:#3f51b5 !important;color:white !important;}
     .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}
     .mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
-    .mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}
+    
+    /* تم تغيير overflow:hidden إلى visible عشان النتيجة متتقطعش */
+    .mat-horizontal-content-container{overflow:visible;padding:0 24px 24px 24px}
     
     .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;-webkit-appearance:none;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:none !important;color:black; cursor: pointer; transition: background 0.3s;}
     .mdc-button:hover{background-color: rgba(0,0,0,0.04)}
@@ -54,7 +56,6 @@
     .mdc-switch__handle{display:flex;position:absolute;top:50%;transform:translateY(-50%);left:0;width:20px;height:20px;border-radius:50%;background-color:#fff;box-shadow:0px 2px 1px -1px rgba(0,0,0,.2),0px 1px 1px 0px rgba(0,0,0,.14),0px 1px 3px 0px rgba(0,0,0,.12); transition: left 0.3s, background 0.3s;}
     .mdc-switch--selected .mdc-switch__handle {left: 16px; background-color: #3949ab;}
     .mdc-label{font-family:Roboto;font-size:14px;color:rgba(0,0,0,.87);cursor:pointer}
-    
     .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; }
     .step-content-active { display: block; transform: translateX(0); }
     
@@ -63,7 +64,6 @@
     .results-container .result-text { font-size: 15px; margin-bottom: 25px; }
     .results-container a { color: #3f51b5; text-decoration: underline; }
 
-    /* الكابتشا */
     .g-recaptcha-mock { width: 304px; height: 78px; background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 3px; display: flex; align-items: center; padding: 0 12px; box-sizing: border-box; box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08); cursor: pointer; margin-top: 30px; }
     .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; }
     .g-recaptcha-mock:hover .rc-checkbox { border-color: #b2b2b2; }
@@ -76,19 +76,27 @@
     .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
     .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    .validation-error-msg { color: rgba(0,0,0,0.87); font-size: 13.5px; font-family: Roboto, sans-serif; margin-top: 25px; text-align: center; display: none; line-height: 1.5; max-width: 500px; }
-    .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
+    .validation-error-msg {
+      color: #d32f2f;
+      font-size: 13.5px;
+      font-family: Roboto, sans-serif;
+      margin-top: 25px;
+      text-align: center;
+      display: none;
+      line-height: 1.5;
+      max-width: 550px;
+    }
 
-    /* النتيجة الإنجليزية المطابقة للأصل (Angular Material Datepicker) */
+    /* تنسيقات النتيجة الإنجليزية الأصلية - معدلة عشان تظهر بالجمب ومش مقطوعة */
     .mat-datepicker-content {
       position: absolute;
-      top: -10px; /* تفتح لفوق ومغطية المربع شوية */
-      left: 0;    /* محاذية للشمال تماماً */
+      top: 0; /* بتفتح وتغطي المربع من فوق */
+      left: 0; /* محاذية للشمال */
       width: 296px;
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
       border-radius: 4px;
-      z-index: 1000;
+      z-index: 9999; /* عشان تبقى فوق أي حاجة تانية */
       display: none;
       font-family: Roboto, sans-serif;
       padding: 0;
@@ -96,6 +104,7 @@
     .mat-calendar-header { padding: 8px 8px 0 8px; }
     .mat-calendar-controls { display: flex; align-items: center; margin: 5% calc(33% / 7 - 16px); }
     .mat-calendar-period-button { min-width: 0; margin: 0 8px; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; font-weight: 500; font-size: 14px; color: rgba(0,0,0,0.87); outline: none;}
+    .mat-calendar-period-button:hover { background: rgba(0,0,0,0.04); border-radius: 4px; }
     .mat-calendar-arrow { width: 10px; height: 5px; fill: currentColor; margin-left: 8px; }
     .mat-calendar-spacer { flex: 1 1 auto; }
     .mat-calendar-previous-button, .mat-calendar-next-button { background: transparent; border: none; cursor: pointer; color: rgba(0,0,0,0.54); padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; outline: none;}
@@ -105,10 +114,11 @@
     .mat-calendar-table-header th { text-align: center; padding: 0 0 8px 0; font-weight: 400; font-size: 11px; color: rgba(0,0,0,0.54); }
     .mat-calendar-body-label { height: 0; line-height: 0; text-align: left; padding-left: 16px; font-size: 14px; font-weight: 500; color: rgba(0,0,0,0.54); padding-top: 24px; padding-bottom: 8px; }
     .mat-calendar-body-cell { width: 14.28%; height: 40px; text-align: center; cursor: pointer; position: relative; }
-    .mat-calendar-body-cell-content { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; margin: 0 auto; font-size: 13px; color: rgba(0,0,0,0.87); transition: background 0.2s;}
+    .mat-calendar-body-cell-content { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; margin: 0 auto; font-size: 13px; color: rgba(0,0,0,0.87); transition: background 0.2s;}
     .mat-calendar-body-cell:hover .mat-calendar-body-cell-content { background-color: rgba(0,0,0,0.04); }
-    .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; border: 1px solid #3f51b5; }
-    .mat-calendar-body-cell.empty { pointer-events: none; }
+    
+    /* لون التحديد مطابق للصورة */
+    .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; }
   </style>
 </head>
 <body class="mat-typography">
@@ -284,11 +294,7 @@
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
-                    <strong>We are unable to verify this information please ensure all details match EXACTLY<br>the information printed on the certificate.</strong>
-                    <br><br>
-                    If you continue to be unsuccessful in your search please contact the<br>person whose certificate you are verifying or <a href="https://www.nebosh.org.uk/contact-us/" target="_blank">contact NEBOSH</a> for<br>further guidance.
-                    <br><br>
-                    Full information of our <a href="https://www.nebosh.org.uk/policies-and-procedures/verifications/" target="_blank">verification process</a> is also available on the<br><a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.
+                    We are unable to verify the details you have provided. Please check the information and try again.
                   </div>
 
                   <div class="nav-container" style="margin-top: 30px;">
