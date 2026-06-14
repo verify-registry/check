@@ -22,7 +22,12 @@
     .field-container{max-width:500px;width:100%}
     .nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}
     
+    /* التعديل السحري هنا عشان المربع ميقصش النتيجة */
     .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white; overflow: visible !important;}
+    .mat-horizontal-content-container{overflow:visible !important; padding:0 24px 24px 24px}
+    .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; overflow: visible !important; }
+    .step-content-active { display: block; transform: translateX(0); }
+    
     .mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}
     .mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}
     .mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px; cursor: pointer; transition: background 0.3s;}
@@ -32,9 +37,6 @@
     .mat-step-icon-selected{background-color:#3f51b5 !important;color:white !important;}
     .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}
     .mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
-    
-    .mat-horizontal-content-container{overflow:visible !important; padding:0 24px 24px 24px}
-    .mat-horizontal-stepper-content { overflow: visible !important; }
     
     .mdc-button{position:relative;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:64px;border:none;outline:none;user-select:none;-webkit-appearance:none;background:rgba(0,0,0,0);padding:0 16px;height:36px;border-radius:4px;font-family:Roboto, sans-serif;font-size:14px;font-weight:500;text-transform:none !important;color:black; cursor: pointer; transition: background 0.3s;}
     .mdc-button:hover{background-color: rgba(0,0,0,0.04)}
@@ -57,9 +59,6 @@
     .mdc-switch--selected .mdc-switch__handle {left: 16px; background-color: #3949ab;}
     .mdc-label{font-family:Roboto;font-size:14px;color:rgba(0,0,0,.87);cursor:pointer}
     
-    .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; }
-    .step-content-active { display: block; transform: translateX(0); }
-    
     .results-container { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 40px; font-family: Roboto, sans-serif; color: rgba(0,0,0,.87); }
     .results-container h3 { font-weight: 700; font-size: 19px; line-height: 1.4; margin-bottom: 40px; max-width: 650px; }
     .results-container .result-text { font-size: 15px; margin-bottom: 25px; }
@@ -77,14 +76,23 @@
     .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
     .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    .validation-error-msg { color: rgba(0,0,0,0.87); font-size: 13.5px; font-family: Roboto, sans-serif; margin-top: 25px; text-align: center; display: none; line-height: 1.5; max-width: 500px; }
+    .validation-error-msg {
+      color: rgba(0,0,0,0.87);
+      font-size: 13.5px;
+      font-family: Roboto, sans-serif;
+      margin-top: 25px;
+      text-align: center;
+      display: none;
+      line-height: 1.5;
+      max-width: 500px;
+    }
     .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
 
-    /* النتيجة تفتح للأعلى وتتحاذى مع اليمين (فوق الأيقونة بالظبط) */
+    /* النتيجة الإنجليزية تفتح للأعلى وتتخطى كل الحواجز */
     .mat-datepicker-content {
       position: absolute;
-      bottom: calc(100% + 5px); /* تفتح للأعلى مع مسافة بسيطة */
-      right: 0; /* تتحاذى مع يمين المربع (مكان الأيقونة) */
+      bottom: calc(100% + 5px); /* ده اللي بيخليها تفتح فوق المربع مباشرة */
+      left: 0; /* محاذية للمربع من الشمال */
       width: 296px;
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
@@ -252,38 +260,36 @@
                     </div>
                   </div>
                   
-                  <div class="field-container" style="margin-bottom: 25px;">
-                    <div style="position: relative; z-index: 9999;">
-                      <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px; cursor: pointer;">
-                        <label class="mdc-floating-label">Date of achievement*</label>
-                        <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px; cursor: pointer;" readonly>
-                        <span class="material-icons" id="calendar-icon" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;">calendar_today</span>
-                      </div>
-                      
-                      <div id="custom-datepicker" class="mat-datepicker-content">
-                          <div class="mat-calendar-header">
-                              <div class="mat-calendar-controls">
-                                  <button class="mat-calendar-period-button" type="button">
-                                     <span id="cdp-month-year">JUN 2026</span>
-                                     <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
-                                  </button>
-                                  <div class="mat-calendar-spacer"></div>
-                                  <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
-                                  <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
-                              </div>
-                          </div>
-                          <div class="mat-calendar-content-table">
-                              <table class="mat-calendar-table">
-                                  <thead class="mat-calendar-table-header">
-                                      <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
-                                  </thead>
-                                  <tbody class="mat-calendar-table-body" id="cdp-grid">
-                                      </tbody>
-                              </table>
-                          </div>
-                      </div>
+                  <div class="field-container" style="margin-bottom: 25px; position: relative; z-index: 9999;">
+                    <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px; cursor: pointer;">
+                      <label class="mdc-floating-label">Date of achievement*</label>
+                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px; cursor: pointer;" readonly>
+                      <span class="material-icons" id="calendar-icon" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;">calendar_today</span>
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
+                    
+                    <div id="custom-datepicker" class="mat-datepicker-content">
+                        <div class="mat-calendar-header">
+                            <div class="mat-calendar-controls">
+                                <button class="mat-calendar-period-button" type="button">
+                                   <span id="cdp-month-year">JUN 2026</span>
+                                   <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
+                                </button>
+                                <div class="mat-calendar-spacer"></div>
+                                <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
+                                <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
+                            </div>
+                        </div>
+                        <div class="mat-calendar-content-table">
+                            <table class="mat-calendar-table">
+                                <thead class="mat-calendar-table-header">
+                                    <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+                                </thead>
+                                <tbody class="mat-calendar-table-body" id="cdp-grid">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
@@ -328,7 +334,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 0. الكابتشا
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
@@ -342,7 +347,6 @@
         }, 800);
       });
 
-      // 1. برمجة النتيجة الإنجليزية المطابقة
       const dateInput = document.getElementById('val-date');
       const dateWrapper = document.getElementById('date-wrapper');
       const calendarIcon = document.getElementById('calendar-icon');
@@ -471,7 +475,6 @@
           }
       });
 
-      // 2. زرار الموافقة (Toggle)
       const termsToggle = document.getElementById('terms-toggle');
       const btnNext1 = document.getElementById('btn-next-1');
       
@@ -490,7 +493,6 @@
         }
       });
 
-      // 3. أنيميشن المربعات وتنبيه الخطأ الأحمر
       const inputs = document.querySelectorAll('.mdc-text-field__input:not(#val-date)');
       inputs.forEach(input => {
         input.addEventListener('focus', function() {
@@ -522,7 +524,6 @@
         });
       });
 
-      // 4. التنقل بين الخطوات وأيقونات القلم
       const totalSteps = 4;
       function goToStep(stepIndex) {
         for(let i = 0; i < totalSteps; i++) {
@@ -578,7 +579,6 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال الأخير والـ Validation
       document.getElementById('btn-send').addEventListener('click', () => {
         
         const learnerInput = document.getElementById('val-learner-name');
