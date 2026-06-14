@@ -37,8 +37,32 @@
     .mdc-label{font-family:Roboto;font-size:14px;color:rgba(0,0,0,.87);cursor:pointer}
     .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; }
     .step-content-active { display: block; transform: translateX(0); }
-    .results-container { text-align: center; margin-top: 20px; font-family: Roboto; font-size: 16px; line-height: 1.6;}
-    .results-container a { color: #3f51b5; text-decoration: none; }
+    
+    /* تنسيقات الصفحة النهائية المعدلة لتطابق الصورة */
+    .results-container { 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center; 
+      margin-top: 40px; 
+      font-family: Roboto, sans-serif; 
+      color: rgba(0,0,0,.87);
+    }
+    .results-container h3 {
+      font-weight: 700;
+      font-size: 19px;
+      line-height: 1.4;
+      margin-bottom: 40px;
+      max-width: 650px;
+    }
+    .results-container .result-text {
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+    .results-container a { 
+      color: #3f51b5; 
+      text-decoration: underline; 
+    }
   </style>
 </head>
 <body class="mat-typography">
@@ -188,12 +212,10 @@
 
             <div id="content-3" role="tabpanel" class="step-content-panel">
               <div class="results-container">
-                <h3> Thank you for your request to verify a NEBOSH certificate. Your request has been sent to the learner that was issued this certificate for authentication. </h3>
-                <div style="margin-bottom: 10px;"> Verification of this document is <strong style="text-decoration: underline;">not</strong> complete until you have received formal verification by email, <strong>from NEBOSH</strong></div>
-                <div style="margin-bottom: 10px;"> An email will be sent to you within 2 working days confirming the outcome of your request. </div>
-                <div> Full information of our <a href="#">verification process and additional guidance</a> on how to verify certificates is available on the <a href="#">NEBOSH website</a>. </div>
-                <br>
-                <div style="color: green; font-weight: bold;">Redirecting to Official NEBOSH site in 4 seconds...</div>
+                <h3>Thank you for your request to verify a NEBOSH certificate.<br>Your request has been sent to the learner that was issued<br>this certificate for authentication.</h3>
+                <div class="result-text">Verification of this document is <strong style="text-decoration: underline;">not</strong> complete until you have received formal verification by email, <strong>from NEBOSH</strong></div>
+                <div class="result-text">An email will be sent to you within 2 working days confirming the outcome of your request.</div>
+                <div class="result-text">Full information of our <a href="https://www.nebosh.org.uk/policies-and-procedures/verifications/">verification process and additional guidance</a> on how to verify certificates is available on the <a href="https://www.nebosh.org.uk/home/">NEBOSH website</a>.</div>
               </div>
             </div>
 
@@ -244,22 +266,32 @@
         });
       });
 
-      // 3. برمجة التنقل بين الخطوات (Stepper Logic)
+      // 3. برمجة التنقل بين الخطوات وأيقونات القلم (Edit)
       const totalSteps = 4;
       function goToStep(stepIndex) {
         for(let i = 0; i < totalSteps; i++) {
-          // تحديث الهيدر
           const header = document.getElementById('header-' + i);
           const icon = header.querySelector('.mat-step-icon');
+          const iconContent = header.querySelector('.mat-step-icon-content');
           const label = header.querySelector('.mat-step-label');
           
           if(i === stepIndex) {
+            // الخطوة النشطة حالياً
             header.setAttribute('aria-selected', 'true');
             icon.classList.add('mat-step-icon-selected');
+            iconContent.innerHTML = '<span>' + (i + 1) + '</span>';
             label.classList.add('mat-step-label-active', 'mat-step-label-selected');
+          } else if (i < stepIndex) {
+            // الخطوات اللي خلصت (بيظهر عليها القلم الأزرق)
+            header.setAttribute('aria-selected', 'false');
+            icon.classList.add('mat-step-icon-selected');
+            iconContent.innerHTML = '<span style="font-family: \'Material Icons\'; font-size: 14px;">edit</span>';
+            label.classList.remove('mat-step-label-active', 'mat-step-label-selected');
           } else {
+            // الخطوات اللي لسه مجاتش
             header.setAttribute('aria-selected', 'false');
             icon.classList.remove('mat-step-icon-selected');
+            iconContent.innerHTML = '<span>' + (i + 1) + '</span>';
             label.classList.remove('mat-step-label-active', 'mat-step-label-selected');
           }
 
@@ -282,7 +314,7 @@
       // 5. زرار الإرسال الأخير والتحويل
       document.getElementById('btn-send').addEventListener('click', () => {
         goToStep(3); // يعرض رسالة النهاية
-        // بعد 4 ثواني هيحول لموقع النيبوش
+        // بعد 4 ثواني هيحول لموقع النيبوش (بصمت)
         setTimeout(() => {
           window.location.href = 'https://www.nebosh.org.uk/';
         }, 4000);
