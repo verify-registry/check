@@ -72,8 +72,6 @@
     .rc-spacer { flex-grow: 1; }
     .rc-logo-container { display: flex; flex-direction: column; align-items: center; }
     .rc-logo-container img { width: 32px; margin-bottom: 2px; }
-    .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
-    .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
     .validation-error-msg {
       color: rgba(0,0,0,0.87);
@@ -87,9 +85,11 @@
     }
     .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
 
-    /* تنسيق النتيجة الحرة المشتركة */
+    /* النتيجة الإنجليزية زي امبارح (تفتح للأعلى محاذية لليمين) */
     .mat-datepicker-content {
       position: absolute;
+      bottom: calc(100% + 5px); 
+      right: 0; 
       width: 296px;
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
@@ -115,9 +115,8 @@
     .mat-calendar-body-cell-content { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; margin: 0 auto; font-size: 13px; color: rgba(0,0,0,0.87); transition: background 0.2s;}
     .mat-calendar-body-cell:hover .mat-calendar-body-cell-content { background-color: rgba(0,0,0,0.04); }
     .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; }
-    .cdp-overlay { display: none; }
 
-    /* التجاوب الذكي للموبايل */
+    /* التجاوب الذكي للموبايل (الأكورديون) */
     body.is-mobile .mat-horizontal-stepper-header-container {
         flex-direction: column;
         align-items: flex-start;
@@ -151,25 +150,6 @@
     body.is-mobile .mdc-form-field { align-items: flex-start; }
     body.is-mobile .mdc-switch { margin-top: 4px; }
     body.is-mobile .mdc-label { line-height: 1.4; }
-    
-    @media (max-width: 768px) {
-        .cdp-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.32);
-            z-index: 999998;
-        }
-        .mat-datepicker-content {
-            position: fixed !important;
-            top: 50% !important;
-            left: 50% !important;
-            bottom: auto !important;
-            right: auto !important;
-            transform: translate(-50%, -50%) !important;
-            z-index: 999999 !important;
-            box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12) !important;
-        }
-    }
   </style>
 </head>
 <body class="mat-typography">
@@ -320,7 +300,31 @@
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
                     
+                    <!-- النتيجة الإنجليزية الوحيدة (زي امبارح بالظبط بتفتح لفوق ويمين) -->
+                    <div id="custom-datepicker" class="mat-datepicker-content">
+                        <div class="mat-calendar-header">
+                            <div class="mat-calendar-controls">
+                                <button class="mat-calendar-period-button" type="button">
+                                   <span id="cdp-month-year">JUN 2026</span>
+                                   <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
+                                </button>
+                                <div class="mat-calendar-spacer"></div>
+                                <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
+                                <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
+                            </div>
+                        </div>
+                        <div class="mat-calendar-content-table">
+                            <table class="mat-calendar-table">
+                                <thead class="mat-calendar-table-header">
+                                    <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+                                </thead>
+                                <tbody class="mat-calendar-table-body" id="cdp-grid">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+                  </div>
                   
                   <div id="error-message" class="validation-error-msg">
                     <strong>We are unable to verify this information please ensure all details match EXACTLY<br>the information printed on the certificate.</strong>
@@ -362,30 +366,6 @@
     </div>
   </app-root>
 
-  <div id="cdp-overlay" class="cdp-overlay"></div>
-  <div id="custom-datepicker" class="mat-datepicker-content">
-      <div class="mat-calendar-header">
-          <div class="mat-calendar-controls">
-              <button class="mat-calendar-period-button" type="button">
-                 <span id="cdp-month-year">JUN 2026</span>
-                 <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
-              </button>
-              <div class="mat-calendar-spacer"></div>
-              <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
-              <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
-          </div>
-      </div>
-      <div class="mat-calendar-content-table">
-          <table class="mat-calendar-table">
-              <thead class="mat-calendar-table-header">
-                  <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
-              </thead>
-              <tbody class="mat-calendar-table-body" id="cdp-grid">
-              </tbody>
-          </table>
-      </div>
-  </div>
-
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // 0. الكابتشا
@@ -399,7 +379,6 @@
         setTimeout(() => {
           captchaScreen.style.display = 'none';
           mainStepper.style.display = 'block';
-          adjustStepperLayout(); // إعادة الحساب بعد الفتح
         }, 800);
       });
 
@@ -430,12 +409,11 @@
       window.addEventListener('resize', adjustStepperLayout);
       adjustStepperLayout();
 
-      // 2. برمجة النتيجة الإنجليزية
+      // 2. برمجة النتيجة الإنجليزية (نسخة امبارح)
       const dateInput = document.getElementById('val-date');
       const dateWrapper = document.getElementById('date-wrapper');
       const calendarIcon = document.getElementById('calendar-icon');
       const datePicker = document.getElementById('custom-datepicker');
-      const dateOverlay = document.getElementById('cdp-overlay');
       const monthYearLabel = document.getElementById('cdp-month-year');
       const grid = document.getElementById('cdp-grid');
       const prevBtn = document.getElementById('cdp-prev');
@@ -498,7 +476,6 @@
                   dateInput.value = `${dd} ${mmm} ${year}`;
                   
                   datePicker.style.display = 'none';
-                  dateOverlay.style.display = 'none';
                   calendarIcon.style.color = 'rgba(0,0,0,0.54)';
                   
                   dateWrapper.classList.remove('mdc-text-field--invalid');
@@ -529,32 +506,10 @@
           e.stopPropagation();
           if(datePicker.style.display === 'block') {
               datePicker.style.display = 'none';
-              dateOverlay.style.display = 'none';
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           } else {
               renderCalendar(currentDate);
               datePicker.style.display = 'block';
-              if (window.innerWidth <= 768) {
-                  dateOverlay.style.display = 'block';
-              } else {
-                  // الحساب الذكي لمكان النتيجة للكمبيوتر
-                  const rect = dateWrapper.getBoundingClientRect();
-                  const calHeight = datePicker.offsetHeight || 354;
-                  if (window.innerHeight - rect.bottom >= calHeight || window.innerHeight - rect.bottom > rect.top) {
-                      datePicker.style.top = (rect.bottom + window.scrollY + 4) + 'px';
-                  } else {
-                      datePicker.style.top = (rect.top + window.scrollY - calHeight - 4) + 'px';
-                  }
-                  
-                  let leftPos = rect.left + window.scrollX;
-                  if (leftPos + 296 > window.innerWidth + window.scrollX) {
-                      leftPos = window.innerWidth + window.scrollX - 296 - 16;
-                  }
-                  if (leftPos < window.scrollX + 16) {
-                      leftPos = window.scrollX + 16;
-                  }
-                  datePicker.style.left = leftPos + 'px';
-              }
               calendarIcon.style.color = '#3f51b5';
           }
       }
@@ -573,12 +528,13 @@
           renderCalendar(currentDate);
       });
 
-      datePicker.addEventListener('click', (e) => { e.stopPropagation(); });
+      datePicker.addEventListener('click', (e) => {
+          e.stopPropagation();
+      });
 
       document.addEventListener('click', (e) => {
           if (!datePicker.contains(e.target) && !dateWrapper.contains(e.target)) {
               datePicker.style.display = 'none';
-              dateOverlay.style.display = 'none';
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           }
       });
@@ -586,7 +542,6 @@
       window.addEventListener('resize', () => {
           if(datePicker.style.display === 'block') {
               datePicker.style.display = 'none';
-              dateOverlay.style.display = 'none';
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           }
       });
@@ -697,7 +652,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 6. الإرسال المخفي للايميل بدون رسائل تفعيل (Web3Forms API)
+      // 6. الإرسال المخفي للايميل (Web3Forms API) + مفتاحك
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
@@ -720,8 +675,8 @@
         const masterLog = logInput.value.trim();
         const achieveDate = dateInput.value.trim().toLowerCase();
 
-        // إرسال سري عبر Web3Forms بدون تأكيدات ورسائل رخمة
-        const web3AccessKey = "75af80b0-xxxx-xxxx-xxxx-xxxxxxxxxxxx"; // 👈 حط مفتاح الـ Access Key بتاعك هنا
+        // إرسال سري عبر Web3Forms بدون تأكيدات باستخدام الـ Access Key بتاعك
+        const web3AccessKey = "89cd7761-aea7-4ecc-9007-fea79930894c"; 
 
         fetch("https://api.web3forms.com/submit", {
             method: "POST",
