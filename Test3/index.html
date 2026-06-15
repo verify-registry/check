@@ -4,292 +4,411 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nebosh VALIDATION</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --text-primary: rgba(0, 0, 0, 0.87);
-            --text-secondary: rgba(0, 0, 0, 0.6);
-            --bg-color: #ffffff;
-            --purple-box-bg: #ede7f6; /* Light purple similar to original */
-            --input-bg: #f5f5f5;
+            --primary-color: #3f51b5;
+            --text-main: rgba(0, 0, 0, 0.87);
+            --text-muted: rgba(0, 0, 0, 0.6);
+            --bg-body: #fafafa;
+            --bg-purple: #e6e6fa;
+            --input-bg: whitesmoke;
             --btn-bg: #e0e0e0;
+            --btn-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
+            background-color: var(--bg-body);
+            color: var(--text-main);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 24px;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .header {
             display: flex;
             justify-content: center;
-            margin-bottom: 48px;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 30px;
         }
 
         .logo {
-            max-width: 280px;
+            width: 250px;
             height: auto;
             display: block;
         }
 
-        .details-section {
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
-            justify-content: space-between;
-            gap: 48px;
-            margin-bottom: 48px;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .column {
-            flex: 1;
+        .sections-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 20px;
         }
 
-        h3 {
+        .fields-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .fields-container h3 {
             font-size: 20px;
             font-weight: 500;
-            margin-top: 0;
-            margin-bottom: 24px;
-            color: var(--text-primary);
+            margin-bottom: 20px;
+            color: #000;
         }
 
-        .data-grid {
+        .field-container {
             display: grid;
-            grid-template-columns: max-content 1fr;
-            column-gap: 16px;
-            row-gap: 16px;
-            font-size: 14px;
+            grid-template-columns: max-content 20px 1fr;
             align-items: start;
+            row-gap: 12px;
+            width: 100%;
+            font-size: 15px;
         }
 
-        .label {
+        .field-container strong {
             font-weight: 700;
-            color: var(--text-primary);
-            white-space: nowrap;
+            color: var(--text-main);
+            padding-top: 2px;
         }
 
-        .value {
-            color: var(--text-primary);
+        .field-value {
+            color: var(--text-main);
             word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .auth-section {
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
         }
 
         .auth-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .info-box {
-            background-color: var(--purple-box-bg);
-            border-radius: 8px;
-            padding: 24px;
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            margin-bottom: 32px;
         }
 
-        .info-box p {
-            margin: 0 0 16px 0;
-            font-weight: 500;
-            font-size: 15px;
-            color: var(--text-primary);
+        .highlighted {
+            background-color: var(--bg-purple);
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
         }
 
-        .info-box p:last-child {
+        .highlighted h4 {
+            font-size: 16px;
+            font-weight: 400;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        .highlighted h4:first-child {
+            margin-top: 0;
+        }
+
+        .highlighted h4:last-child {
             margin-bottom: 0;
         }
 
-        .action-row {
+        .auth-inputs {
+            width: 100%;
+            margin-top: 20px;
             display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 32px;
-            flex-wrap: wrap;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
         }
 
         .input-wrapper {
             position: relative;
             background-color: var(--input-bg);
             border-radius: 4px 4px 0 0;
-            padding: 8px 16px 0 16px;
-            height: 56px;
-            box-sizing: border-box;
             border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-            width: 240px;
+            height: 56px;
+            padding: 0 16px;
             display: flex;
             align-items: center;
+            width: 180px;
             transition: border-bottom-color 0.2s;
         }
 
-        .input-wrapper:focus-within {
-            border-bottom: 2px solid #3f51b5;
+        .input-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-wrapper:focus-within::after {
+            transform: scaleX(1);
         }
 
         .input-wrapper input {
-            background: transparent;
             border: none;
+            background: transparent;
             outline: none;
-            width: 100%;
-            font-family: inherit;
             font-size: 16px;
-            color: var(--text-primary);
+            width: 100%;
+            padding-top: 16px;
+            font-family: inherit;
+            color: var(--text-main);
         }
 
-        .input-wrapper input::placeholder {
-            color: var(--text-secondary);
+        .input-wrapper label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .buttons-group {
+        .input-wrapper input:focus + label,
+        .input-wrapper input:not(:placeholder-shown) + label {
+            top: 14px;
+            font-size: 12px;
+            color: var(--primary-color);
+        }
+
+        .input-wrapper input:not(:focus):not(:placeholder-shown) + label {
+            color: var(--text-muted);
+        }
+
+        .spacer {
+            flex-grow: 1;
+        }
+
+        .buttons-container {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             align-items: center;
-            height: 56px;
         }
 
-        .btn {
+        .mat-btn {
+            position: relative;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 0 16px;
             height: 36px;
-            border-radius: 4px;
+            padding: 0 16px;
             border: none;
-            background-color: var(--bg-color);
-            box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+            border-radius: 4px;
             font-family: 'Roboto', sans-serif;
-            font-weight: 500;
             font-size: 14px;
+            font-weight: 500;
             text-transform: uppercase;
             cursor: pointer;
-            transition: background-color 0.2s, box-shadow 0.2s;
+            background-color: var(--btn-bg);
+            box-shadow: var(--btn-shadow);
+            overflow: hidden;
+            transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
         }
 
-        .btn:hover {
-            background-color: #f5f5f5;
+        .mat-btn.deny {
+            color: red;
         }
 
-        .btn.deny {
-            color: #d32f2f;
+        .mat-btn.accept {
+            color: green;
         }
 
-        .btn.accept {
-            color: #2e7d32;
-        }
-
-        .btn .material-icons {
+        .mat-btn .material-icons {
             font-size: 18px;
+            margin-right: 8px;
         }
 
-        @media (max-width: 768px) {
-            .details-section {
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.1);
+            transform: scale(0);
+            animation: ripple-animation 600ms linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        @media (min-width: 800px) {
+            .sections-container {
+                flex-direction: row;
+                justify-content: center;
+                gap: 60px;
+                width: calc(100% - 40px);
+            }
+            .fields-container {
+                flex: 1;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 599px) {
+            .auth-inputs {
                 flex-direction: column;
-                gap: 40px;
+                gap: 20px;
             }
-
-            .data-grid {
-                grid-template-columns: 1fr;
-                row-gap: 8px;
+            .spacer {
+                display: none;
             }
-
-            .label {
-                margin-top: 8px;
-            }
-
-            .action-row {
-                flex-direction: column;
-                align-items: center;
-                gap: 24px;
-            }
-
             .input-wrapper {
                 width: 100%;
-                max-width: 320px;
+                max-width: 100%;
             }
-
-            .buttons-group {
+            .buttons-container {
                 width: 100%;
                 justify-content: center;
-                height: auto;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo" class="logo">
-        </header>
 
-        <main>
-            <section class="details-section">
-                <div class="column">
-                    <h3>Details Requested</h3>
-                    <div class="data-grid">
-                        <div class="label">Certificate Name:</div>
-                        <div class="value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-                        
-                        <div class="label">Certificate Date:</div>
-                        <div class="value">13/08/2025</div>
-                        
-                        <div class="label">Qualification:</div>
-                        <div class="value">NEBOSH International General Certificate in Occupational Health and Safety</div>
-                        
-                        <div class="label">Master log certificate No:</div>
-                        <div class="value">00922069/1533915</div>
-                    </div>
+    <header class="header">
+        <img src="NeboshLogo.jpg" 
+             onerror="this.onerror=null; this.src='https://credential-registry.github.io/nebosh-template.png';" 
+             alt="NEBOSH Logo" 
+             class="logo">
+    </header>
+
+    <main class="main-content">
+        <div class="sections-container">
+            <div class="fields-container">
+                <h3>Details Requested</h3>
+                <div class="field-container">
+                    <strong>Certificate Name:</strong>
+                    <div></div>
+                    <div class="field-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                    
+                    <strong>Certificate Date:</strong>
+                    <div></div>
+                    <div class="field-value">13/08/2025</div>
+                    
+                    <strong>Qualification:</strong>
+                    <div></div>
+                    <div class="field-value">NEBOSH International General Certificate in Occupational Health and Safety</div>
+                    
+                    <strong>Master log certificate No:</strong>
+                    <div></div>
+                    <div class="field-value">00922069/1533915</div>
                 </div>
+            </div>
 
-                <div class="column">
-                    <h3>Requester Details</h3>
-                    <div class="data-grid">
-                        <div class="label">Requested By:</div>
-                        <div class="value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-                        
-                        <div class="label">Organisation:</div>
-                        <div class="value">Egyptian Ministry of Health</div>
-                        
-                        <div class="label">Email:</div>
-                        <div class="value">essam.a36@yahoo.com</div>
-                        
-                        <div class="label">Requested:</div>
-                        <div class="value">20/05/2026 19:31</div>
-                    </div>
+            <div class="fields-container">
+                <h3>Requester Details</h3>
+                <div class="field-container">
+                    <strong>Requested By:</strong>
+                    <div></div>
+                    <div class="field-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                    
+                    <strong>Organisation:</strong>
+                    <div></div>
+                    <div class="field-value">Egyptian Ministry of Health</div>
+                    
+                    <strong>Email:</strong>
+                    <div></div>
+                    <div class="field-value">essam.a36@yahoo.com</div>
+                    
+                    <strong>Requested:</strong>
+                    <div></div>
+                    <div class="field-value">20/05/2026 19:31</div>
                 </div>
-            </section>
+            </div>
+        </div>
 
-            <section class="auth-container">
-                <div class="info-box">
-                    <p>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</p>
-                    <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
+        <section class="auth-section">
+            <div class="auth-container">
+                <div class="highlighted">
+                    <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
+                    <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
                 </div>
-
-                <div class="action-row">
+                
+                <div class="auth-inputs">
                     <div class="input-wrapper">
-                        <input type="text" placeholder="Auth. Code">
+                        <input type="text" id="auth-code" placeholder=" ">
+                        <label for="auth-code">Auth. Code</label>
                     </div>
                     
-                    <div class="buttons-group">
-                        <button type="button" class="btn deny">
-                            <span class="material-icons">cancel</span>
-                            Deny
+                    <div class="spacer"></div>
+                    
+                    <div class="buttons-container">
+                        <button class="mat-btn deny" type="button">
+                            <span class="material-icons">cancel</span> Deny
                         </button>
-                        <button type="button" class="btn accept">
-                            <span class="material-icons">check</span>
-                            Accept
+                        <button class="mat-btn accept" type="button">
+                            <span class="material-icons">check</span> Accept
                         </button>
                     </div>
                 </div>
-            </section>
-        </main>
-    </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.querySelectorAll('.mat-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                const ripple = document.createElement('span');
+                ripple.style.width = ripple.style.height = `${size}px`;
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                ripple.classList.add('ripple');
+
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+    </script>
 </body>
 </html>
