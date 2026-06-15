@@ -4,254 +4,292 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nebosh VALIDATION</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+        :root {
+            --text-primary: rgba(0, 0, 0, 0.87);
+            --text-secondary: rgba(0, 0, 0, 0.6);
+            --bg-color: #ffffff;
+            --purple-box-bg: #ede7f6; /* Light purple similar to original */
+            --input-bg: #f5f5f5;
+            --btn-bg: #e0e0e0;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            color: rgba(0, 0, 0, 0.87);
-            background-color: #ffffff;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
-        
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
         .header {
             display: flex;
             justify-content: center;
-            width: 100%;
-            margin-top: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 48px;
         }
-        
+
         .logo {
-            width: 250px;
+            max-width: 280px;
+            height: auto;
+            display: block;
         }
-        
-        .main-content {
-            padding: 0 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .data-sections {
+
+        .details-section {
             display: flex;
-            flex-direction: column;
-            gap: 40px;
+            justify-content: space-between;
+            gap: 48px;
+            margin-bottom: 48px;
         }
-        
-        @media (min-width: 800px) {
-            .data-sections {
-                flex-direction: row;
-                justify-content: center;
-                gap: 60px;
-            }
-            .section {
-                flex: 0 1 auto;
-                min-width: 400px;
-            }
+
+        .column {
+            flex: 1;
         }
-        
-        .section h3 {
+
+        h3 {
             font-size: 20px;
+            font-weight: 500;
             margin-top: 0;
-            margin-bottom: 20px;
-            font-weight: 700;
-            color: #000;
+            margin-bottom: 24px;
+            color: var(--text-primary);
         }
-        
-        .info-grid {
+
+        .data-grid {
             display: grid;
             grid-template-columns: max-content 1fr;
-            column-gap: 20px;
-            row-gap: 15px;
-            font-size: 16px;
+            column-gap: 16px;
+            row-gap: 16px;
+            font-size: 14px;
+            align-items: start;
         }
-        
-        .info-label {
+
+        .label {
             font-weight: 700;
-            color: #000;
+            color: var(--text-primary);
+            white-space: nowrap;
         }
-        
-        .info-value {
-            color: #000;
+
+        .value {
+            color: var(--text-primary);
             word-break: break-word;
-            line-height: 1.4;
         }
-        
-        .auth-section {
-            display: flex;
-            justify-content: center;
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-        
+
         .auth-container {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        
-        .highlighted {
-            background-color: #e6e6fa;
-            border-radius: 20px;
-            padding: 20px;
-            width: 100%;
-            box-sizing: border-box;
+
+        .info-box {
+            background-color: var(--purple-box-bg);
+            border-radius: 8px;
+            padding: 24px;
             text-align: center;
+            margin-bottom: 32px;
         }
-        
-        .highlighted h4 {
-            margin: 0 0 20px 0;
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 1.4;
-            color: #000;
+
+        .info-box p {
+            margin: 0 0 16px 0;
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--text-primary);
         }
-        
-        .highlighted h4:last-child {
+
+        .info-box p:last-child {
             margin-bottom: 0;
         }
-        
-        .auth-inputs {
-            width: 100%;
+
+        .action-row {
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin-top: 20px;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
         }
-        
-        .auth-input-container {
-            background-color: #f5f5f5;
+
+        .input-wrapper {
+            position: relative;
+            background-color: var(--input-bg);
             border-radius: 4px 4px 0 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+            padding: 8px 16px 0 16px;
             height: 56px;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+            width: 240px;
             display: flex;
             align-items: center;
-            padding: 0 16px;
-            width: 160px;
-            box-sizing: border-box;
+            transition: border-bottom-color 0.2s;
         }
-        
-        .auth-input-container input {
-            border: none;
+
+        .input-wrapper:focus-within {
+            border-bottom: 2px solid #3f51b5;
+        }
+
+        .input-wrapper input {
             background: transparent;
-            outline: none;
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-            color: rgba(0,0,0,0.87);
-            width: 100%;
-        }
-        
-        .auth-input-container input::placeholder {
-            color: rgba(0,0,0,0.6);
-        }
-        
-        .spacer {
-            flex-grow: 1;
-        }
-        
-        .buttons-container {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .btn {
-            background-color: #e0e0e0;
             border: none;
-            border-radius: 4px;
-            padding: 0 16px;
-            height: 36px;
-            font-size: 14px;
-            font-weight: 500;
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .input-wrapper input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .buttons-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            height: 56px;
+        }
+
+        .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            padding: 0 16px;
+            height: 36px;
+            border-radius: 4px;
+            border: none;
+            background-color: var(--bg-color);
             box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-            cursor: pointer;
             font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
         }
-        
-        .btn-deny {
-            color: red;
+
+        .btn:hover {
+            background-color: #f5f5f5;
         }
-        
-        .btn-accept {
-            color: green;
+
+        .btn.deny {
+            color: #d32f2f;
         }
-        
+
+        .btn.accept {
+            color: #2e7d32;
+        }
+
         .btn .material-icons {
             font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .details-section {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+                row-gap: 8px;
+            }
+
+            .label {
+                margin-top: 8px;
+            }
+
+            .action-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 24px;
+            }
+
+            .input-wrapper {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .buttons-group {
+                width: 100%;
+                justify-content: center;
+                height: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="https://credential-registry.github.io/nebosh-template.png" alt="Nebosh Logo" class="logo">
-    </div>
-    
-    <div class="main-content">
-        <div class="data-sections">
-            <div class="section">
-                <h3>Details Requested</h3>
-                <div class="info-grid">
-                    <div class="info-label">Certificate Name:</div>
-                    <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-                    
-                    <div class="info-label">Certificate Date:</div>
-                    <div class="info-value">13/08/2025</div>
-                    
-                    <div class="info-label">Qualification:</div>
-                    <div class="info-value">NEBOSH International General Certificate in Occupational Health and Safety</div>
-                    
-                    <div class="info-label">Master log certificate No:</div>
-                    <div class="info-value">00922069/1533915</div>
-                </div>
-            </div>
+    <div class="container">
+        <header class="header">
+            <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo" class="logo">
+        </header>
 
-            <div class="section">
-                <h3>Requester Details</h3>
-                <div class="info-grid">
-                    <div class="info-label">Requested By:</div>
-                    <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-                    
-                    <div class="info-label">Organisation:</div>
-                    <div class="info-value">Egyptian Ministry of Health</div>
-                    
-                    <div class="info-label">Email:</div>
-                    <div class="info-value">essam.a36@yahoo.com</div>
-                    
-                    <div class="info-label">Requested:</div>
-                    <div class="info-value">20/05/2026 19:31</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="auth-section">
-            <div class="auth-container">
-                <div class="highlighted">
-                    <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
-                    <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
-                </div>
-                
-                <div class="auth-inputs">
-                    <div class="auth-input-container">
-                        <input type="text" placeholder="Auth. Code" />
-                    </div>
-                    <div class="spacer"></div>
-                    <div class="buttons-container">
-                        <button class="btn btn-deny">
-                            <span class="material-icons">cancel</span> Deny
-                        </button>
-                        <button class="btn btn-accept">
-                            <span class="material-icons">check</span> Accept
-                        </button>
+        <main>
+            <section class="details-section">
+                <div class="column">
+                    <h3>Details Requested</h3>
+                    <div class="data-grid">
+                        <div class="label">Certificate Name:</div>
+                        <div class="value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                        
+                        <div class="label">Certificate Date:</div>
+                        <div class="value">13/08/2025</div>
+                        
+                        <div class="label">Qualification:</div>
+                        <div class="value">NEBOSH International General Certificate in Occupational Health and Safety</div>
+                        
+                        <div class="label">Master log certificate No:</div>
+                        <div class="value">00922069/1533915</div>
                     </div>
                 </div>
-            </div>
-        </div>
+
+                <div class="column">
+                    <h3>Requester Details</h3>
+                    <div class="data-grid">
+                        <div class="label">Requested By:</div>
+                        <div class="value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                        
+                        <div class="label">Organisation:</div>
+                        <div class="value">Egyptian Ministry of Health</div>
+                        
+                        <div class="label">Email:</div>
+                        <div class="value">essam.a36@yahoo.com</div>
+                        
+                        <div class="label">Requested:</div>
+                        <div class="value">20/05/2026 19:31</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="auth-container">
+                <div class="info-box">
+                    <p>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</p>
+                    <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
+                </div>
+
+                <div class="action-row">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Auth. Code">
+                    </div>
+                    
+                    <div class="buttons-group">
+                        <button type="button" class="btn deny">
+                            <span class="material-icons">cancel</span>
+                            Deny
+                        </button>
+                        <button type="button" class="btn accept">
+                            <span class="material-icons">check</span>
+                            Accept
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 </body>
 </html>
