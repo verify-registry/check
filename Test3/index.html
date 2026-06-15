@@ -6,188 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="https://nebosh-validation.verisecure.org/assets/corp_logo.gif">
   
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
   <style>
-    body { 
-      margin: 0; 
-      font-family: 'Roboto', sans-serif; 
-      background-color: #ffffff; 
-      color: rgba(0, 0, 0, 0.87); 
-    }
-
-    .page-container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 30px 20px;
-      position: relative;
-    }
-
-    .logo-container {
-      text-align: center;
-      margin-bottom: 50px;
-      position: relative;
-      z-index: 20;
-    }
-    .logo-container img { width: 250px; }
-
-    /* تقسيم البيانات */
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr; 
-      gap: 60px; 
-      margin-bottom: 50px;
-      position: relative;
-      z-index: 20;
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #000;
-      margin-top: 0;
-      margin-bottom: 20px;
-    }
-
-    .info-row {
-      display: grid;
-      grid-template-columns: 220px 1fr; 
-      gap: 10px;
-      margin-bottom: 12px;
-      align-items: start;
-      font-size: 16px;
-      line-height: 1.4;
-    }
-
-    .info-label { font-weight: 700; color: #000; }
-
-    /* المربع التأكيدي */
-    .auth-wrapper {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      position: relative;
-      z-index: 20;
-    }
-
-    .auth-container {
-      max-width: 600px;
-      width: 100%;
-    }
-
-    .purple-box {
-      background-color: #e8eaf6; 
-      border-radius: 12px;
-      padding: 25px 30px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .purple-box p {
-      margin: 0 0 15px 0;
-      font-weight: 700;
-      font-size: 15px;
-      line-height: 1.5;
-      color: #000;
-    }
-    .purple-box p:last-child { margin-bottom: 0; }
-
-    /* مربع الإدخال والأزرار */
-    .form-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    .input-container { 
-      flex-grow: 1; 
-      display: flex;
-    }
-
-    .auth-input {
-      width: 100%;
-      height: 44px;
-      background-color: #f5f5f5; 
-      border: none;
-      border-bottom: 1px solid rgba(0,0,0,0.3);
-      border-radius: 4px 4px 0 0;
-      padding: 0 16px;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      box-sizing: border-box;
-      outline: none;
-      transition: border-bottom-color 0.2s;
-    }
-    .auth-input:focus { border-bottom: 2px solid #3f51b5; }
-    .auth-input::placeholder { color: rgba(0,0,0,0.5); }
-
-    .buttons-container {
-      display: flex;
-      gap: 10px;
-    }
-
-    .action-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 38px;
-      padding: 0 16px;
-      background-color: #e4e4e4; 
-      border: none;
-      border-radius: 4px;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 500;
-      font-size: 14px;
-      text-transform: none; 
-      cursor: pointer;
-      box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.1), 0px 1px 2px 0px rgba(0,0,0,0.1);
-      transition: box-shadow 0.2s, background-color 0.2s;
-    }
-    .action-btn:active { box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1); }
+    body { margin: 0; font-family: Roboto, sans-serif; background-color: #fafafa; }
     
-    .action-btn.deny { color: #d32f2f; }
-    .action-btn.accept { color: #388e3c; }
+    /* الطبقة الشفافة للتحويل */
+    .click-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; cursor: pointer; background: transparent; }
+
+    /* الهيكل الأصلي بالمللي */
+    .sections-container { width: 90%; max-width: 1100px; margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; position: relative; z-index: 1000; }
+    .fields-container { background: white; padding: 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .field-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
     
-    .action-btn .material-icons {
-      font-size: 18px;
-      margin-right: 6px;
-    }
-
-    /* الطبقة الشفافة */
-    .click-overlay { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-      z-index: 10; background: transparent; cursor: pointer; 
-    }
-
-    /* تجاوب الموبايل للوصول لنفس شكل الصورة بالمللي */
-    @media (max-width: 850px) {
-      .content-grid { grid-template-columns: 1fr; gap: 30px; }
-      .info-row { grid-template-columns: 145px 1fr; }
-    }
+    .auth-section { width: 90%; max-width: 500px; margin: 20px auto; position: relative; z-index: 1000; }
+    .highlighted { background-color: #e8eaf6; padding: 20px; border-radius: 16px; text-align: center; margin-bottom: 15px; font-weight: 700; }
+    
+    .auth-inputs { display: grid; grid-template-columns: 1fr auto; gap: 15px; align-items: center; }
+    .auth-input { height: 50px; padding: 0 15px; border: 1px solid #ccc; border-radius: 4px; }
+    .buttons-container { display: flex; gap: 10px; }
+    
+    /* تنسيق أزرار الأصلية */
+    .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px; font-weight: bold; }
+    .deny { background: #e0e0e0; color: #d32f2f; }
+    .accept { background: #e0e0e0; color: #388e3c; }
 
     @media (max-width: 600px) {
-      .form-row { 
-        flex-direction: row; 
-        align-items: stretch; 
-      }
-      .buttons-container { 
-        flex-direction: column; 
-        gap: 8px;
-        min-width: 100px;
-      }
-      .action-btn { 
-        flex: 1; 
-        height: auto;
-        padding: 8px 16px;
-        justify-content: flex-start;
-      }
-      .auth-input {
-        height: auto;
-        min-height: 100%;
-      }
+      .auth-inputs { grid-template-columns: 1fr; }
+      .buttons-container { justify-content: flex-end; }
     }
   </style>
 </head>
@@ -195,96 +39,51 @@
 
   <a href="https://www.nebosh.org.uk/" class="click-overlay" target="_blank"></a>
 
-  <div class="page-container">
+  <div style="text-align:center; padding-top: 20px; position: relative; z-index: 1000;">
+    <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" width="250">
+  </div>
+
+  <div class="sections-container">
+    <div class="fields-container">
+      <h3>Details Requested</h3>
+      <div class="field-container">
+        <div><strong>Certificate Name:</strong></div> <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+        <div><strong>Certificate Date:</strong></div> <div>13/08/2025</div>
+        <div><strong>Qualification:</strong></div> <div>NEBOSH International General Certificate in Occupational Health and Safety</div>
+        <div><strong>Master log certificate No:</strong></div> <div>00922069/1533915</div>
+      </div>
+    </div>
+
+    <div class="fields-container">
+      <h3>Requester Details</h3>
+      <div class="field-container">
+        <div><strong>Requested By:</strong></div> <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+        <div><strong>Organisation:</strong></div> <div>Egyptian Ministry of Health</div>
+        <div><strong>Email:</strong></div> <div>essam.a36@yahoo.com</div>
+        <div><strong>Requested:</strong></div> <div id="live-requested-date"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-section">
+    <div class="highlighted">
+      <p>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</p>
+      <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
+    </div>
     
-    <div class="logo-container">
-      <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="Nebosh Logo">
-    </div>
-
-    <div class="content-grid">
-      
-      <div>
-        <h3 class="section-title">Details Requested</h3>
-        <div class="info-row">
-          <div class="info-label">Certificate Name:</div>
-          <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Certificate Date:</div>
-          <div>13/08/2025</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Qualification:</div>
-          <div>NEBOSH International General Certificate in Occupational Health and Safety</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Master log certificate No:</div>
-          <div>00922069/1533915</div>
-        </div>
-      </div>
-
-      <div>
-        <h3 class="section-title">Requester Details</h3>
-        <div class="info-row">
-          <div class="info-label">Requested By:</div>
-          <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Organisation:</div>
-          <div>Egyptian Ministry of Health</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Email:</div>
-          <div>essam.a36@yahoo.com</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Requested:</div>
-          <div id="live-requested-date">Loading...</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="auth-wrapper">
-      <div class="auth-container">
-        
-        <div class="purple-box">
-          <p>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</p>
-          <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
-        </div>
-
-        <div class="form-row">
-          <div class="input-container">
-            <input type="text" class="auth-input" placeholder="Auth. Code">
-          </div>
-          <div class="buttons-container">
-            <button class="action-btn deny" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
-              <span class="material-icons">cancel</span> Deny
-            </button>
-            <button class="action-btn accept" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
-              <span class="material-icons">check</span> Accept
-            </button>
-          </div>
-        </div>
-
+    <div class="auth-inputs">
+      <input type="text" class="auth-input" placeholder="Auth. Code">
+      <div class="buttons-container">
+        <button class="btn deny">❌ Deny</button>
+        <button class="btn accept">✔ Accept</button>
       </div>
     </div>
-
   </div>
 
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const now = new Date();
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const year = now.getFullYear();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      
-      const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
-      document.getElementById('live-requested-date').innerText = formattedDateTime;
-    });
+    const now = new Date();
+    document.getElementById('live-requested-date').innerText = 
+      `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
   </script>
-
 </body>
 </html>
