@@ -13,24 +13,17 @@
             --primary-color: #3f51b5;
             --text-main: rgba(0, 0, 0, 0.87);
             --text-muted: rgba(0, 0, 0, 0.6);
-            --bg-body: #fafafa;
+            --bg-body: #ffffff;
             --bg-purple: #e6e6fa;
-            --input-bg: whitesmoke;
-            --btn-bg: #e0e0e0;
-            --btn-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            --input-bg: #f5f5f5;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
             background-color: var(--bg-body);
             color: var(--text-main);
-            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -38,10 +31,9 @@
         .header {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
             width: 100%;
             margin-top: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .logo {
@@ -51,49 +43,55 @@
         }
 
         .main-content {
+            padding: 0 10px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .sections-container {
-            width: 100%;
             display: flex;
             flex-direction: column;
             gap: 40px;
-            margin-bottom: 20px;
+            width: calc(100% - 20px);
+            margin: 0 auto 20px auto;
+        }
+
+        @media (min-width: 800px) {
+            .sections-container {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr auto 1fr;
+                gap: 0;
+            }
+            .section-1 { grid-column: 2; }
+            .spacer-col { grid-column: 3; min-width: 60px; }
+            .section-2 { grid-column: 4; }
         }
 
         .fields-container {
-            width: 100%;
             display: flex;
             flex-direction: column;
-            padding: 10px;
         }
 
         .fields-container h3 {
             font-size: 20px;
             font-weight: 500;
+            margin-top: 0;
             margin-bottom: 20px;
-            color: #000;
+            color: var(--text-main);
         }
 
         .field-container {
             display: grid;
             grid-template-columns: max-content 20px 1fr;
             align-items: start;
-            row-gap: 12px;
-            width: 100%;
+            row-gap: 16px;
             font-size: 15px;
         }
 
         .field-container strong {
             font-weight: 700;
             color: var(--text-main);
-            padding-top: 2px;
+            white-space: nowrap;
         }
 
         .field-value {
@@ -103,12 +101,11 @@
         }
 
         .auth-section {
-            width: 100%;
-            padding: 10px;
             display: flex;
             justify-content: center;
             margin-top: 20px;
             margin-bottom: 40px;
+            padding: 10px;
         }
 
         .auth-container {
@@ -125,17 +122,15 @@
             border-radius: 20px;
             padding: 20px;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .highlighted h4 {
+            margin: 0 0 16px 0;
             font-size: 16px;
-            font-weight: 400;
-            margin: 10px 0;
-            line-height: 1.4;
-        }
-
-        .highlighted h4:first-child {
-            margin-top: 0;
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-main);
         }
 
         .highlighted h4:last-child {
@@ -144,24 +139,23 @@
 
         .auth-inputs {
             width: 100%;
-            margin-top: 20px;
             display: flex;
             flex-direction: row;
             align-items: center;
-            position: relative;
+            margin-top: 24px;
         }
 
         .input-wrapper {
-            position: relative;
             background-color: var(--input-bg);
             border-radius: 4px 4px 0 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.42);
             height: 56px;
-            padding: 0 16px;
             display: flex;
             align-items: center;
+            padding: 0 16px;
             width: 180px;
-            transition: border-bottom-color 0.2s;
+            box-sizing: border-box;
+            position: relative;
         }
 
         .input-wrapper::after {
@@ -185,10 +179,10 @@
             background: transparent;
             outline: none;
             font-size: 16px;
-            width: 100%;
-            padding-top: 16px;
             font-family: inherit;
             color: var(--text-main);
+            width: 100%;
+            padding-top: 14px;
         }
 
         .input-wrapper label {
@@ -224,25 +218,29 @@
         }
 
         .mat-btn {
-            position: relative;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 0 16px;
+            height: 36px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            height: 36px;
-            padding: 0 16px;
-            border: none;
-            border-radius: 4px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            text-transform: uppercase;
+            gap: 8px;
+            box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
             cursor: pointer;
-            background-color: var(--btn-bg);
-            box-shadow: var(--btn-shadow);
+            position: relative;
             overflow: hidden;
-            transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s;
+            transition: background-color 0.2s, box-shadow 0.2s;
             -webkit-tap-highlight-color: transparent;
-            outline: none;
+        }
+
+        .mat-btn:hover {
+            background-color: #f5f5f5;
         }
 
         .mat-btn.deny {
@@ -255,15 +253,14 @@
 
         .mat-btn .material-icons {
             font-size: 18px;
-            margin-right: 8px;
         }
 
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.1);
             transform: scale(0);
             animation: ripple-animation 600ms linear;
+            background-color: rgba(0, 0, 0, 0.1);
             pointer-events: none;
         }
 
@@ -274,30 +271,17 @@
             }
         }
 
-        @media (min-width: 800px) {
-            .sections-container {
-                flex-direction: row;
-                justify-content: center;
-                gap: 60px;
-                width: calc(100% - 40px);
-            }
-            .fields-container {
-                flex: 1;
-                max-width: 500px;
-            }
-        }
-
-        @media (max-width: 599px) {
+        @media (max-width: 650px) {
             .auth-inputs {
                 flex-direction: column;
-                gap: 20px;
+                gap: 24px;
             }
             .spacer {
                 display: none;
             }
             .input-wrapper {
                 width: 100%;
-                max-width: 100%;
+                max-width: 320px;
             }
             .buttons-container {
                 width: 100%;
@@ -308,16 +292,13 @@
 </head>
 <body>
 
-    <header class="header">
-        <img src="NeboshLogo.jpg" 
-             onerror="this.onerror=null; this.src='https://credential-registry.github.io/nebosh-template.png';" 
-             alt="NEBOSH Logo" 
-             class="logo">
-    </header>
-
+    <div class="header">
+        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="Nebosh Logo" class="logo">
+    </div>
+    
     <main class="main-content">
         <div class="sections-container">
-            <div class="fields-container">
+            <div class="fields-container section-1">
                 <h3>Details Requested</h3>
                 <div class="field-container">
                     <strong>Certificate Name:</strong>
@@ -338,7 +319,9 @@
                 </div>
             </div>
 
-            <div class="fields-container">
+            <div class="spacer-col"></div>
+
+            <div class="fields-container section-2">
                 <h3>Requester Details</h3>
                 <div class="field-container">
                     <strong>Requested By:</strong>
@@ -360,7 +343,7 @@
             </div>
         </div>
 
-        <section class="auth-section">
+        <div class="auth-section">
             <div class="auth-container">
                 <div class="highlighted">
                     <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
@@ -369,28 +352,28 @@
                 
                 <div class="auth-inputs">
                     <div class="input-wrapper">
-                        <input type="text" id="auth-code" placeholder=" ">
-                        <label for="auth-code">Auth. Code</label>
+                        <input type="text" id="authCode" placeholder=" ">
+                        <label for="authCode">Auth. Code</label>
                     </div>
                     
                     <div class="spacer"></div>
                     
                     <div class="buttons-container">
-                        <button class="mat-btn deny" type="button">
+                        <button type="button" class="mat-btn deny">
                             <span class="material-icons">cancel</span> Deny
                         </button>
-                        <button class="mat-btn accept" type="button">
+                        <button type="button" class="mat-btn accept">
                             <span class="material-icons">check</span> Accept
                         </button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
     <script>
-        document.querySelectorAll('.mat-btn').forEach(button => {
-            button.addEventListener('click', function (e) {
+        document.querySelectorAll('.mat-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
                 const rect = this.getBoundingClientRect();
                 const size = Math.max(rect.width, rect.height);
                 const x = e.clientX - rect.left - size / 2;
