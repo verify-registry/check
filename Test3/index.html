@@ -3,82 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>nebosh VALIDATION</title>
-  <link rel="icon" type="image/x-icon" href="https://nebosh-validation.verisecure.org/assets/corp_logo.gif">
+  <title>Generic Validation Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   
   <style>
-    /* الإعدادات الأساسية للخطوط والخلفية */
     body {
       margin: 0;
       font-family: 'Roboto', sans-serif;
-      color: #000;
       background-color: #ffffff;
-      /* تحويل مؤشر الماوس ليد ليعلم المستخدم أن الصفحة قابلة للضغط */
-      cursor: pointer; 
+      color: #000;
+      cursor: pointer; /* جعل الصفحة بالكامل قابلة للضغط */
     }
 
-    /* تنسيق اللوجو في المنتصف */
+    /* مكان اللوجو العام */
     .logo-container {
       text-align: center;
-      margin-top: 30px;
-      margin-bottom: 40px;
+      margin: 40px 0;
     }
 
-    .logo-container img {
+    .logo-placeholder {
       width: 250px;
+      height: 80px;
+      background-color: #e0e0e0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #757575;
+      font-weight: bold;
     }
 
-    /* تنسيق الشبكة لعرض القسمين جنباً إلى جنب على اللاب توب */
-    .main-content {
-      max-width: 1200px; /* العرض الأقصى المطابق للشاشة */
+    /* التقسيم لعمودين على اللاب توب */
+    .main-grid {
+      max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr; /* عمودين متساويين */
-      gap: 60px; /* المسافة بين العمودين */
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
       padding: 0 30px;
       box-sizing: border-box;
     }
 
-    /* في الشاشات الصغيرة يتم وضعهم تحت بعض */
+    /* التجاوب مع شاشات الموبايل (عمود واحد) */
     @media (max-width: 800px) {
-      .main-content {
-        grid-template-columns: 1fr; 
-        gap: 20px;
+      .main-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
       }
     }
 
     h3 {
       font-size: 19px;
-      font-weight: 700;
-      margin-top: 0;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
-    /* تنسيق صفوف البيانات */
-    .info-row {
+    .data-row {
       display: flex;
       margin-bottom: 12px;
       font-size: 15px;
-      line-height: 1.5;
     }
 
-    .info-label {
-      width: 210px; /* تثبيت عرض العناوين لتكون على استقامة واحدة */
-      font-weight: 700; /* خط عريض */
+    .data-label {
+      width: 200px;
+      font-weight: 700;
       flex-shrink: 0;
     }
 
-    .info-value {
+    .data-value {
       flex-grow: 1;
-      font-weight: 400; /* خط عادي */
     }
 
-    /* =========================================
-       قسم المصادقة السفلي (Auth Section)
-       ========================================= */
-    .auth-section {
+    /* صندوق المصادقة العام */
+    .action-section {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -86,197 +81,105 @@
       padding-bottom: 50px;
     }
 
-    /* المربع البنفسجي الفاتح */
-    .auth-box {
-      background-color: #e8eaf6; 
-      padding: 25px 40px;
-      border-radius: 12px;
+    .message-box {
+      background-color: #e8eaf6;
+      padding: 20px 40px;
+      border-radius: 10px;
       text-align: center;
-      max-width: 650px;
+      max-width: 600px;
       width: 100%;
-      box-sizing: border-box;
     }
 
-    .auth-box h4 {
-      margin: 10px 0;
-      font-size: 15px;
-      font-weight: 700;
-      line-height: 1.4;
-    }
-
-    /* الحاوية التي تحمل حقل الإدخال والأزرار */
-    .auth-controls {
+    .controls {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      max-width: 650px;
+      max-width: 600px;
       width: 100%;
-      margin-top: 25px;
-      box-sizing: border-box;
+      margin-top: 20px;
     }
 
-    /* حقل إدخال الكود (شكل فقط) */
-    .mock-input {
+    .input-mockup {
       background-color: #f5f5f5;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-      border-radius: 4px 4px 0 0;
-      padding: 8px 16px;
-      height: 56px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 280px;
+      border-bottom: 1px solid #000;
+      padding: 10px 15px;
+      width: 250px;
+      color: #666;
     }
 
-    .mock-input-label {
-      font-size: 13px;
-      color: rgba(0, 0, 0, 0.6);
-    }
-
-    .buttons-container {
-      display: flex;
-      gap: 15px;
-    }
-
-    /* الأزرار (شكل فقط ومطفأة كما في الأصل) */
-    .mock-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 36px;
-      padding: 0 16px;
+    .btn-mockup {
+      padding: 10px 20px;
+      background-color: #e0e0e0;
       border-radius: 4px;
-      background-color: #e0e0e0; /* لون الزر الرمادي */
-      font-size: 14px;
-      font-weight: 500;
-      text-transform: uppercase;
-    }
-
-    .mock-btn.deny {
-      color: #d32f2f; /* أحمر */
-    }
-
-    .mock-btn.accept {
-      color: #2e7d32; /* أخضر */
-    }
-
-    .mock-btn .material-icons {
-      font-size: 18px;
-      margin-right: 6px;
+      margin-left: 10px;
+      display: inline-block;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <!-- اللوجو -->
   <div class="logo-container">
-    <img src="NeboshLogo.jpg" alt="Nebosh Logo">
+    <div class="logo-placeholder">LOGO PLACEHOLDER</div>
   </div>
 
-  <!-- القسم الأوسط (عمودين على اللاب توب) -->
-  <div class="main-content">
-    
-    <!-- العمود الأول: Details Requested -->
-    <div class="column">
-      <h3>Details Requested</h3>
-      
-      <div class="info-row">
-        <div class="info-label">Certificate Name:</div>
-        <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+  <div class="main-grid">
+    <div>
+      <h3>Section 1 Details</h3>
+      <div class="data-row">
+        <div class="data-label">Field A:</div>
+        <div class="data-value">Sample Data A</div>
       </div>
-      
-      <div class="info-row">
-        <div class="info-label">Certificate Date:</div>
-        <div class="info-value">13/08/2025</div>
-      </div>
-      
-      <div class="info-row">
-        <div class="info-label">Qualification:</div>
-        <div class="info-value">NEBOSH International General Certificate in Occupational Health and Safety</div>
-      </div>
-      
-      <div class="info-row">
-        <div class="info-label">Master log certificate No:</div>
-        <div class="info-value">00922069/1533915</div>
+      <div class="data-row">
+        <div class="data-label">Field B:</div>
+        <div class="data-value">Sample Data B</div>
       </div>
     </div>
 
-    <!-- العمود الثاني: Requester Details -->
-    <div class="column">
-      <h3>Requester Details</h3>
-      
-      <div class="info-row">
-        <div class="info-label">Requested By:</div>
-        <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+    <div>
+      <h3>Section 2 Details</h3>
+      <div class="data-row">
+        <div class="data-label">Field C:</div>
+        <div class="data-value">Sample Data C</div>
       </div>
-      
-      <div class="info-row">
-        <div class="info-label">Organisation:</div>
-        <div class="info-value">Egyptian Ministry of Health</div>
-      </div>
-      
-      <div class="info-row">
-        <div class="info-label">Email:</div>
-        <div class="info-value">essam.a36@yahoo.com</div>
-      </div>
-      
-      <div class="info-row">
-        <div class="info-label">Requested:</div>
-        <!-- عنصر id الخاص بالوقت سيتم تحديثه هنا -->
-        <div class="info-value" id="dynamic-datetime"></div>
+      <div class="data-row">
+        <div class="data-label">Time & Date:</div>
+        <div class="data-value" id="dynamic-time"></div>
       </div>
     </div>
-
   </div>
 
-  <!-- القسم السفلي: المصادقة (Auth Section) -->
-  <div class="auth-section">
-    <!-- صندوق النص البنفسجي -->
-    <div class="auth-box">
-      <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
-      <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
+  <div class="action-section">
+    <div class="message-box">
+      <p>System message placeholder text goes here.</p>
     </div>
-    
-    <!-- حقل الإدخال والأزرار -->
-    <div class="auth-controls">
-      <div class="mock-input">
-        <span class="mock-input-label">Auth. Code</span>
-      </div>
-      
-      <div class="buttons-container">
-        <div class="mock-btn deny">
-          <span class="material-icons">cancel</span> Deny
-        </div>
-        <div class="mock-btn accept">
-          <span class="material-icons">check</span> Accept
-        </div>
+    <div class="controls">
+      <div class="input-mockup">Input Field</div>
+      <div>
+        <div class="btn-mockup" style="color: red;">Deny</div>
+        <div class="btn-mockup" style="color: green;">Accept</div>
       </div>
     </div>
   </div>
 
   <script>
-    // 1. توليد التاريخ والوقت تلقائياً ليظهر لحظة الضغط على الرابط
-    function updateDateTime() {
-      const now = new Date();
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const year = now.getFullYear();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
+    // 1. تحديث الوقت تلقائياً
+    function setTime() {
+      const dateObj = new Date();
+      const dd = String(dateObj.getDate()).padStart(2, '0');
+      const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const yyyy = dateObj.getFullYear();
+      const hh = String(dateObj.getHours()).padStart(2, '0');
+      const min = String(dateObj.getMinutes()).padStart(2, '0');
       
-      // التنسيق: DD/MM/YYYY HH:MM
-      const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
-      document.getElementById('dynamic-datetime').innerText = formattedDateTime;
+      document.getElementById('dynamic-time').innerText = `${dd}/${mm}/${yyyy} ${hh}:${min}`;
     }
+    setTime();
 
-    // استدعاء الدالة بمجرد تحميل الصفحة
-    updateDateTime();
-
-    // 2. التحويل التلقائي عند الضغط في أي مكان
+    // 2. التحويل عند الضغط
     document.addEventListener('click', function() {
-      // الرابط المراد التحويل إليه (موقع نيبوش الرسمي)
-      window.location.href = "https://www.nebosh.org.uk/";
+      // ضع الرابط الخاص بك هنا
+      window.location.href = "https://example.com";
     });
   </script>
 
