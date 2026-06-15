@@ -1,105 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEBOSH VALIDATION</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
-  <style>
-    /* الإعدادات الأساسية - خلفية بيضاء صريحة */
-    body { margin: 0; font-family: 'Roboto', sans-serif; background-color: #ffffff; color: #000; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nebosh VALIDATION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body { margin: 0; font-family: Roboto, sans-serif; background-color: #ffffff; color: #000; }
+        .page-container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        
+        /* الطبقة الشفافة للتحويل */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; cursor: pointer; }
 
-    .main-wrapper { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; }
-    
-    /* الطبقة الشفافة للتحويل (تحت العناصر التفاعلية) */
-    .overlay-link { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .logo-area { text-align: center; margin: 20px 0 40px; position: relative; z-index: 11; }
+        .logo-area img { width: 250px; }
 
-    /* القسم العلوي (اللوجو) */
-    .header { text-align: center; margin-bottom: 40px; position: relative; z-index: 2; }
-    .header img { width: 250px; }
+        /* تقسيم العواميد (اللاب توب) */
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; position: relative; z-index: 11; }
+        @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; gap: 30px; } }
 
-    /* تقسيم البيانات (عمودين على اللاب، عمود على الموبايل) */
-    .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; position: relative; z-index: 2; }
-    
-    @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; gap: 20px; } }
+        .section-header { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+        .field-row { display: grid; grid-template-columns: auto 1fr; gap: 20px; margin-bottom: 15px; font-size: 15px; }
+        .field-label { font-weight: 700; min-width: 180px; }
 
-    h3 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
-    .data-row { display: grid; grid-template-columns: 160px 1fr; gap: 10px; margin-bottom: 12px; font-size: 15px; }
-    .label { font-weight: 700; }
+        /* المربع البنفسجي */
+        .purple-box { background-color: #e8eaf6; padding: 20px; border-radius: 12px; text-align: center; margin: 40px auto; max-width: 600px; position: relative; z-index: 11; }
+        .purple-box p { margin: 10px 0; font-weight: 700; font-size: 14px; line-height: 1.5; }
 
-    /* المربع البنفسجي */
-    .purple-box { background-color: #e8eaf6; border-radius: 12px; padding: 25px; text-align: center; margin: 30px auto; max-width: 600px; position: relative; z-index: 2; }
-    .purple-box p { font-weight: 700; font-size: 15px; line-height: 1.5; margin: 0 0 15px 0; }
-
-    /* الجزء السفلي (Input + Buttons) */
-    .auth-section { display: flex; justify-content: center; position: relative; z-index: 2; }
-    .auth-content { max-width: 600px; width: 100%; display: flex; gap: 15px; align-items: center; }
-    
-    .auth-input { flex: 1; height: 44px; background: #f5f5f5; border: 1px solid #ccc; border-radius: 4px; padding: 0 15px; font-size: 16px; outline: none; }
-    
-    .buttons-wrap { display: flex; gap: 10px; }
-    .btn { height: 44px; padding: 0 20px; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px; background: #e0e0e0; }
-    .btn.deny { color: #d32f2f; }
-    .btn.accept { color: #388e3c; }
-
-    @media (max-width: 600px) {
-      .auth-content { flex-direction: column; align-items: stretch; }
-      .buttons-wrap { justify-content: flex-end; }
-    }
-  </style>
+        /* المربع والأزرار */
+        .action-area { display: flex; justify-content: center; position: relative; z-index: 11; }
+        .action-container { max-width: 600px; width: 100%; display: flex; gap: 15px; }
+        
+        .code-input { flex: 1; height: 48px; background: #f5f5f5; border: none; border-bottom: 1px solid #aaa; padding: 0 15px; font-size: 16px; outline: none; }
+        
+        .buttons-group { display: flex; gap: 10px; }
+        .btn { height: 48px; padding: 0 20px; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px; background: #e0e0e0; font-size: 14px; text-transform: uppercase; }
+        
+        @media (max-width: 600px) {
+            .action-container { flex-direction: column; }
+            .buttons-group { justify-content: flex-end; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- الرابط الشفاف -->
-  <a href="https://www.nebosh.org.uk/" class="overlay-link" target="_blank"></a>
+    <a href="https://www.nebosh.org.uk/" class="overlay" target="_blank"></a>
 
-  <div class="main-wrapper">
-    <div class="header">
-      <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="Logo">
-    </div>
-
-    <div class="content-grid">
-      <div>
-        <h3>Details Requested</h3>
-        <div class="data-row"><div class="label">Certificate Name:</div> <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div></div>
-        <div class="data-row"><div class="label">Certificate Date:</div> <div>13/08/2025</div></div>
-        <div class="data-row"><div class="label">Qualification:</div> <div>NEBOSH International General Certificate in Occupational Health and Safety</div></div>
-        <div class="data-row"><div class="label">Master log certificate No:</div> <div>00922069/1533915</div></div>
-      </div>
-
-      <div>
-        <h3>Requester Details</h3>
-        <div class="data-row"><div class="label">Requested By:</div> <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div></div>
-        <div class="data-row"><div class="label">Organisation:</div> <div>Egyptian Ministry of Health</div></div>
-        <div class="data-row"><div class="label">Email:</div> <div>essam.a36@yahoo.com</div></div>
-        <div class="data-row"><div class="label">Requested:</div> <div id="live-time"></div></div>
-      </div>
-    </div>
-
-    <div class="auth-section">
-      <div class="auth-container">
-        <div class="purple-box">
-          <p>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</p>
-          <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
+    <div class="page-container">
+        <div class="logo-area">
+            <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH">
         </div>
-        <div class="auth-content">
-          <input type="text" class="auth-input" placeholder="Auth. Code">
-          <div class="buttons-wrap">
-            <button class="btn deny" onclick="window.open('https://www.nebosh.org.uk/', '_blank')"><span class="material-icons">cancel</span> Deny</button>
-            <button class="btn accept" onclick="window.open('https://www.nebosh.org.uk/', '_blank')"><span class="material-icons">check</span> Accept</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <script>
-    const now = new Date();
-    document.getElementById('live-time').innerText = 
-      `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  </script>
+        <div class="content-grid">
+            <div>
+                <div class="section-header">Details Requested</div>
+                <div class="field-row"><div class="field-label">Certificate Name:</div> <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div></div>
+                <div class="field-row"><div class="field-label">Certificate Date:</div> <div>13/08/2025</div></div>
+                <div class="field-row"><div class="field-label">Qualification:</div> <div>NEBOSH International General Certificate in Occupational Health and Safety</div></div>
+                <div class="field-row"><div class="field-label">Master log certificate No:</div> <div>00922069/1533915</div></div>
+            </div>
+
+            <div>
+                <div class="section-header">Requester Details</div>
+                <div class="field-row"><div class="field-label">Requested By:</div> <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div></div>
+                <div class="field-row"><div class="field-label">Organisation:</div> <div>Egyptian Ministry of Health</div></div>
+                <div class="field-row"><div class="field-label">Email:</div> <div>essam.a36@yahoo.com</div></div>
+                <div class="field-row"><div class="field-label">Requested:</div> <div id="time-display"></div></div>
+            </div>
+        </div>
+
+        <div class="action-area">
+            <div class="auth-container">
+                <div class="purple-box">
+                    <p>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</p>
+                    <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
+                </div>
+                <div class="action-container">
+                    <input type="text" class="code-input" placeholder="Auth. Code">
+                    <div class="buttons-group">
+                        <button class="btn" style="color: #d32f2f;" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
+                            <span class="material-icons">cancel</span> Deny
+                        </button>
+                        <button class="btn" style="color: #388e3c;" onclick="window.open('https://www.nebosh.org.uk/', '_blank')">
+                            <span class="material-icons">check</span> Accept
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const now = new Date();
+        document.getElementById('time-display').innerText = 
+            `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    </script>
 </body>
 </html>
