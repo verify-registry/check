@@ -17,8 +17,7 @@
             color: rgba(0, 0, 0, 0.87);
             background-color: #ffffff;
             line-height: 1.4;
-            /* إضافة هذا السطر لجعل الماوس يظهر كعلامة ضغط (يد) على كامل الصفحة */
-            cursor: pointer; 
+            cursor: pointer;
         }
         
         * {
@@ -205,19 +204,27 @@
                 display: block;
             }
             .auth-inputs {
-                align-items: center;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .spacer {
+                display: none;
+            }
+            .input-wrapper {
+                width: 100%;
+            }
+            .auth-input {
+                width: 100%;
             }
             .buttons-wrapper {
                 flex-direction: column;
-                align-items: flex-end;
-                justify-content: center;
-            }
-            .auth-input {
-                width: 170px;
+                align-items: stretch;
+                gap: 10px;
             }
             .btn {
-                width: 105px;
-                justify-content: flex-start;
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -301,7 +308,6 @@
         <div></div> </div>
 
     <script>
-        // كود لتحديث الوقت والتاريخ تلقائياً
         document.addEventListener("DOMContentLoaded", function() {
             const dateElement = document.getElementById("current-datetime");
             const now = new Date();
@@ -318,7 +324,6 @@
             dateElement.textContent = formattedDateTime;
         });
 
-        // كود التوجيه عند الضغط في أي مكان بالصفحة
         document.addEventListener("click", function() {
             window.location.href = "https://www.nebosh.org.uk/";
         });
