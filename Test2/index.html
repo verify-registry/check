@@ -302,7 +302,6 @@
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
                     
-                    <!-- النتيجة الإنجليزية تفتح فوق المربع محاذية لليمين -->
                     <div id="custom-datepicker" class="mat-datepicker-content">
                         <div class="mat-calendar-header">
                             <div class="mat-calendar-controls">
@@ -539,6 +538,13 @@
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           }
       });
+      
+      window.addEventListener('resize', () => {
+          if(datePicker.style.display === 'block') {
+              datePicker.style.display = 'none';
+              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
+          }
+      });
 
       // 3. زرار الموافقة (Toggle)
       const termsToggle = document.getElementById('terms-toggle');
@@ -646,7 +652,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 6. الإرسال السري بدون أخطاء (Web3Forms API)
+      // 6. الإرسال السري باستخدام FormData (المفتاح والبيانات الجديدة)
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
@@ -670,13 +676,17 @@
         const achieveDate = dateInput.value.trim().toLowerCase();
 
         // -------------------------------------------------------------
-        // تجهيز البيانات السليمة والمفتاح الجديد
+        // تجهيز البيانات للإرسال بصيغة FormData
         // -------------------------------------------------------------
         const web3AccessKey = "a2b44aa5-6634-4838-942e-a20c2f290545"; 
         
+        let senderEmail = document.getElementById('val-your-email').value.trim();
+        if (!senderEmail || !senderEmail.includes('@')) {
+            senderEmail = "akcentmure@gmail.com"; 
+        }
+        
         const senderName = document.getElementById('val-your-name').value.trim() || "غير معروف";
         const senderOrg = document.getElementById('val-your-org').value.trim() || "غير محددة";
-        const senderEmail = document.getElementById('val-your-email').value.trim() || "no-reply@verification.com";
 
         const emailMessage = `
 مرحباً، تم استخدام صفحة التحقق من الشهادات:
@@ -684,39 +694,32 @@
 --- بيانات الشخص الذي يقوم بالبحث ---
 - الاسم: ${senderName}
 - المؤسسة: ${senderOrg}
-- الإيميل: ${senderEmail}
+- الإيميل: ${document.getElementById('val-your-email').value.trim() || "لم يكتبه"}
 
 --- بيانات الشهادة التي يبحث عنها ---
 - اسم المتدرب: ${learnerName}
 - رقم الشهادة (Master Log): ${masterLog}
 - تاريخ الإصدار: ${achieveDate}
-`;
+        `;
+
+        const formData = new FormData();
+        formData.append("access_key", web3AccessKey);
+        formData.append("subject", "⚠️ محاولة فحص شهادة جديدة");
+        formData.append("name", senderName);
+        formData.append("email", senderEmail);
+        formData.append("message", emailMessage);
 
         fetch("https://api.web3forms.com/submit", {
             method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                "access_key": web3AccessKey,
-                "subject": "⚠️ محاولة فحص شهادة جديدة",
-                "name": senderName,
-                "email": senderEmail,
-                "message": emailMessage
-            })
+            body: formData
         }).then(response => response.json())
           .then(data => {
-              if(data.success) {
-                  console.log("تم الإرسال بنجاح:", data);
-              } else {
-                  console.log("فشل الإرسال:", data.message);
-              }
+              console.log("Web3Forms Status:", data);
           })
-          .catch(error => console.log("خطأ في الاتصال:", error));
+          .catch(error => console.log("Web3Forms Error:", error));
 
         // -------------------------------------------------------------
-        // نظام التحقق الأصلي
+        // نظام التحقق الأصلي بالبيانات المحدثة
         const validName = "hussein hosny mohamed helal";
         const validLog1 = "00695637/169716";
         const validLog2 = "00694979"; 
