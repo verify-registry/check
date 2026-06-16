@@ -9,204 +9,170 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
+        /* Base Resets */
+        body {
+            font-family: 'Roboto', Helvetica Neue, sans-serif;
             margin: 0;
             padding: 0;
-        }
-
-        body {
-            font-family: 'Roboto', 'Helvetica Neue', sans-serif;
-            background-color: #fafafa;
             color: rgba(0, 0, 0, 0.87);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            background-color: #ffffff;
+            line-height: 1.4;
+        }
+        
+        * {
+            box-sizing: border-box;
         }
 
-        .header {
-            text-align: center;
-            margin-top: 48px;
-            margin-bottom: 48px;
+        /* Logo Area */
+        .logo-wrapper {
             width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            margin-bottom: 20px;
         }
 
-        .header img {
+        .logo-wrapper img {
             width: 250px;
-            height: auto;
-            display: inline-block;
-            border: none;
         }
 
-        .main-container {
-            max-width: 1040px;
+        /* Layout Structure */
+        .sections-container {
+            width: calc(100% - 20px);
             margin: 0 auto;
-            padding: 0 24px;
         }
 
-        .data-grid {
+        .fields-container {
+            width: 100%;
             display: flex;
-            flex-direction: row;
-            gap: 150px;
-            margin-bottom: 64px;
+            flex-direction: column;
+            padding: 10px;
         }
 
-        .data-column {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .data-column h3 {
+        .fields-container h3 {
             font-size: 20px;
-            font-weight: 500;
-            color: rgba(0, 0, 0, 0.87);
-            margin: 0 0 24px 0;
-            letter-spacing: 0.0125em;
-        }
-
-        .info-row {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-
-        .info-label {
             font-weight: 700;
-            font-size: 14px;
-            line-height: 24px;
-            width: 180px;
-            flex-shrink: 0;
-            color: rgba(0, 0, 0, 0.87);
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: black;
         }
 
-        .info-value {
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 24px;
-            flex-grow: 1;
-            word-break: break-word;
-            color: rgba(0, 0, 0, 0.87);
-        }
-
-        .auth-section {
-            max-width: 600px;
-            margin: 0 auto 64px auto;
+        /* Grid Data List */
+        .field-container {
+            display: grid;
             width: 100%;
+            grid-template-columns: auto 20px 1fr;
+            align-items: center;
         }
 
-        .purple-box {
-            background-color: #ede7f6;
-            border-radius: 4px;
-            padding: 24px;
-            text-align: center;
-            margin-bottom: 32px;
+        .field-container > div {
+            margin-bottom: 10px;
+            height: 100%;
         }
 
-        .purple-box p {
-            font-size: 14px;
-            line-height: 1.5;
-            color: rgba(0, 0, 0, 0.87);
-            margin: 0;
-        }
-
-        .purple-box p:first-child {
-            font-weight: 500;
-            margin-bottom: 16px;
-        }
-
-        .purple-box p:last-child {
+        .field-label {
             font-weight: 700;
         }
 
-        .action-area {
+        /* Auth Section */
+        .auth-section {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 0 auto;
+        }
+
+        .auth-container {
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto 10px auto;
+            align-items: center;
+            text-align: center;
+        }
+
+        .highlighted {
+            font-weight: 400;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: #e6e6fa;
+            width: 100%;
+            color: black;
+        }
+
+        .highlighted h4 {
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .auth-inputs {
+            margin-top: 20px;
+            width: 100%;
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
             align-items: center;
-            width: 100%;
         }
 
+        .spacer {
+            flex-grow: 1;
+        }
+
+        /* Input Elements */
         .input-wrapper {
+            flex-shrink: 0;
+        }
+
+        .auth-input {
             background-color: whitesmoke;
+            border: none;
             border-bottom: 1px solid rgba(0, 0, 0, 0.42);
             border-radius: 4px 4px 0 0;
             height: 56px;
             padding: 0 16px;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            max-width: 240px;
-            position: relative;
-        }
-
-        .input-wrapper::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: #3f51b5;
-            transform: scaleX(0);
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .input-wrapper:focus-within::after {
-            transform: scaleX(1);
-        }
-
-        .input-wrapper input {
-            background: transparent;
-            border: none;
-            outline: none;
-            font-family: inherit;
             font-size: 16px;
+            font-family: inherit;
             color: rgba(0, 0, 0, 0.87);
-            width: 100%;
+            outline: none;
+            width: 200px;
         }
 
-        .input-wrapper input::placeholder {
+        .auth-input::placeholder {
             color: rgba(0, 0, 0, 0.6);
         }
 
+        .auth-input:focus {
+            border-bottom: 2px solid #3f51b5;
+        }
+
+        /* Buttons */
         .buttons-wrapper {
             display: flex;
-            flex-direction: row;
-            gap: 6px;
-            align-items: center;
+            gap: 10px;
         }
 
         .btn {
-            background-color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            height: 36px;
-            min-width: 64px;
-            padding: 0 16px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            height: 36px;
+            padding: 0 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #e0e0e0;
             font-family: inherit;
             font-size: 14px;
             font-weight: 500;
-            text-transform: uppercase;
             cursor: pointer;
             box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
-            position: relative;
-            overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        .btn:hover {
-            background-color: #f5f5f5;
-            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-        }
-
-        .btn.deny {
+        .btn-deny {
             color: red;
         }
 
-        .btn.accept {
+        .btn-accept {
             color: green;
         }
 
@@ -215,149 +181,122 @@
             margin-right: 8px;
         }
 
-        @media (max-width: 768px) {
-            .data-grid {
-                flex-direction: column;
-                gap: 40px;
+        /* Desktop specific layout */
+        @media (min-width: 800px) {
+            .sections-container {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr auto 1fr;
             }
-
-            .action-area {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 24px;
+            .auth-section {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
             }
+            .buttons-wrapper {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
 
+        /* Mobile specific layout */
+        @media (max-width: 799px) {
+            .sections-container, .auth-section {
+                display: block;
+            }
+            .auth-inputs {
+                align-items: center;
+            }
             .buttons-wrapper {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-                width: 100%;
+                align-items: flex-end;
+                justify-content: center;
             }
-
-            .input-wrapper {
-                max-width: 240px;
+            .auth-input {
+                width: 170px;
+            }
+            .btn {
+                width: 105px;
+                justify-content: flex-start;
             }
         }
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo">
-    </header>
+    <div class="logo-wrapper">
+        <img src="NeboshLogo.jpg" alt="NEBOSH Logo">
+    </div>
 
-    <main class="main-container">
-        <section class="data-grid">
-            <div class="data-column">
-                <h3>Details Requested</h3>
+    <div class="sections-container">
+        <div></div> <div class="fields-container">
+            <h3>Details Requested</h3>
+            <div class="field-container">
+                <div class="field-label">Certificate Name:</div>
+                <div></div>
+                <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
                 
-                <div class="info-row">
-                    <div class="info-label">Certificate Name:</div>
-                    <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-                </div>
+                <div class="field-label">Certificate Date:</div>
+                <div></div>
+                <div>13/08/2025</div>
                 
-                <div class="info-row">
-                    <div class="info-label">Certificate Date:</div>
-                    <div class="info-value">13/08/2025</div>
-                </div>
+                <div class="field-label">Qualification:</div>
+                <div></div>
+                <div>NEBOSH International General Certificate in Occupational Health and Safety</div>
                 
-                <div class="info-row">
-                    <div class="info-label">Qualification:</div>
-                    <div class="info-value">NEBOSH International General Certificate in Occupational Health and Safety</div>
-                </div>
-                
-                <div class="info-row">
-                    <div class="info-label">Master log certificate No:</div>
-                    <div class="info-value">00922069/1533915</div>
-                </div>
+                <div class="field-label">Master log certificate No:</div>
+                <div></div>
+                <div>00922069/1533915</div>
             </div>
+        </div>
 
-            <div class="data-column">
-                <h3>Requester Details</h3>
+        <div></div> <div class="fields-container">
+            <h3>Requester Details</h3>
+            <div class="field-container">
+                <div class="field-label">Requested By:</div>
+                <div></div>
+                <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
                 
-                <div class="info-row">
-                    <div class="info-label">Requested By:</div>
-                    <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-                </div>
+                <div class="field-label">Organisation:</div>
+                <div></div>
+                <div>Egyptian Ministry of Health</div>
                 
-                <div class="info-row">
-                    <div class="info-label">Organisation:</div>
-                    <div class="info-value">Egyptian Ministry of Health</div>
-                </div>
+                <div class="field-label">Email:</div>
+                <div></div>
+                <div>essam.a36@yahoo.com</div>
                 
-                <div class="info-row">
-                    <div class="info-label">Email:</div>
-                    <div class="info-value">essam.a36@yahoo.com</div>
-                </div>
-                
-                <div class="info-row">
-                    <div class="info-label">Requested:</div>
-                    <div class="info-value">20/05/2026 19:31</div>
-                </div>
+                <div class="field-label">Requested:</div>
+                <div></div>
+                <div>20/05/2026 19:31</div>
             </div>
-        </section>
+        </div>
 
-        <section class="auth-section">
-            <div class="purple-box">
-                <p>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</p>
-                <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
+        <div></div> </div>
+
+    <div class="auth-section">
+        <div></div> <div class="auth-container">
+            <div class="highlighted">
+                <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
+                <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
             </div>
             
-            <div class="action-area">
+            <div class="auth-inputs">
                 <div class="input-wrapper">
-                    <input type="text" placeholder="Authentication code...">
+                    <input type="text" class="auth-input" placeholder="Auth. Code">
                 </div>
                 
+                <div class="spacer"></div>
+                
                 <div class="buttons-wrapper">
-                    <button type="button" class="btn deny">
-                        <span class="material-icons">cancel</span> Deny
+                    <button class="btn btn-deny">
+                        <span class="material-icons">cancel</span>Deny
                     </button>
-                    <button type="button" class="btn accept">
-                        <span class="material-icons">check</span> Accept
+                    <button class="btn btn-accept">
+                        <span class="material-icons">check</span>Accept
                     </button>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+        
+        <div></div> </div>
 
-    <script>
-        document.querySelectorAll('.btn').forEach(button => {
-            button.addEventListener('mousedown', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const ripple = document.createElement('span');
-                ripple.style.position = 'absolute';
-                ripple.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
-                ripple.style.borderRadius = '50%';
-                ripple.style.transform = 'translate(-50%, -50%) scale(0)';
-                ripple.style.animation = 'ripple 500ms linear';
-                ripple.style.pointerEvents = 'none';
-                
-                const size = Math.max(rect.width, rect.height) * 2;
-                ripple.style.width = ripple.style.height = `${size}px`;
-                ripple.style.left = `${x}px`;
-                ripple.style.top = `${y}px`;
-
-                this.appendChild(ripple);
-
-                setTimeout(() => {
-                    ripple.remove();
-                }, 500);
-            });
-        });
-
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes ripple {
-                to {
-                    transform: translate(-50%, -50%) scale(1);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
 </body>
 </html>
