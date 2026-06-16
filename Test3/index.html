@@ -13,18 +13,23 @@
             --text-primary: rgba(0, 0, 0, 0.87);
             --text-secondary: rgba(0, 0, 0, 0.6);
             --bg-body: #fafafa;
-            --bg-purple: #e6e6fa;
+            --bg-purple: #ede7f6;
             --input-bg: #f5f5f5;
             --input-border: rgba(0, 0, 0, 0.42);
             --btn-bg: #e0e0e0;
+            --btn-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-primary);
-            margin: 0;
-            padding: 0;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             line-height: 1.5;
@@ -34,97 +39,104 @@
             display: flex;
             justify-content: center;
             width: 100%;
-            padding-top: 20px;
-            margin-bottom: 40px;
+            padding-top: 32px;
+            margin-bottom: 48px;
         }
 
         .header-container img {
             width: 250px;
             height: auto;
             display: block;
+            background: transparent;
+            box-shadow: none;
+            border: none;
         }
 
         .main-wrapper {
-            max-width: 1000px;
+            max-width: 1040px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
         .details-section {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            gap: 60px;
-            margin-bottom: 40px;
+            gap: 64px;
+            margin-bottom: 48px;
         }
 
         .details-column {
             flex: 1;
+            min-width: 0;
         }
 
         .details-column h3 {
             font-size: 20px;
-            font-weight: 500;
+            font-weight: 700;
             color: var(--text-primary);
-            margin-top: 0;
             margin-bottom: 24px;
             letter-spacing: 0.0125em;
         }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            column-gap: 20px;
-            row-gap: 16px;
-            font-size: 14px;
-            align-items: start;
+        .info-row {
+            display: flex;
+            margin-bottom: 16px;
+            align-items: flex-start;
         }
 
-        .info-grid strong {
+        .info-label {
             font-weight: 700;
+            font-size: 14px;
             color: var(--text-primary);
-            white-space: nowrap;
+            width: 180px;
+            flex-shrink: 0;
+            line-height: 1.4;
         }
 
-        .info-grid span {
+        .info-value {
             font-weight: 400;
+            font-size: 14px;
             color: var(--text-primary);
             word-break: break-word;
+            line-height: 1.4;
         }
 
         .auth-wrapper {
             max-width: 600px;
-            margin: 0 auto 40px auto;
+            margin: 0 auto 64px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
 
         .instruction-box {
             background-color: var(--bg-purple);
-            border-radius: 20px;
-            padding: 24px;
+            border-radius: 4px;
+            padding: 20px 24px;
             text-align: center;
             width: 100%;
-            box-sizing: border-box;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .instruction-box p {
             margin: 0 0 16px 0;
-            font-size: 16px;
-            font-weight: 400;
+            font-size: 14px;
+            font-weight: 700;
             color: var(--text-primary);
+            line-height: 1.5;
         }
 
         .instruction-box p:last-child {
             margin-bottom: 0;
         }
 
-        .auth-actions {
+        .auth-controls {
             display: flex;
             flex-direction: row;
             align-items: center;
+            justify-content: space-between;
             width: 100%;
         }
 
@@ -136,25 +148,14 @@
             padding: 0 16px;
             display: flex;
             align-items: center;
-            width: 200px;
-            box-sizing: border-box;
+            width: 220px;
             position: relative;
+            transition: border-bottom-color 0.2s ease;
         }
 
-        .input-container::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: #3f51b5;
-            transform: scaleX(0);
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .input-container:focus-within::after {
-            transform: scaleX(1);
+        .input-container:focus-within {
+            border-bottom: 2px solid #3f51b5;
+            padding-bottom: -1px;
         }
 
         .input-container input {
@@ -169,15 +170,12 @@
 
         .input-container input::placeholder {
             color: var(--text-secondary);
-        }
-
-        .spacer {
-            flex-grow: 1;
+            font-weight: 400;
         }
 
         .button-group {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             align-items: center;
         }
 
@@ -196,8 +194,10 @@
             font-weight: 500;
             text-transform: uppercase;
             cursor: pointer;
-            box-shadow: none;
-            transition: background-color 0.2s ease;
+            box-shadow: var(--btn-shadow);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
@@ -205,11 +205,11 @@
         }
 
         .btn.deny {
-            color: red;
+            color: #d32f2f;
         }
 
         .btn.accept {
-            color: green;
+            color: #2e7d32;
         }
 
         .btn .material-icons {
@@ -220,26 +220,41 @@
             .details-section {
                 flex-direction: column;
                 gap: 40px;
+                margin-bottom: 40px;
             }
-            
-            .auth-actions {
-                flex-direction: column;
-                gap: 24px;
-                align-items: center;
+
+            .info-label {
+                width: 130px;
             }
-            
+
+            .auth-controls {
+                align-items: flex-end;
+            }
+
             .input-container {
-                width: 100%;
-                max-width: 320px;
+                flex: 1;
+                max-width: 240px;
+                margin-right: 16px;
             }
-            
+
             .button-group {
-                width: 100%;
-                justify-content: center;
+                flex-direction: column;
+                gap: 12px;
             }
-            
-            .spacer {
-                display: none;
+
+            .btn {
+                width: 110px;
+                justify-content: flex-start;
+                padding-left: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .info-label {
+                width: 110px;
+            }
+            .input-container {
+                max-width: none;
             }
         }
     </style>
@@ -247,42 +262,56 @@
 <body>
 
     <header class="header-container">
-        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo">
+        <img src="NeboshLogo.jpg" alt="NEBOSH Logo">
     </header>
 
     <main class="main-wrapper">
         <section class="details-section">
             <div class="details-column">
                 <h3>Details Requested</h3>
-                <div class="info-grid">
-                    <strong>Certificate Name:</strong>
-                    <span>Ahmed Essam Aldin Abd Alstar Alsayed Habib</span>
-                    
-                    <strong>Certificate Date:</strong>
-                    <span>13/08/2025</span>
-                    
-                    <strong>Qualification:</strong>
-                    <span>NEBOSH International General Certificate in Occupational Health and Safety</span>
-                    
-                    <strong>Master log certificate No:</strong>
-                    <span>00922069/1533915</span>
+                
+                <div class="info-row">
+                    <div class="info-label">Certificate Name:</div>
+                    <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Certificate Date:</div>
+                    <div class="info-value">13/08/2025</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Qualification:</div>
+                    <div class="info-value">NEBOSH International General Certificate in Occupational Health and Safety</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Master log certificate No:</div>
+                    <div class="info-value">00922069/1533915</div>
                 </div>
             </div>
 
             <div class="details-column">
                 <h3>Requester Details</h3>
-                <div class="info-grid">
-                    <strong>Requested By:</strong>
-                    <span>Ahmed Essam Aldin Abd Alstar Alsayed Habib</span>
-                    
-                    <strong>Organisation:</strong>
-                    <span>Egyptian Ministry of Health</span>
-                    
-                    <strong>Email:</strong>
-                    <span>essam.a36@yahoo.com</span>
-                    
-                    <strong>Requested:</strong>
-                    <span>20/05/2026 19:31</span>
+                
+                <div class="info-row">
+                    <div class="info-label">Requested By:</div>
+                    <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Organisation:</div>
+                    <div class="info-value">Egyptian Ministry of Health</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Email:</div>
+                    <div class="info-value">essam.a36@yahoo.com</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Requested:</div>
+                    <div class="info-value">20/05/2026 19:31</div>
                 </div>
             </div>
         </section>
@@ -293,12 +322,10 @@
                 <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
             </div>
             
-            <div class="auth-actions">
+            <div class="auth-controls">
                 <div class="input-container">
                     <input type="text" placeholder="Auth. Code">
                 </div>
-                
-                <div class="spacer"></div>
                 
                 <div class="button-group">
                     <button type="button" class="btn deny">
@@ -314,7 +341,7 @@
 
     <script>
         document.querySelectorAll('.btn').forEach(button => {
-            button.addEventListener('click', function(e) {
+            button.addEventListener('mousedown', function(e) {
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -324,24 +351,19 @@
                 ripple.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
                 ripple.style.borderRadius = '50%';
                 ripple.style.transform = 'translate(-50%, -50%) scale(0)';
-                ripple.style.animation = 'ripple 600ms linear';
+                ripple.style.animation = 'ripple 500ms linear';
                 ripple.style.pointerEvents = 'none';
                 
-                const size = Math.max(rect.width, rect.height);
+                const size = Math.max(rect.width, rect.height) * 2;
                 ripple.style.width = ripple.style.height = `${size}px`;
                 ripple.style.left = `${x}px`;
                 ripple.style.top = `${y}px`;
-
-                if (!this.style.position || this.style.position === 'static') {
-                    this.style.position = 'relative';
-                }
-                this.style.overflow = 'hidden';
 
                 this.appendChild(ripple);
 
                 setTimeout(() => {
                     ripple.remove();
-                }, 600);
+                }, 500);
             });
         });
 
@@ -349,7 +371,7 @@
         style.innerHTML = `
             @keyframes ripple {
                 to {
-                    transform: translate(-50%, -50%) scale(4);
+                    transform: translate(-50%, -50%) scale(1);
                     opacity: 0;
                 }
             }
