@@ -6,384 +6,336 @@
     <title>nebosh VALIDATION</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #3f51b5;
-            --text-main: rgba(0, 0, 0, 0.87);
-            --text-muted: rgba(0, 0, 0, 0.6);
-            --bg-body: #ffffff;
+            --text-primary: rgba(0, 0, 0, 0.87);
+            --text-secondary: rgba(0, 0, 0, 0.6);
+            --bg-body: #fafafa;
             --bg-purple: #e6e6fa;
             --input-bg: #f5f5f5;
+            --input-border: rgba(0, 0, 0, 0.42);
+            --btn-bg: #e0e0e0;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
             margin: 0;
             padding: 0;
-            background-color: var(--bg-body);
-            color: var(--text-main);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            line-height: 1.5;
         }
 
-        .header {
+        .header-container {
             display: flex;
             justify-content: center;
             width: 100%;
-            margin-top: 20px;
+            padding-top: 20px;
             margin-bottom: 40px;
         }
 
-        .logo {
+        .header-container img {
             width: 250px;
             height: auto;
             display: block;
         }
 
-        .main-content {
-            padding: 0 10px;
-            max-width: 1200px;
+        .main-wrapper {
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .sections-container {
+        .details-section {
             display: flex;
-            flex-direction: column;
-            gap: 40px;
-            width: calc(100% - 20px);
-            margin: 0 auto 20px auto;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 60px;
+            margin-bottom: 40px;
         }
 
-        @media (min-width: 800px) {
-            .sections-container {
-                display: grid;
-                grid-template-columns: 1fr auto 1fr auto 1fr;
-                gap: 0;
-            }
-            .section-1 { grid-column: 2; }
-            .spacer-col { grid-column: 3; min-width: 60px; }
-            .section-2 { grid-column: 4; }
+        .details-column {
+            flex: 1;
         }
 
-        .fields-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .fields-container h3 {
+        .details-column h3 {
             font-size: 20px;
             font-weight: 500;
+            color: var(--text-primary);
             margin-top: 0;
-            margin-bottom: 20px;
-            color: var(--text-main);
+            margin-bottom: 24px;
+            letter-spacing: 0.0125em;
         }
 
-        .field-container {
+        .info-grid {
             display: grid;
-            grid-template-columns: max-content 20px 1fr;
-            align-items: start;
+            grid-template-columns: auto 1fr;
+            column-gap: 20px;
             row-gap: 16px;
-            font-size: 15px;
+            font-size: 14px;
+            align-items: start;
         }
 
-        .field-container strong {
+        .info-grid strong {
             font-weight: 700;
-            color: var(--text-main);
+            color: var(--text-primary);
             white-space: nowrap;
         }
 
-        .field-value {
-            color: var(--text-main);
+        .info-grid span {
+            font-weight: 400;
+            color: var(--text-primary);
             word-break: break-word;
-            line-height: 1.4;
         }
 
-        .auth-section {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            margin-bottom: 40px;
-            padding: 10px;
-        }
-
-        .auth-container {
-            width: 100%;
-            max-width: 500px;
+        .auth-wrapper {
+            max-width: 600px;
+            margin: 0 auto 40px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
         }
 
-        .highlighted {
+        .instruction-box {
             background-color: var(--bg-purple);
             border-radius: 20px;
-            padding: 20px;
+            padding: 24px;
+            text-align: center;
             width: 100%;
             box-sizing: border-box;
+            margin-bottom: 24px;
         }
 
-        .highlighted h4 {
+        .instruction-box p {
             margin: 0 0 16px 0;
             font-size: 16px;
-            font-weight: 500;
-            line-height: 1.5;
-            color: var(--text-main);
+            font-weight: 400;
+            color: var(--text-primary);
         }
 
-        .highlighted h4:last-child {
+        .instruction-box p:last-child {
             margin-bottom: 0;
         }
 
-        .auth-inputs {
-            width: 100%;
+        .auth-actions {
             display: flex;
             flex-direction: row;
             align-items: center;
-            margin-top: 24px;
+            width: 100%;
         }
 
-        .input-wrapper {
+        .input-container {
             background-color: var(--input-bg);
+            border-bottom: 1px solid var(--input-border);
             border-radius: 4px 4px 0 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.42);
             height: 56px;
+            padding: 0 16px;
             display: flex;
             align-items: center;
-            padding: 0 16px;
-            width: 180px;
+            width: 200px;
             box-sizing: border-box;
             position: relative;
         }
 
-        .input-wrapper::after {
+        .input-container::after {
             content: '';
             position: absolute;
             bottom: -1px;
             left: 0;
             right: 0;
             height: 2px;
-            background-color: var(--primary-color);
+            background-color: #3f51b5;
             transform: scaleX(0);
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .input-wrapper:focus-within::after {
+        .input-container:focus-within::after {
             transform: scaleX(1);
         }
 
-        .input-wrapper input {
-            border: none;
+        .input-container input {
             background: transparent;
+            border: none;
             outline: none;
-            font-size: 16px;
             font-family: inherit;
-            color: var(--text-main);
-            width: 100%;
-            padding-top: 14px;
-        }
-
-        .input-wrapper label {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
             font-size: 16px;
-            color: var(--text-muted);
-            pointer-events: none;
-            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-primary);
+            width: 100%;
         }
 
-        .input-wrapper input:focus + label,
-        .input-wrapper input:not(:placeholder-shown) + label {
-            top: 14px;
-            font-size: 12px;
-            color: var(--primary-color);
-        }
-
-        .input-wrapper input:not(:focus):not(:placeholder-shown) + label {
-            color: var(--text-muted);
+        .input-container input::placeholder {
+            color: var(--text-secondary);
         }
 
         .spacer {
             flex-grow: 1;
         }
 
-        .buttons-container {
+        .button-group {
             display: flex;
             gap: 12px;
             align-items: center;
         }
 
-        .mat-btn {
-            background-color: #ffffff;
+        .btn {
+            background-color: var(--btn-bg);
             border: none;
             border-radius: 4px;
-            padding: 0 16px;
             height: 36px;
-            font-size: 14px;
-            font-weight: 500;
-            font-family: 'Roboto', sans-serif;
-            text-transform: uppercase;
+            padding: 0 16px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: background-color 0.2s, box-shadow 0.2s;
-            -webkit-tap-highlight-color: transparent;
+            box-shadow: none;
+            transition: background-color 0.2s ease;
         }
 
-        .mat-btn:hover {
-            background-color: #f5f5f5;
+        .btn:hover {
+            background-color: #d5d5d5;
         }
 
-        .mat-btn.deny {
+        .btn.deny {
             color: red;
         }
 
-        .mat-btn.accept {
+        .btn.accept {
             color: green;
         }
 
-        .mat-btn .material-icons {
+        .btn .material-icons {
             font-size: 18px;
         }
 
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            transform: scale(0);
-            animation: ripple-animation 600ms linear;
-            background-color: rgba(0, 0, 0, 0.1);
-            pointer-events: none;
-        }
-
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
+        @media (max-width: 768px) {
+            .details-section {
+                flex-direction: column;
+                gap: 40px;
             }
-        }
-
-        @media (max-width: 650px) {
-            .auth-inputs {
+            
+            .auth-actions {
                 flex-direction: column;
                 gap: 24px;
+                align-items: center;
             }
-            .spacer {
-                display: none;
-            }
-            .input-wrapper {
+            
+            .input-container {
                 width: 100%;
                 max-width: 320px;
             }
-            .buttons-container {
+            
+            .button-group {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .spacer {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="Nebosh Logo" class="logo">
-    </div>
-    
-    <main class="main-content">
-        <div class="sections-container">
-            <div class="fields-container section-1">
+    <header class="header-container">
+        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo">
+    </header>
+
+    <main class="main-wrapper">
+        <section class="details-section">
+            <div class="details-column">
                 <h3>Details Requested</h3>
-                <div class="field-container">
+                <div class="info-grid">
                     <strong>Certificate Name:</strong>
-                    <div></div>
-                    <div class="field-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                    <span>Ahmed Essam Aldin Abd Alstar Alsayed Habib</span>
                     
                     <strong>Certificate Date:</strong>
-                    <div></div>
-                    <div class="field-value">13/08/2025</div>
+                    <span>13/08/2025</span>
                     
                     <strong>Qualification:</strong>
-                    <div></div>
-                    <div class="field-value">NEBOSH International General Certificate in Occupational Health and Safety</div>
+                    <span>NEBOSH International General Certificate in Occupational Health and Safety</span>
                     
                     <strong>Master log certificate No:</strong>
-                    <div></div>
-                    <div class="field-value">00922069/1533915</div>
+                    <span>00922069/1533915</span>
                 </div>
             </div>
 
-            <div class="spacer-col"></div>
-
-            <div class="fields-container section-2">
+            <div class="details-column">
                 <h3>Requester Details</h3>
-                <div class="field-container">
+                <div class="info-grid">
                     <strong>Requested By:</strong>
-                    <div></div>
-                    <div class="field-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                    <span>Ahmed Essam Aldin Abd Alstar Alsayed Habib</span>
                     
                     <strong>Organisation:</strong>
-                    <div></div>
-                    <div class="field-value">Egyptian Ministry of Health</div>
+                    <span>Egyptian Ministry of Health</span>
                     
                     <strong>Email:</strong>
-                    <div></div>
-                    <div class="field-value">essam.a36@yahoo.com</div>
+                    <span>essam.a36@yahoo.com</span>
                     
                     <strong>Requested:</strong>
-                    <div></div>
-                    <div class="field-value">20/05/2026 19:31</div>
+                    <span>20/05/2026 19:31</span>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="auth-section">
-            <div class="auth-container">
-                <div class="highlighted">
-                    <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
-                    <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
+        <section class="auth-wrapper">
+            <div class="instruction-box">
+                <p>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</p>
+                <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
+            </div>
+            
+            <div class="auth-actions">
+                <div class="input-container">
+                    <input type="text" placeholder="Auth. Code">
                 </div>
                 
-                <div class="auth-inputs">
-                    <div class="input-wrapper">
-                        <input type="text" id="authCode" placeholder=" ">
-                        <label for="authCode">Auth. Code</label>
-                    </div>
-                    
-                    <div class="spacer"></div>
-                    
-                    <div class="buttons-container">
-                        <button type="button" class="mat-btn deny">
-                            <span class="material-icons">cancel</span> Deny
-                        </button>
-                        <button type="button" class="mat-btn accept">
-                            <span class="material-icons">check</span> Accept
-                        </button>
-                    </div>
+                <div class="spacer"></div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn deny">
+                        <span class="material-icons">cancel</span> Deny
+                    </button>
+                    <button type="button" class="btn accept">
+                        <span class="material-icons">check</span> Accept
+                    </button>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
     <script>
-        document.querySelectorAll('.mat-btn').forEach(btn => {
-            btn.addEventListener('click', function (e) {
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
                 const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
                 const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+                ripple.style.animation = 'ripple 600ms linear';
+                ripple.style.pointerEvents = 'none';
+                
+                const size = Math.max(rect.width, rect.height);
                 ripple.style.width = ripple.style.height = `${size}px`;
                 ripple.style.left = `${x}px`;
                 ripple.style.top = `${y}px`;
-                ripple.classList.add('ripple');
+
+                if (!this.style.position || this.style.position === 'static') {
+                    this.style.position = 'relative';
+                }
+                this.style.overflow = 'hidden';
 
                 this.appendChild(ripple);
 
@@ -392,6 +344,17 @@
                 }, 600);
             });
         });
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes ripple {
+                to {
+                    transform: translate(-50%, -50%) scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
