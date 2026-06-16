@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* Base Resets */
+        /* Base Resets & Typography */
         body {
             font-family: 'Roboto', Helvetica Neue, sans-serif;
             margin: 0;
@@ -17,6 +17,7 @@
             color: rgba(0, 0, 0, 0.87);
             background-color: #ffffff;
             line-height: 1.4;
+            font-size: 16px;
         }
         
         * {
@@ -28,9 +29,8 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            padding-top: 20px;
-            margin-bottom: 20px;
+            padding-top: 40px;
+            margin-bottom: 40px;
         }
 
         .logo-wrapper img {
@@ -39,93 +39,83 @@
 
         /* Layout Structure */
         .sections-container {
-            width: calc(100% - 20px);
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
         .fields-container {
-            width: 100%;
             display: flex;
             flex-direction: column;
-            padding: 10px;
         }
 
         .fields-container h3 {
             font-size: 20px;
             font-weight: 700;
-            margin-top: 0;
-            margin-bottom: 16px;
+            margin: 0 0 16px 0;
             color: black;
         }
 
         /* Grid Data List */
         .field-container {
             display: grid;
-            width: 100%;
             grid-template-columns: auto 20px 1fr;
-            align-items: center;
+            align-items: start;
         }
 
         .field-container > div {
-            margin-bottom: 10px;
-            height: 100%;
+            margin-bottom: 12px;
         }
 
         .field-label {
             font-weight: 700;
         }
 
+        .field-value {
+            font-weight: 400;
+        }
+
         /* Auth Section */
         .auth-section {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin: 0 auto;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
         .auth-container {
-            max-width: 500px;
             width: 100%;
             display: flex;
             flex-direction: column;
-            margin: 0 auto 10px auto;
-            align-items: center;
-            text-align: center;
         }
 
         .highlighted {
-            font-weight: 400;
-            border-radius: 20px;
-            padding: 20px;
             background-color: #e6e6fa;
-            width: 100%;
-            color: black;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
         }
 
         .highlighted h4 {
-            margin: 10px 0;
+            margin: 12px 0;
             font-size: 16px;
             font-weight: 700;
+            color: black;
         }
 
         .auth-inputs {
-            margin-top: 20px;
-            width: 100%;
+            margin-top: 24px;
             display: flex;
-            flex-direction: row;
+            justify-content: space-between;
             align-items: center;
-        }
-
-        .spacer {
-            flex-grow: 1;
         }
 
         /* Input Elements */
         .input-wrapper {
-            flex-shrink: 0;
+            flex: 0 0 auto;
         }
 
         .auth-input {
-            background-color: whitesmoke;
+            background-color: #f5f5f5;
             border: none;
             border-bottom: 1px solid rgba(0, 0, 0, 0.42);
             border-radius: 4px 4px 0 0;
@@ -149,7 +139,7 @@
         /* Buttons */
         .buttons-wrapper {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .btn {
@@ -177,7 +167,7 @@
         }
 
         .btn .material-icons {
-            font-size: 18px;
+            font-size: 20px;
             margin-right: 8px;
         }
 
@@ -185,37 +175,39 @@
         @media (min-width: 800px) {
             .sections-container {
                 display: grid;
-                grid-template-columns: 1fr auto 1fr auto 1fr;
-            }
-            .auth-section {
-                display: grid;
-                grid-template-columns: 1fr auto 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
             }
             .buttons-wrapper {
                 flex-direction: row;
-                align-items: center;
             }
         }
 
         /* Mobile specific layout */
         @media (max-width: 799px) {
-            .sections-container, .auth-section {
-                display: block;
+            .sections-container {
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
             }
             .auth-inputs {
-                align-items: center;
+                align-items: flex-start;
+            }
+            .input-wrapper {
+                flex: 1;
+                margin-right: 16px;
+            }
+            .auth-input {
+                width: 100%;
             }
             .buttons-wrapper {
                 flex-direction: column;
-                align-items: flex-end;
-                justify-content: center;
-            }
-            .auth-input {
-                width: 170px;
+                flex: 0 0 auto;
             }
             .btn {
-                width: 105px;
+                width: 110px;
                 justify-content: flex-start;
+                padding-left: 12px;
             }
         }
     </style>
@@ -227,52 +219,54 @@
     </div>
 
     <div class="sections-container">
-        <div></div> <div class="fields-container">
+        
+        <div class="fields-container">
             <h3>Details Requested</h3>
             <div class="field-container">
                 <div class="field-label">Certificate Name:</div>
                 <div></div>
-                <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                <div class="field-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
                 
                 <div class="field-label">Certificate Date:</div>
                 <div></div>
-                <div>13/08/2025</div>
+                <div class="field-value">13/08/2025</div>
                 
                 <div class="field-label">Qualification:</div>
                 <div></div>
-                <div>NEBOSH International General Certificate in Occupational Health and Safety</div>
+                <div class="field-value">NEBOSH International General Certificate in Occupational Health and Safety</div>
                 
                 <div class="field-label">Master log certificate No:</div>
                 <div></div>
-                <div>00922069/1533915</div>
+                <div class="field-value">00922069/1533915</div>
             </div>
         </div>
 
-        <div></div> <div class="fields-container">
+        <div class="fields-container">
             <h3>Requester Details</h3>
             <div class="field-container">
                 <div class="field-label">Requested By:</div>
                 <div></div>
-                <div>Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
+                <div class="field-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
                 
                 <div class="field-label">Organisation:</div>
                 <div></div>
-                <div>Egyptian Ministry of Health</div>
+                <div class="field-value">Egyptian Ministry of Health</div>
                 
                 <div class="field-label">Email:</div>
                 <div></div>
-                <div>essam.a36@yahoo.com</div>
+                <div class="field-value">essam.a36@yahoo.com</div>
                 
                 <div class="field-label">Requested:</div>
                 <div></div>
-                <div>20/05/2026 19:31</div>
+                <div class="field-value">20/05/2026 19:31</div>
             </div>
         </div>
 
-        <div></div> </div>
+    </div>
 
     <div class="auth-section">
-        <div></div> <div class="auth-container">
+        
+        <div class="auth-container">
             <div class="highlighted">
                 <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
                 <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
@@ -282,8 +276,6 @@
                 <div class="input-wrapper">
                     <input type="text" class="auth-input" placeholder="Auth. Code">
                 </div>
-                
-                <div class="spacer"></div>
                 
                 <div class="buttons-wrapper">
                     <button class="btn btn-deny">
@@ -296,7 +288,7 @@
             </div>
         </div>
         
-        <div></div> </div>
+    </div>
 
 </body>
 </html>
