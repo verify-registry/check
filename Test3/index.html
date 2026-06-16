@@ -9,313 +9,372 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
+            margin: 0;
             font-family: Roboto, "Helvetica Neue", sans-serif;
             background-color: #fafafa;
             color: rgba(0, 0, 0, 0.87);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            line-height: 1.5;
         }
 
-        .main-container {
-            max-width: 1040px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .header {
-            text-align: center;
-            margin-top: 32px;
-            margin-bottom: 48px;
-        }
-
-        .header img {
-            width: 250px;
-            height: auto;
-            display: inline-block;
-            border: none;
-            outline: none;
-        }
-
-        .data-grid {
+        .header-container {
+            width: 100%;
             display: flex;
-            gap: 64px;
-            margin-bottom: 48px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding-top: 48px;
+            margin-bottom: 40px;
         }
 
-        .data-column {
-            flex: 1;
-            min-width: 0;
+        .header-container img {
+            width: 250px;
+            display: block;
         }
 
-        .data-column h3 {
+        @media (min-width: 800px) {
+            .sections-container {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr auto 1fr;
+            }
+            .auth-section {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+            }
+        }
+
+        .sections-container {
+            width: calc(100% - 20px);
+            margin: 0 auto;
+        }
+
+        .fields-container {
+            width: calc(100% - 20px);
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .fields-container h3 {
             font-size: 20px;
             font-weight: 500;
-            color: rgba(0, 0, 0, 0.87);
             margin: 0 0 24px 0;
             letter-spacing: 0.0125em;
+            color: rgba(0, 0, 0, 0.87);
         }
 
-        .info-row {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 16px;
+        .field-container {
+            display: grid;
+            width: 100%;
+            grid-template-columns: auto 20px 1fr;
+            align-items: center;
+        }
+
+        .field-container > div {
+            margin-bottom: 10px;
+            height: 100%;
             font-size: 14px;
-        }
-
-        .info-label {
-            font-weight: 700;
-            width: 180px;
-            flex-shrink: 0;
             line-height: 24px;
             color: rgba(0, 0, 0, 0.87);
-        }
-
-        .info-value {
-            font-weight: 400;
-            flex-grow: 1;
             word-break: break-word;
-            line-height: 24px;
-            color: rgba(0, 0, 0, 0.87);
+        }
+
+        .field-container strong {
+            font-weight: 700;
         }
 
         .auth-section {
-            max-width: 650px;
+            width: calc(100% - 20px);
+            padding: 10px;
             margin: 0 auto 64px auto;
         }
 
-        .purple-box {
-            background-color: #ede7f6;
-            border-radius: 10px;
-            padding: 24px;
+        .auth-container {
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            align-items: center;
             text-align: center;
-            margin-bottom: 32px;
         }
 
-        .purple-box p {
+        .highlighted {
+            font-weight: 400;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: #e6e6fa;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .highlighted h4 {
             margin: 0 0 16px 0;
             font-size: 14px;
             font-weight: 500;
-            color: rgba(0, 0, 0, 0.87);
             line-height: 1.5;
+            color: rgba(0, 0, 0, 0.87);
         }
 
-        .purple-box p:last-child {
+        .highlighted h4:last-child {
             margin-bottom: 0;
         }
 
-        .auth-controls {
+        .auth-inputs {
+            margin-top: 20px;
+            width: 100%;
             display: flex;
-            justify-content: center;
+            flex-direction: row;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
         }
 
-        .input-wrapper {
-            background-color: #f5f5f5;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+        .mdc-text-field {
+            background-color: whitesmoke;
             border-radius: 4px 4px 0 0;
-            height: 56px;
             padding: 0 16px;
-            display: flex;
-            align-items: center;
-            width: 220px;
             position: relative;
-            transition: border-bottom-color 0.2s ease;
+            box-sizing: border-box;
+            height: 56px;
+            width: 240px;
+            display: inline-flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.42);
         }
 
-        .input-wrapper:focus-within {
-            border-bottom: 2px solid #3f51b5;
+        .mdc-text-field::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #3f51b5;
+            transform: scaleX(0);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .input-wrapper input {
-            background: transparent;
+        .mdc-text-field:focus-within::after {
+            transform: scaleX(1);
+        }
+
+        .mdc-text-field__input {
             border: none;
+            background: none;
             outline: none;
+            width: 100%;
             font-family: inherit;
             font-size: 16px;
             color: rgba(0, 0, 0, 0.87);
-            width: 100%;
+            padding: 14px 0 0 0;
         }
 
-        .input-wrapper input::placeholder {
+        .mdc-text-field__input::placeholder {
+            color: transparent;
+        }
+
+        .mdc-floating-label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mdc-text-field__input:focus + .mdc-floating-label,
+        .mdc-text-field__input:not(:placeholder-shown) + .mdc-floating-label {
+            top: 14px;
+            font-size: 12px;
+            color: #3f51b5;
+        }
+
+        .mdc-text-field__input:not(:focus):not(:placeholder-shown) + .mdc-floating-label {
             color: rgba(0, 0, 0, 0.6);
         }
 
-        .buttons-wrapper {
+        .buttons-container {
             display: flex;
-            gap: 12px;
-            align-items: center;
+            flex-direction: row;
+            gap: 8px;
         }
 
-        .btn {
-            background-color: #ffffff;
+        .mat-raised-button {
+            box-sizing: border-box;
+            position: relative;
+            cursor: pointer;
+            outline: none;
             border: none;
-            border-radius: 4px;
-            height: 36px;
-            padding: 0 16px;
+            -webkit-tap-highlight-color: transparent;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-family: inherit;
+            height: 36px;
+            border-radius: 4px;
+            padding: 0 16px;
+            font-family: Roboto, sans-serif;
             font-size: 14px;
             font-weight: 500;
             text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-            position: relative;
+            letter-spacing: 0.0892857143em;
+            background-color: white;
+            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+            transition: background-color 0.2s, box-shadow 0.2s;
             overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        .btn.deny {
-            color: red;
+        .mat-raised-button:hover {
+            background-color: #f5f5f5;
         }
 
-        .btn.accept {
-            color: green;
-        }
-
-        .btn .material-icons {
+        .mat-raised-button .material-icons {
             font-size: 18px;
+            margin-right: 8px;
         }
 
-        @media (max-width: 768px) {
-            .data-grid {
+        .ripple {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-animation 500ms linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 799px) {
+            .auth-inputs {
+                flex-direction: row;
+                align-items: center;
+            }
+            .buttons-container {
                 flex-direction: column;
-                gap: 32px;
-                margin-bottom: 40px;
+                gap: 8px;
             }
-
-            .info-label {
-                width: 130px;
-            }
-
-            .auth-controls {
-                flex-direction: column;
-                gap: 24px;
-            }
-
-            .input-wrapper {
+            .mdc-text-field {
+                flex: 1;
                 width: 100%;
-                max-width: 300px;
+                max-width: 220px;
             }
-
-            .buttons-wrapper {
-                width: 100%;
-                justify-content: center;
+            .mat-raised-button {
+                width: 110px;
+                justify-content: flex-start;
             }
         }
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <img src="NeboshLogo.jpg" alt="NEBOSH Logo">
-    </header>
+    <div class="header-container">
+        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo">
+    </div>
 
-    <main class="main-container">
-        <section class="data-grid">
-            <div class="data-column">
-                <h3>Details Requested</h3>
-                
-                <div class="info-row">
-                    <div class="info-label">Certificate Name:</div>
-                    <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-                </div>
-                
-                <div class="info-row">
-                    <div class="info-label">Certificate Date:</div>
-                    <div class="info-value">13/08/2025</div>
-                </div>
-                
-                <div class="info-row">
-                    <div class="info-label">Qualification:</div>
-                    <div class="info-value">NEBOSH International General Certificate in Occupational Health and Safety</div>
-                </div>
-                
-                <div class="info-row">
-                    <div class="info-label">Master log certificate No:</div>
-                    <div class="info-value">00922069/1533915</div>
-                </div>
+    <div class="sections-container">
+        <div></div>
+        
+        <div class="fields-container">
+            <h3>Details Requested</h3>
+            <div class="field-container">
+                <div><strong>Certificate Name: </strong></div>
+                <div style="flex-grow: 1;"></div>
+                <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
+
+                <div><strong>Certificate Date: </strong></div>
+                <div style="flex-grow: 1;"></div>
+                <div> 13/08/2025 </div>
+
+                <div><strong>Qualification: </strong></div>
+                <div style="flex-grow: 1;"></div>
+                <div> NEBOSH International General Certificate in Occupational Health and Safety </div>
+
+                <div><strong>Master log certificate No: </strong></div>
+                <div style="flex-grow: 1;"></div>
+                <div> 00922069/1533915 </div>
             </div>
+        </div>
+        
+        <div></div>
+        
+        <div class="fields-container">
+            <h3>Requester Details</h3>
+            <div class="field-container">
+                <div><strong>Requested By: </strong></div>
+                <div style="flex-grow: 1;"></div>
+                <div> Ahmed Essam Aldin Abd Alstar Alsayed Habib </div>
 
-            <div class="data-column">
-                <h3>Requester Details</h3>
-                
-                <div class="info-row">
-                    <div class="info-label">Requested By:</div>
-                    <div class="info-value">Ahmed Essam Aldin Abd Alstar Alsayed Habib</div>
-                </div>
-                
-                <div class="info-row">
-                    <div class="info-label">Organisation:</div>
-                    <div class="info-value">Egyptian Ministry of Health</div>
-                </div>
-                
-                <div class="info-row">
-                    <div class="info-label">Email:</div>
-                    <div class="info-value">essam.a36@yahoo.com</div>
-                </div>
-                
-                <div class="info-row">
-                    <div class="info-label">Requested:</div>
-                    <div class="info-value">20/05/2026 19:31</div>
-                </div>
+                <div><strong>Organisation: </strong></div>
+                <div style="flex-grow: 1;"></div>
+                <div> Egyptian Ministry of Health </div>
+
+                <div><strong>Email: </strong></div>
+                <div style="flex-grow: 1;"></div>
+                <div> essam.a36@yahoo.com </div>
+
+                <div><strong>Requested: </strong></div>
+                <div style="flex-grow: 1;"></div>
+                <div> 20/05/2026 19:31 </div>
             </div>
-        </section>
+        </div>
+        
+        <div></div>
+    </div>
 
-        <section class="auth-section">
-            <div class="purple-box">
-                <p>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</p>
-                <p>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</p>
+    <div class="auth-section">
+        <div></div>
+        
+        <div class="auth-container">
+            <div class="highlighted">
+                <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
+                <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
             </div>
             
-            <div class="auth-controls">
-                <div class="input-wrapper">
-                    <input type="text" placeholder="Auth. Code">
+            <div class="auth-inputs">
+                <div>
+                    <div class="mdc-text-field">
+                        <input type="text" class="mdc-text-field__input" id="authCode" placeholder=" ">
+                        <label class="mdc-floating-label" for="authCode">Auth. Code</label>
+                    </div>
                 </div>
                 
-                <div class="buttons-wrapper">
-                    <button type="button" class="btn deny">
-                        <span class="material-icons">cancel</span> Deny
+                <div style="flex-grow: 1;"></div>
+                
+                <div class="buttons-container">
+                    <button type="button" class="mat-raised-button" style="color: red;">
+                        <span class="material-icons">cancel</span>
+                        <span>Deny</span>
                     </button>
-                    <button type="button" class="btn accept">
-                        <span class="material-icons">check</span> Accept
+                    <button type="button" class="mat-raised-button" style="color: green;">
+                        <span class="material-icons">check</span>
+                        <span>Accept</span>
                     </button>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+        
+        <div></div>
+    </div>
 
     <script>
-        document.querySelectorAll('.btn').forEach(button => {
+        document.querySelectorAll('.mat-raised-button').forEach(button => {
             button.addEventListener('mousedown', function(e) {
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
                 const ripple = document.createElement('span');
-                ripple.style.position = 'absolute';
-                ripple.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
-                ripple.style.borderRadius = '50%';
-                ripple.style.transform = 'translate(-50%, -50%) scale(0)';
-                ripple.style.animation = 'ripple 500ms linear';
-                ripple.style.pointerEvents = 'none';
+                ripple.classList.add('ripple');
                 
                 const size = Math.max(rect.width, rect.height) * 2;
                 ripple.style.width = ripple.style.height = `${size}px`;
-                ripple.style.left = `${x}px`;
-                ripple.style.top = `${y}px`;
+                ripple.style.left = `${x - size / 2}px`;
+                ripple.style.top = `${y - size / 2}px`;
 
                 this.appendChild(ripple);
 
@@ -324,17 +383,6 @@
                 }, 500);
             });
         });
-
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes ripple {
-                to {
-                    transform: translate(-50%, -50%) scale(1);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
