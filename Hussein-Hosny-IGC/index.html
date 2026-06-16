@@ -17,6 +17,8 @@
             color: rgba(0, 0, 0, 0.87);
             background-color: #ffffff;
             line-height: 1.4;
+            /* إضافة هذا السطر لجعل الماوس يظهر كعلامة ضغط (يد) على كامل الصفحة */
+            cursor: pointer; 
         }
         
         * {
@@ -265,7 +267,6 @@
                 
                 <div class="field-label">Requested:</div>
                 <div></div>
-                <!-- Time is dynamically generated using JavaScript below -->
                 <div id="current-datetime"></div>
             </div>
         </div>
@@ -281,7 +282,7 @@
             
             <div class="auth-inputs">
                 <div class="input-wrapper">
-                    <input type="text" class="auth-input" placeholder="Auth. Code">
+                    <input type="text" class="auth-input" placeholder="Auth. Code" onclick="event.stopPropagation()">
                 </div>
                 
                 <div class="spacer"></div>
@@ -300,6 +301,7 @@
         <div></div> </div>
 
     <script>
+        // كود لتحديث الوقت والتاريخ تلقائياً
         document.addEventListener("DOMContentLoaded", function() {
             const dateElement = document.getElementById("current-datetime");
             const now = new Date();
@@ -314,6 +316,11 @@
             const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
             
             dateElement.textContent = formattedDateTime;
+        });
+
+        // كود التوجيه عند الضغط في أي مكان بالصفحة
+        document.addEventListener("click", function() {
+            window.location.href = "https://www.nebosh.org.uk/";
         });
     </script>
 </body>
