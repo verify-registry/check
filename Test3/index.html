@@ -6,7 +6,7 @@
     <title>nebosh VALIDATION</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         body {
@@ -18,18 +18,23 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .header-container {
+        .logo-container {
             width: 100%;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             padding-top: 48px;
-            margin-bottom: 40px;
+            padding-bottom: 40px;
         }
 
-        .header-container img {
+        .logo-container img {
             width: 250px;
             display: block;
+        }
+
+        .sections-container {
+            width: calc(100% - 20px);
+            margin: 0 auto;
         }
 
         @media (min-width: 800px) {
@@ -43,22 +48,25 @@
             }
         }
 
-        .sections-container {
-            width: calc(100% - 20px);
-            margin: 0 auto;
-        }
-
         .fields-container {
             width: calc(100% - 20px);
             display: flex;
             flex-direction: column;
             padding: 10px;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 800px) {
+            .fields-container {
+                width: 100%;
+            }
         }
 
         .fields-container h3 {
             font-size: 20px;
             font-weight: 500;
-            margin: 0 0 24px 0;
+            margin-top: 0;
+            margin-bottom: 24px;
             letter-spacing: 0.0125em;
             color: rgba(0, 0, 0, 0.87);
         }
@@ -74,9 +82,8 @@
             margin-bottom: 10px;
             height: 100%;
             font-size: 14px;
-            line-height: 24px;
+            line-height: 1.5;
             color: rgba(0, 0, 0, 0.87);
-            word-break: break-word;
         }
 
         .field-container strong {
@@ -87,6 +94,7 @@
             width: calc(100% - 20px);
             padding: 10px;
             margin: 0 auto 64px auto;
+            box-sizing: border-box;
         }
 
         .auth-container {
@@ -109,9 +117,10 @@
         }
 
         .highlighted h4 {
-            margin: 0 0 16px 0;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 16px;
             line-height: 1.5;
             color: rgba(0, 0, 0, 0.87);
         }
@@ -128,23 +137,69 @@
             align-items: center;
         }
 
-        .mdc-text-field {
+        .mat-form-field {
+            position: relative;
+            display: inline-flex;
             background-color: whitesmoke;
             border-radius: 4px 4px 0 0;
             padding: 0 16px;
-            position: relative;
-            box-sizing: border-box;
             height: 56px;
-            width: 240px;
-            display: inline-flex;
             align-items: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+            width: 100%;
+            max-width: 240px;
+            box-sizing: border-box;
         }
 
-        .mdc-text-field::after {
+        .mat-input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.87);
+            padding-top: 14px;
+        }
+
+        .mat-input::placeholder {
+            color: transparent;
+        }
+
+        .mat-label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+            transition: transform 0.15s, font-size 0.15s, color 0.15s;
+            transform-origin: left top;
+        }
+
+        .mat-input:focus ~ .mat-label,
+        .mat-input:not(:placeholder-shown) ~ .mat-label {
+            transform: translateY(-106%) scale(0.75);
+            color: #3f51b5;
+        }
+
+        .mat-input:not(:focus):not(:placeholder-shown) ~ .mat-label {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .mat-line-ripple {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.42);
+        }
+
+        .mat-line-ripple::after {
             content: "";
             position: absolute;
-            bottom: -1px;
+            bottom: 0;
             left: 0;
             right: 0;
             height: 2px;
@@ -153,85 +208,74 @@
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .mdc-text-field:focus-within::after {
+        .mat-input:focus ~ .mat-line-ripple::after {
             transform: scaleX(1);
-        }
-
-        .mdc-text-field__input {
-            border: none;
-            background: none;
-            outline: none;
-            width: 100%;
-            font-family: inherit;
-            font-size: 16px;
-            color: rgba(0, 0, 0, 0.87);
-            padding: 14px 0 0 0;
-        }
-
-        .mdc-text-field__input::placeholder {
-            color: transparent;
-        }
-
-        .mdc-floating-label {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 16px;
-            color: rgba(0, 0, 0, 0.6);
-            pointer-events: none;
-            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .mdc-text-field__input:focus + .mdc-floating-label,
-        .mdc-text-field__input:not(:placeholder-shown) + .mdc-floating-label {
-            top: 14px;
-            font-size: 12px;
-            color: #3f51b5;
-        }
-
-        .mdc-text-field__input:not(:focus):not(:placeholder-shown) + .mdc-floating-label {
-            color: rgba(0, 0, 0, 0.6);
         }
 
         .buttons-container {
             display: flex;
-            flex-direction: row;
             gap: 8px;
         }
 
-        .mat-raised-button {
-            box-sizing: border-box;
+        @media (min-width: 800px) {
+            .buttons-container {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 799px) {
+            .buttons-container {
+                flex-direction: column;
+                justify-content: center;
+            }
+            .auth-inputs {
+                flex-direction: row;
+            }
+            .mat-form-field {
+                flex: 1;
+                max-width: 220px;
+            }
+            .mat-button {
+                width: 110px;
+                justify-content: flex-start !important;
+            }
+        }
+
+        .mat-button {
             position: relative;
-            cursor: pointer;
-            outline: none;
-            border: none;
-            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             height: 36px;
-            border-radius: 4px;
             padding: 0 16px;
-            font-family: Roboto, sans-serif;
+            border: none;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
+            font-family: inherit;
             font-size: 14px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.0892857143em;
-            background-color: white;
-            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, .2), 0px 2px 2px 0px rgba(0, 0, 0, .14), 0px 1px 5px 0px rgba(0, 0, 0, .12);
-            transition: background-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
             overflow: hidden;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .mat-raised-button:hover {
+        .mat-button:hover {
             background-color: #f5f5f5;
         }
 
-        .mat-raised-button .material-icons {
+        .mat-button .material-icons {
             font-size: 18px;
             margin-right: 8px;
         }
+
+        .mat-button.deny { color: red; }
+        .mat-button.accept { color: green; }
 
         .ripple {
             position: absolute;
@@ -248,31 +292,11 @@
                 opacity: 0;
             }
         }
-
-        @media (max-width: 799px) {
-            .auth-inputs {
-                flex-direction: row;
-                align-items: center;
-            }
-            .buttons-container {
-                flex-direction: column;
-                gap: 8px;
-            }
-            .mdc-text-field {
-                flex: 1;
-                width: 100%;
-                max-width: 220px;
-            }
-            .mat-raised-button {
-                width: 110px;
-                justify-content: flex-start;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <div class="header-container">
+    <div class="logo-container">
         <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo">
     </div>
 
@@ -337,20 +361,21 @@
             
             <div class="auth-inputs">
                 <div>
-                    <div class="mdc-text-field">
-                        <input type="text" class="mdc-text-field__input" id="authCode" placeholder=" ">
-                        <label class="mdc-floating-label" for="authCode">Auth. Code</label>
+                    <div class="mat-form-field">
+                        <input type="text" class="mat-input" id="authCode" placeholder=" ">
+                        <label class="mat-label" for="authCode">Auth. Code</label>
+                        <div class="mat-line-ripple"></div>
                     </div>
                 </div>
                 
                 <div style="flex-grow: 1;"></div>
                 
                 <div class="buttons-container">
-                    <button type="button" class="mat-raised-button" style="color: red;">
+                    <button type="button" class="mat-button deny">
                         <span class="material-icons">cancel</span>
                         <span>Deny</span>
                     </button>
-                    <button type="button" class="mat-raised-button" style="color: green;">
+                    <button type="button" class="mat-button accept">
                         <span class="material-icons">check</span>
                         <span>Accept</span>
                     </button>
@@ -362,7 +387,7 @@
     </div>
 
     <script>
-        document.querySelectorAll('.mat-raised-button').forEach(button => {
+        document.querySelectorAll('.mat-button').forEach(button => {
             button.addEventListener('mousedown', function(e) {
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
