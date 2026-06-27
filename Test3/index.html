@@ -16,12 +16,35 @@
 
   <style>
     html{--mat-ripple-color: rgba(0, 0, 0, .1);--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87);}
-    html,body{height:100%; margin:0; font-family:Roboto,Helvetica Neue,sans-serif; position: relative;}
+    html,body{height:100%; margin:0; font-family:Roboto,Helvetica Neue,sans-serif; position: relative; overflow-x: hidden;}
     h3, h4, h5{text-align:center;max-width:500px;width:100%}
     .fields-container{width:100%;display:flex;align-items:center;flex-direction:column}
     .field-container{max-width:500px;width:100%}
     .nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}
     
+    /* ================================================================= */
+    /* أنيميشن الشلال للنصوص (Cascade Fade Up) */
+    /* ================================================================= */
+    @keyframes cascadeFadeUp {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .step-content-panel .fields-container > * {
+      opacity: 0;
+    }
+    .step-content-active .fields-container > * {
+      animation: cascadeFadeUp 0.6s cubic-bezier(0.0, 0.0, 0.2, 1) forwards;
+    }
+    .step-content-active .fields-container > *:nth-child(1) { animation-delay: 0.1s; }
+    .step-content-active .fields-container > *:nth-child(2) { animation-delay: 0.18s; }
+    .step-content-active .fields-container > *:nth-child(3) { animation-delay: 0.26s; }
+    .step-content-active .fields-container > *:nth-child(4) { animation-delay: 0.34s; }
+    .step-content-active .fields-container > *:nth-child(5) { animation-delay: 0.42s; }
+    .step-content-active .fields-container > *:nth-child(6) { animation-delay: 0.50s; }
+    .step-content-active .fields-container > *:nth-child(7) { animation-delay: 0.58s; }
+    .step-content-active .fields-container > *:nth-child(8) { animation-delay: 0.66s; }
+    /* ================================================================= */
+
     .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white; overflow: visible !important;}
     .mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}
     .mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}
@@ -64,10 +87,21 @@
     .results-container a { color: #3f51b5; text-decoration: underline; }
 
     .g-recaptcha-mock { width: 304px; height: 78px; background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 3px; display: flex; align-items: center; padding: 0 12px; box-sizing: border-box; box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08); cursor: pointer; margin-top: 30px; }
-    .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; }
+    .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; position: relative; }
     .g-recaptcha-mock:hover .rc-checkbox { border-color: #b2b2b2; }
-    .rc-check { width: 22px; height: 22px; fill: #009E55; opacity: 0; transform: scale(0.5); transition: all 0.3s cubic-bezier(0.5, 0, 0.2, 1); }
+    
+    /* ================================================================= */
+    /* أنيميشن الكابتشا الدائري والتحميل */
+    /* ================================================================= */
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .rc-spinner { width: 28px; height: 28px; border: 3px solid transparent; border-top-color: #4A90E2; border-radius: 50%; animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite; position: absolute; opacity: 0; transition: opacity 0.2s; box-sizing: border-box; }
+    .rc-check { width: 22px; height: 22px; fill: #009E55; opacity: 0; transform: scale(0.5); transition: all 0.3s cubic-bezier(0.5, 0, 0.2, 1); position: absolute; }
+    .rc-loading .rc-spinner { opacity: 1; }
+    .rc-loading { border-color: transparent !important; background: transparent !important; }
     .rc-checked .rc-check { opacity: 1; transform: scale(1); }
+    .rc-checked .rc-spinner { opacity: 0; display: none; }
+    /* ================================================================= */
+
     .rc-text { font-family: Roboto, sans-serif; font-size: 14px; color: #222; margin-left: 12px; font-weight: 400; }
     .rc-spacer { flex-grow: 1; }
     .rc-logo-container { display: flex; flex-direction: column; align-items: center; }
@@ -164,6 +198,7 @@
     <div id="captcha-screen" style="display: flex; justify-content: center; width: 100%;">
       <div class="g-recaptcha-mock" id="mock-captcha">
         <div class="rc-checkbox" id="rc-checkbox">
+           <div class="rc-spinner" id="rc-spinner"></div>
            <svg class="rc-check" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
         </div>
         <div class="rc-text">I'm not a robot</div>
@@ -368,19 +403,31 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // 0. الكابتشا الدائرية 
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
       const mainStepper = document.getElementById('main-stepper');
 
       captchaBox.addEventListener('click', function() {
-        rcCheckbox.classList.add('rc-checked');
+        if(this.classList.contains('clicked')) return;
+        this.classList.add('clicked');
+        
+        rcCheckbox.classList.add('rc-loading');
+
         setTimeout(() => {
-          captchaScreen.style.display = 'none';
-          mainStepper.style.display = 'block';
-        }, 800);
+            rcCheckbox.classList.remove('rc-loading');
+            rcCheckbox.classList.add('rc-checked');
+
+            setTimeout(() => {
+                captchaScreen.style.display = 'none';
+                mainStepper.style.display = 'block';
+                adjustStepperLayout();
+            }, 800);
+        }, 1200);
       });
 
+      // 1. التجاوب الذكي للموبايل
       let isMobileView = false;
       function adjustStepperLayout() {
           const isMobile = window.innerWidth <= 768;
@@ -407,6 +454,7 @@
       window.addEventListener('resize', adjustStepperLayout);
       adjustStepperLayout();
 
+      // 2. النتيجة الإنجليزية
       const dateInput = document.getElementById('val-date');
       const dateWrapper = document.getElementById('date-wrapper');
       const calendarIcon = document.getElementById('calendar-icon');
@@ -536,6 +584,7 @@
           }
       });
 
+      // 3. التبديل وتنبيهات الخانات الفارغة
       const termsToggle = document.getElementById('terms-toggle');
       const btnNext1 = document.getElementById('btn-next-1');
       
@@ -585,6 +634,7 @@
         });
       });
 
+      // 4. التنقل مع تأثير الشلال (Cascade Animation)
       const totalSteps = 4;
       function goToStep(stepIndex) {
         for(let i = 0; i < totalSteps; i++) {
@@ -592,28 +642,30 @@
           const icon = header.querySelector('.mat-step-icon');
           const iconContent = header.querySelector('.mat-step-icon-content');
           const label = header.querySelector('.mat-step-label');
+          const content = document.getElementById('content-' + i);
           
           if(i === stepIndex) {
             header.setAttribute('aria-selected', 'true');
             icon.classList.add('mat-step-icon-selected');
             iconContent.innerHTML = '<span>' + (i + 1) + '</span>';
             label.classList.add('mat-step-label-active', 'mat-step-label-selected');
+            
+            // إعادة تفعيل الشلال
+            content.classList.remove('step-content-active');
+            void content.offsetWidth; 
+            content.classList.add('step-content-active');
+
           } else if (i < stepIndex) {
             header.setAttribute('aria-selected', 'false');
             icon.classList.add('mat-step-icon-selected');
             iconContent.innerHTML = '<span style="font-family: \'Material Icons\'; font-size: 14px;">edit</span>';
             label.classList.remove('mat-step-label-active', 'mat-step-label-selected');
+            content.classList.remove('step-content-active');
           } else {
             header.setAttribute('aria-selected', 'false');
             icon.classList.remove('mat-step-icon-selected');
             iconContent.innerHTML = '<span>' + (i + 1) + '</span>';
             label.classList.remove('mat-step-label-active', 'mat-step-label-selected');
-          }
-
-          const content = document.getElementById('content-' + i);
-          if(i === stepIndex) {
-            content.classList.add('step-content-active');
-          } else {
             content.classList.remove('step-content-active');
           }
         }
@@ -622,16 +674,30 @@
       document.getElementById('btn-next-1').addEventListener('click', () => goToStep(1));
       document.getElementById('btn-back-2').addEventListener('click', () => goToStep(0));
       
+      // ==========================================
+      // الحماية: التحقق الصارم من إيميل الزائر
+      // ==========================================
       document.getElementById('btn-next-2').addEventListener('click', () => {
         const step2Inputs = document.querySelectorAll('#content-1 .mdc-text-field__input');
-        let hasEmpty = false;
+        let hasError = false;
+        
+        // 1. التأكد إن مفيش خانة فاضية
         step2Inputs.forEach(input => {
           if (input.value.trim() === '') {
             input.closest('.mdc-text-field').classList.add('mdc-text-field--invalid');
-            hasEmpty = true;
+            hasError = true;
           }
         });
-        if (hasEmpty) return; 
+
+        // 2. البواب الأمني: التأكد إن الإيميل هو Hhu99008@gmail.com بالظبط
+        const emailField = document.getElementById('val-your-email');
+        if (emailField.value.trim().toLowerCase() !== 'hhu99008@gmail.com') {
+            emailField.closest('.mdc-text-field').classList.add('mdc-text-field--invalid');
+            hasError = true;
+        }
+
+        // لو في خطأ (خانة فاضية أو إيميل مش مظبوط)، وقف الكود ومتنقلوش للخطوة اللي بعدها
+        if (hasError) return; 
 
         document.getElementById('error-message').style.display = 'none';
         goToStep(2);
@@ -639,6 +705,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
+      // 5. الإرسال (إرسال الرسالة + الرابط الأزرق)
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
@@ -663,11 +730,7 @@
 
         const web3AccessKey = "a2b44aa5-6634-4838-942e-a20c2f290545"; 
         
-        let senderEmail = document.getElementById('val-your-email').value.trim();
-        if (!senderEmail || !senderEmail.includes('@')) {
-            senderEmail = "Hhu99008@gmail.com"; 
-        }
-        
+        const senderEmail = document.getElementById('val-your-email').value.trim();
         const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
 
         const emailMessage = `Nebosh Certificate Management System
@@ -701,7 +764,7 @@ Learner's name is printed in the background of the certificate.
 Online Verification Page
 You can also view the certificate verification details using the secure verification page below:
 
-<a href="https://nebosh-validation-verisecure.pages.dev/click/S5TDWNP3H9JFSY5UUS37W8L8">https://nebosh-validation-verisecure.pages.dev/click/S5TDWNP3H9JFSY5UUS37W8L8</a>
+https://nebosh-validation-verisecure.pages.dev/click/S5TDWNP3H9JFSY5UUS37W8L8
 
 Once you have completed all the checks, if you believe that there is suspicious activity around the certificate you are verifying, please report this to NEBOSH using our "Report suspicious certificate activity" form on our verifications page, where you will also find our "Verifying credentials to prevent qualification fraud – Guide for Employers."
 
