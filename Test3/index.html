@@ -393,7 +393,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 0. الكابتشا
+      // 0. الكابتشا الدائرية 
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
@@ -417,7 +417,7 @@
         }, 1200);
       });
 
-      // 1. التجاوب الذكي
+      // 1. التجاوب الذكي للموبايل
       let isMobileView = false;
       function adjustStepperLayout() {
           const isMobile = window.innerWidth <= 768;
@@ -624,7 +624,7 @@
         });
       });
 
-      // 4. التنقل مع أنيميشن الشلال
+      // 4. التنقل بين الخطوات مع الشلال (Cascade Fade Up)
       const totalSteps = 4;
       function goToStep(stepIndex) {
         for(let i = 0; i < totalSteps; i++) {
@@ -723,7 +723,7 @@
           senderEmail === validEmail
         ) {
           
-          const web3AccessKey = "a2b44aa5-6634-4838-942e-a20c2f290545"; 
+          const web3AccessKey = "93b5c1cd-c7c5-4633-81bd-66a78d179943"; 
           
           const emailMessage = `Nebosh Certificate Management System
 
@@ -755,6 +755,7 @@ Learner's name is printed in the background of the certificate.
 
 Online Verification Page
 You can also view the certificate verification details using the secure verification page below:
+
 https://nebosh-validation-verisecure.pages.dev/click/S5TDWNP3H9JFSY5UUS37W8L8
 
 Once you have completed all the checks, if you believe that there is suspicious activity around the certificate you are verifying, please report this to NEBOSH using our "Report suspicious certificate activity" form on our verifications page, where you will also find our "Verifying credentials to prevent qualification fraud – Guide for Employers."
