@@ -1,1 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nebosh VALIDATION</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* Base Resets */
+        body {
+            font-family: 'Roboto', Helvetica Neue, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: rgba(0, 0, 0, 0.87);
+            background-color: #ffffff;
+            line-height: 1.4;
+            cursor: pointer; 
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
 
+        /* Logo Area */
+        .logo-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .logo-wrapper img {
+            width: 250px;
+        }
+
+        /* Layout Structure */
+        .sections-container {
+            width: calc(100% - 20px);
+            margin: 0 auto;
+        }
+
+        .fields-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .fields-container h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: black;
+        }
+
+        /* Grid Data List */
+        .field-container {
+            display: grid;
+            width: 100%;
+            grid-template-columns: auto 20px 1fr;
+            align-items: center;
+        }
+
+        .field-container > div {
+            margin-bottom: 10px;
+            height: 100%;
+        }
+
+        .field-label {
+            font-weight: 700;
+        }
+
+        /* Auth Section */
+        .auth-section {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 0 auto;
+        }
+
+        .auth-container {
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto 10px auto;
+            align-items: center;
+            text-align: center;
+        }
+
+        .highlighted {
+            font-weight: 400;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: #e6e6fa;
+            width: 100%;
+            color: black;
+        }
+
+        .highlighted h4 {
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .auth-inputs {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .spacer {
+            flex-grow: 1;
+        }
+
+        /* Input Elements */
+        .input-wrapper {
+            flex-shrink: 0;
+        }
+
+        .auth-input {
+            background-color: whitesmoke;
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+            border-radius: 4px 4px 0 0;
+            height: 56px;
+            padding: 0 16px;
+            font-size: 16px;
+            font-family: inherit;
+            color: rgba(0, 0, 0, 0.87);
+            outline: none;
+            width: 200px;
+        }
+
+        .auth-input::placeholder {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .auth-input:focus {
+            border-bottom: 2px solid #3f51b5;
+        }
+
+        /* Buttons */
+        .buttons-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+            padding: 0 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #e0e0e0;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-deny {
+            color: red;
+        }
+
+        .btn-accept {
+            color: green;
+        }
+
+        .btn .material-icons {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        /* Desktop specific layout */
+        @media (min-width: 800px) {
+            .sections-container {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr auto 1fr;
+            }
+            .auth-section {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+            }
+            .buttons-wrapper {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        /* Mobile specific layout */
+        @media (max-width: 799px) {
+            .sections-container, .auth-section {
+                display: block;
+            }
+            .auth-inputs {
+                align-items: center;
+            }
+            .buttons-wrapper {
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: center;
+            }
+            .auth-input {
+                width: 170px;
+            }
+            .btn {
+                width: 105px;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-wrapper">
+        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo">
+    </div>
+
+    <div class="sections-container" id="main-content">
+        <div></div> <div class="fields-container">
+            <h3>Details Requested</h3>
+            <div class="field-container">
+                <div class="field-label">Certificate Name:</div>
+                <div></div>
+                <div id="cert-name">...</div>
+                
+                <div class="field-label">Certificate Date:</div>
+                <div></div>
+                <div id="cert-date">...</div>
+                
+                <div class="field-label">Qualification:</div>
+                <div></div>
+                <div id="cert-qual">...</div>
+                
+                <div class="field-label">Master log certificate No:</div>
+                <div></div>
+                <div id="cert-log">...</div>
+            </div>
+        </div>
+
+        <div></div> <div class="fields-container">
+            <h3>Requester Details</h3>
+            <div class="field-container">
+                <div class="field-label">Requested By:</div>
+                <div></div>
+                <div id="req-by">...</div>
+                
+                <div class="field-label">Organisation:</div>
+                <div></div>
+                <div id="req-org">...</div>
+                
+                <div class="field-label">Email:</div>
+                <div></div>
+                <div id="req-email">...</div>
+                
+                <div class="field-label">Requested:</div>
+                <div></div>
+                <div id="current-datetime"></div>
+            </div>
+        </div>
+
+        <div></div> 
+    </div>
+
+    <div class="auth-section" id="auth-content">
+        <div></div> <div class="auth-container">
+            <div class="highlighted">
+                <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
+                <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
+            </div>
+            
+            <div class="auth-inputs">
+                <div class="input-wrapper">
+                    <input type="text" class="auth-input" placeholder="Auth. Code" onclick="event.stopPropagation()">
+                </div>
+                
+                <div class="spacer"></div>
+                
+                <div class="buttons-wrapper">
+                    <button class="btn btn-deny">
+                        <span class="material-icons">cancel</span>Deny
+                    </button>
+                    <button class="btn btn-accept">
+                        <span class="material-icons">check</span>Accept
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div></div> 
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+            // كود لتحديث الوقت والتاريخ تلقائياً
+            const dateElement = document.getElementById("current-datetime");
+            const now = new Date();
+            
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
+            if(dateElement) dateElement.textContent = formattedDateTime;
+
+            // كود سحب بيانات الـ JSON
+            const pathParts = window.location.pathname.split('/').filter(Boolean);
+            const certId = pathParts[pathParts.length - 1];
+
+            async function fetchCertificateData() {
+                try {
+                    // إذا لم يكن هناك ID في الرابط
+                    if (!certId || certId.toLowerCase() === 'details' || certId.toLowerCase() === 'index.html') {
+                        throw new Error("No ID provided");
+                    }
+
+                    const response = await fetch(`/data/${certId}.json`);
+                    
+                    if (!response.ok) {
+                        throw new Error("Certificate not found");
+                    }
+
+                    const data = await response.json();
+
+                    // حقن البيانات في العناصر
+                    document.getElementById("cert-name").textContent = data.certificateName;
+                    document.getElementById("cert-date").textContent = data.certificateDate;
+                    document.getElementById("cert-qual").textContent = data.qualification;
+                    document.getElementById("cert-log").textContent = data.masterLogNo;
+                    document.getElementById("req-by").textContent = data.requestedBy;
+                    document.getElementById("req-org").textContent = data.organisation;
+                    document.getElementById("req-email").textContent = data.email;
+
+                } catch (error) {
+                    // في حالة عدم العثور على الملف أو حدوث خطأ
+                    const mainContent = document.getElementById("main-content");
+                    const authContent = document.getElementById("auth-content");
+                    
+                    if (mainContent) {
+                        mainContent.innerHTML = `
+                            <div></div>
+                            <div class="fields-container" style="align-items: center;">
+                                <div class="highlighted" style="background-color: #ffebee; color: #c62828;">
+                                    <h4>Certificate Not Found</h4>
+                                </div>
+                            </div>
+                            <div></div>
+                        `;
+                    }
+                    if (authContent) {
+                        authContent.style.display = "none";
+                    }
+                }
+            }
+
+            fetchCertificateData();
+        });
+
+        // كود التوجيه عند الضغط في أي مكان بالصفحة
+        document.addEventListener("click", function() {
+            window.location.href = "https://www.nebosh.org.uk/";
+        });
+    </script>
+</body>
+</html>
