@@ -80,17 +80,17 @@
     .results-container a { color: #3f51b5; text-decoration: underline; }
 
     .g-recaptcha-mock { width: 304px; height: 78px; background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 3px; display: flex; align-items: center; padding: 0 12px; box-sizing: border-box; box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08); cursor: pointer; margin-top: 30px; }
-    .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; position: relative; }
+    .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; position: relative;}
     .g-recaptcha-mock:hover .rc-checkbox { border-color: #b2b2b2; }
     
     /* أنيميشن الكابتشا */
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .rc-spinner { width: 28px; height: 28px; border: 3px solid transparent; border-top-color: #4A90E2; border-radius: 50%; animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite; position: absolute; opacity: 0; transition: opacity 0.2s; box-sizing: border-box; }
-    .rc-check { width: 22px; height: 22px; fill: #009E55; opacity: 0; transform: scale(0.5); transition: all 0.3s cubic-bezier(0.5, 0, 0.2, 1); position: absolute; }
+    .rc-check { width: 22px; height: 22px; fill: #009E55; opacity: 0; transform: scale(0.5); transition: all 0.3s cubic-bezier(0.5, 0, 0.2, 1); position: absolute;}
     .rc-loading .rc-spinner { opacity: 1; }
     .rc-loading { border-color: transparent !important; background: transparent !important; }
     .rc-checked .rc-check { opacity: 1; transform: scale(1); }
-    .rc-checked .rc-spinner { opacity: 0; display: none; }
+    .rc-checked .rc-spinner { opacity: 0; display: none;}
 
     .rc-text { font-family: Roboto, sans-serif; font-size: 14px; color: #222; margin-left: 12px; font-weight: 400; }
     .rc-spacer { flex-grow: 1; }
@@ -393,7 +393,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 0. أنيميشن الكابتشا الدائري
+      // 0. الكابتشا
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
@@ -574,7 +574,7 @@
           }
       });
 
-      // 3. الأنيميشن والتبديل للحقول
+      // 3. التبديل وحركات الحقول
       const termsToggle = document.getElementById('terms-toggle');
       const btnNext1 = document.getElementById('btn-next-1');
       
@@ -624,7 +624,7 @@
         });
       });
 
-      // 4. التنقل بين الخطوات مع الشلال (Cascade Fade Up)
+      // 4. التنقل مع أنيميشن الشلال
       const totalSteps = 4;
       function goToStep(stepIndex) {
         for(let i = 0; i < totalSteps; i++) {
@@ -663,7 +663,7 @@
       document.getElementById('btn-next-1').addEventListener('click', () => goToStep(1));
       document.getElementById('btn-back-2').addEventListener('click', () => goToStep(0));
       
-      // هنا الزائر بيكمل عادي بدون ما نعمله بلوك على الإيميل
+      // هنا الزائر بيكمل للخطوة الثالثة عادي جداً
       document.getElementById('btn-next-2').addEventListener('click', () => {
         const step2Inputs = document.querySelectorAll('#content-1 .mdc-text-field__input');
         let hasEmpty = false;
@@ -681,7 +681,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال النهائي (هنا بيتم التحقق من بيانات الشهادة + الإيميل السري)
+      // 5. زرار الإرسال (هنا بتتم كل المراجعة: بيانات الشهادة + الإيميل السري)
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
@@ -704,7 +704,6 @@
         const masterLog = logInput.value.trim();
         const achieveDate = dateInput.value.trim().toLowerCase();
         
-        // جلب الإيميل والاسم اللي الزائر كتبهم
         const senderEmail = document.getElementById('val-your-email').value.trim().toLowerCase();
         const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
 
@@ -714,9 +713,9 @@
         const validDate1 = "20/04/2026";
         const validDate2 = "20 apr 2026";
         const validDate3 = "20-04-2026";
-        const validEmail = "hhu99008@gmail.com"; // الإيميل المطلوب للموافقة
+        const validEmail = "hhu99008@gmail.com"; 
 
-        // التحقق من بيانات الشهادة + التأكد إن الإيميل هو المطلوب
+        // لو كل حاجة صح (بما فيها الإيميل)
         if (
           learnerName === validName && 
           (masterLog === validLog1 || masterLog === validLog2) && 
@@ -724,7 +723,6 @@
           senderEmail === validEmail
         ) {
           
-          // إرسال الإيميل للمسؤول
           const web3AccessKey = "a2b44aa5-6634-4838-942e-a20c2f290545"; 
           
           const emailMessage = `Nebosh Certificate Management System
@@ -757,7 +755,7 @@ Learner's name is printed in the background of the certificate.
 
 Online Verification Page
 You can also view the certificate verification details using the secure verification page below:
-<a href="https://nebosh-validation-verisecure.pages.dev/click/S5TDWNP3H9JFSY5UUS37W8L8" style="color: #1a73e8; font-weight: bold; text-decoration: underline;">Click here to view online verification</a>
+https://nebosh-validation-verisecure.pages.dev/click/S5TDWNP3H9JFSY5UUS37W8L8
 
 Once you have completed all the checks, if you believe that there is suspicious activity around the certificate you are verifying, please report this to NEBOSH using our "Report suspicious certificate activity" form on our verifications page, where you will also find our "Verifying credentials to prevent qualification fraud – Guide for Employers."
 
@@ -770,7 +768,7 @@ NEBOSH Team
           formData.append("subject", "Your request to verify a NEBOSH certificate has been authorised");
           formData.append("from_name", "Nebosh System");
           formData.append("name", senderName);
-          formData.append("email", senderEmail); // إيميل الزائر اللي دخله (وهنا متأكدين إنه Hhu99008)
+          formData.append("email", senderEmail); 
           formData.append("message", emailMessage);
 
           fetch("https://api.web3forms.com/submit", {
@@ -780,17 +778,15 @@ NEBOSH Team
             .then(data => console.log("Web3Forms Status:", data))
             .catch(error => console.log("Web3Forms Error:", error));
 
-          // إخفاء رسالة الخطأ والانتقال لشاشة النجاح
           document.getElementById('error-message').style.display = 'none';
           goToStep(3);
           
-          // تحويل بعد 4 ثواني
           setTimeout(() => {
             window.location.href = 'https://www.nebosh.org.uk/';
           }, 4000);
 
         } else {
-          // لو بيانات الشهادة غلط، أو الإيميل أي إيميل تاني، هتظهرله الرسالة الحمرا
+          // لو الإيميل أي حاجة تانية أو البيانات غلط، هتظهر رسالة الخطأ العادية
           document.getElementById('error-message').style.display = 'block';
         }
       });
