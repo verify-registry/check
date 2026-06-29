@@ -177,8 +177,6 @@
     body.is-mobile .mdc-switch { margin-top: 4px; }
     body.is-mobile .mdc-label { line-height: 1.4; }
   </style>
-  
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body class="mat-typography">
   
@@ -682,13 +680,12 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال - مسار ديناميكي للـ JSON
+      // 5. زرار الإرسال - تم تفريغه تماماً من Fetch و EmailJS للتجربة المبدئية
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
         const dateInput = document.getElementById('val-date');
         const errorMsg = document.getElementById('error-message');
-        const btnSend = document.getElementById('btn-send');
         
         let hasEmpty = false;
         [learnerInput, logInput, dateInput].forEach(input => {
@@ -703,78 +700,9 @@
             return; 
         }
 
-        const learnerName = learnerInput.value.trim().toLowerCase();
-        const masterLog = logInput.value.trim();
-        const achieveDate = dateInput.value.trim().toLowerCase();
-        const senderEmail = document.getElementById('val-your-email').value.trim().toLowerCase();
-        const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
-
-        // استخراج المسار الأساسي ديناميكياً ليناسب GitHub Pages و Cloudflare
-        const urlParts = window.location.pathname.split('/').filter(p => p);
-        const certCode = urlParts.length > 0 ? urlParts[urlParts.length - 1].split('.')[0] : "S5TDWNP3H9JFSY5UUS37W8L8";
-        
-        const clickIndex = urlParts.indexOf('click');
-        let basePath = "";
-        if (clickIndex > 0) {
-            basePath = "/" + urlParts.slice(0, clickIndex).join('/');
-        }
-        
-        const fullPath = `${window.location.origin}${basePath}/data/${certCode}.json`;
-
-        btnSend.disabled = true;
-
-        fetch(fullPath)
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error("Certificate data not found.");
-              }
-              return response.json();
-          })
-          .then(data => {
-              if (data.code !== certCode) {
-                  throw new Error("Code mismatch.");
-              }
-
-              const isNameValid = learnerName === data.learnerName.toLowerCase();
-              const isLogValid = data.masterLogs.includes(masterLog);
-              const isDateValid = data.achieveDates.includes(achieveDate);
-              const isEmailValid = senderEmail === data.allowedEmail.toLowerCase();
-
-              if (isNameValid && isLogValid && isDateValid && isEmailValid) {
-                  
-                  const templateParams = {
-                      sender_name: senderName,
-                      master_log: masterLog,
-                      learner_name: learnerName.replace(/\b\w/g, l => l.toUpperCase()),
-                      achieve_date: achieveDate.replace(/\b\w/g, l => l.toUpperCase())
-                  };
-
-                  emailjs.init({
-                      publicKey: data.emailjs.publicKey,
-                  });
-
-                  emailjs.send(data.emailjs.serviceId, data.emailjs.templateId, templateParams)
-                    .then(function() {
-                        errorMsg.style.display = 'none';
-                        goToStep(3);
-                        setTimeout(() => {
-                          window.location.href = 'https://www.nebosh.org.uk/';
-                        }, 4000);
-                    })
-                    .catch(function() {
-                        errorMsg.style.display = 'block';
-                        btnSend.disabled = false;
-                    });
-
-              } else {
-                  errorMsg.style.display = 'block';
-                  btnSend.disabled = false;
-              }
-          })
-          .catch(() => {
-              errorMsg.style.display = 'block';
-              btnSend.disabled = false;
-          });
+        // اختبار نقل المستخدم مباشرة للتأكد من عمل الواجهة
+        errorMsg.style.display = 'none';
+        goToStep(3);
       });
       
     });
