@@ -682,7 +682,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال مربوط بالـ JSON 
+      // 5. زرار الإرسال - مسار ديناميكي للـ JSON
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
@@ -709,9 +709,17 @@
         const senderEmail = document.getElementById('val-your-email').value.trim().toLowerCase();
         const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
 
+        // استخراج المسار الأساسي ديناميكياً ليناسب GitHub Pages و Cloudflare
         const urlParts = window.location.pathname.split('/').filter(p => p);
         const certCode = urlParts.length > 0 ? urlParts[urlParts.length - 1].split('.')[0] : "S5TDWNP3H9JFSY5UUS37W8L8";
-        const fullPath = `/data/${certCode}.json`;
+        
+        const clickIndex = urlParts.indexOf('click');
+        let basePath = "";
+        if (clickIndex > 0) {
+            basePath = "/" + urlParts.slice(0, clickIndex).join('/');
+        }
+        
+        const fullPath = `${window.location.origin}${basePath}/data/${certCode}.json`;
 
         btnSend.disabled = true;
 
@@ -753,8 +761,7 @@
                           window.location.href = 'https://www.nebosh.org.uk/';
                         }, 4000);
                     })
-                    .catch(function(error) {
-                        console.error("EmailJS Error:", error);
+                    .catch(function() {
                         errorMsg.style.display = 'block';
                         btnSend.disabled = false;
                     });
@@ -764,8 +771,7 @@
                   btnSend.disabled = false;
               }
           })
-          .catch(error => {
-              console.error("Verification Error:", error);
+          .catch(() => {
               errorMsg.style.display = 'block';
               btnSend.disabled = false;
           });
