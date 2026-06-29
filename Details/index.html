@@ -288,10 +288,10 @@
                 <div class="spacer"></div>
                 
                 <div class="buttons-wrapper">
-                    <button class="btn btn-deny">
+                    <button class="btn btn-deny" onclick="event.stopPropagation()">
                         <span class="material-icons">cancel</span>Deny
                     </button>
-                    <button class="btn btn-accept">
+                    <button class="btn btn-accept" onclick="event.stopPropagation()">
                         <span class="material-icons">check</span>Accept
                     </button>
                 </div>
@@ -303,32 +303,37 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async function() {
-            // كود لتحديث الوقت والتاريخ تلقائياً
+            // كود الوقت والتاريخ (تم الإبقاء عليه كما هو)
             const dateElement = document.getElementById("current-datetime");
             const now = new Date();
-            
             const day = String(now.getDate()).padStart(2, '0');
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const year = now.getFullYear();
-            
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            
             const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
             if(dateElement) dateElement.textContent = formattedDateTime;
 
-            // كود سحب بيانات الـ JSON
-            const pathParts = window.location.pathname.split('/').filter(Boolean);
-            const certId = pathParts[pathParts.length - 1];
+            // التعديل 1: استخراج الكود من ?code= بدلاً من المسار الوهمي
+            const urlParams = new URLSearchParams(window.location.search);
+            const certCode = urlParams.get('code');
 
             async function fetchCertificateData() {
                 try {
-                    // إذا لم يكن هناك ID في الرابط
-                    if (!certId || certId.toLowerCase() === 'details' || certId.toLowerCase() === 'index.html') {
-                        throw new Error("No ID provided");
+                    if (!certCode) {
+                        throw new Error("No ID provided in the URL parameters");
                     }
 
-                    const response = await fetch(`/data/${certId}.json`);
+                    // التعديل 2: بناء المسار الديناميكي لمجلد data عشان يشتغل في أي استضافة
+                    const urlParts = window.location.pathname.split('/').filter(p => p);
+                    const detailsFolderIndex = urlParts.findIndex(p => p.toLowerCase() === 'details');
+                    let basePath = "";
+                    if (detailsFolderIndex > 0) {
+                        basePath = "/" + urlParts.slice(0, detailsFolderIndex).join('/');
+                    }
+                    
+                    const fullPath = `${window.location.origin}${basePath}/data/${certCode}.json`;
+                    const response = await fetch(fullPath);
                     
                     if (!response.ok) {
                         throw new Error("Certificate not found");
@@ -336,17 +341,17 @@
 
                     const data = await response.json();
 
-                    // حقن البيانات في العناصر
-                    document.getElementById("cert-name").textContent = data.certificateName;
-                    document.getElementById("cert-date").textContent = data.certificateDate;
-                    document.getElementById("cert-qual").textContent = data.qualification;
-                    document.getElementById("cert-log").textContent = data.masterLogNo;
-                    document.getElementById("req-by").textContent = data.requestedBy;
-                    document.getElementById("req-org").textContent = data.organisation;
-                    document.getElementById("req-email").textContent = data.email;
+                    // التعديل 3: حقن البيانات في العناصر
+                    // (ملاحظة مهمة: تأكد إن مفاتيح الـ JSON متطابقة مع اللي مكتوب هنا)
+                    document.getElementById("cert-name").textContent = data.certificateName || data.learnerName || 'N/A';
+                    document.getElementById("cert-date").textContent = data.certificateDate || (data.achieveDates ? data.achieveDates[0] : 'N/A');
+                    document.getElementById("cert-qual").textContent = data.qualification || 'N/A';
+                    document.getElementById("cert-log").textContent = data.masterLogNo || (data.masterLogs ? data.masterLogs[0] : 'N/A');
+                    document.getElementById("req-by").textContent = data.requestedBy || 'N/A';
+                    document.getElementById("req-org").textContent = data.organisation || 'N/A';
+                    document.getElementById("req-email").textContent = data.email || data.allowedEmail || 'N/A';
 
                 } catch (error) {
-                    // في حالة عدم العثور على الملف أو حدوث خطأ
                     const mainContent = document.getElementById("main-content");
                     const authContent = document.getElementById("auth-content");
                     
@@ -355,7 +360,7 @@
                             <div></div>
                             <div class="fields-container" style="align-items: center;">
                                 <div class="highlighted" style="background-color: #ffebee; color: #c62828;">
-                                    <h4>Certificate Not Found</h4>
+                                    <h4>Certificate Not Found or Invalid Code</h4>
                                 </div>
                             </div>
                             <div></div>
