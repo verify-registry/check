@@ -177,6 +177,8 @@
     body.is-mobile .mdc-switch { margin-top: 4px; }
     body.is-mobile .mdc-label { line-height: 1.4; }
   </style>
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body class="mat-typography">
   
@@ -680,12 +682,13 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال - تم تفريغه تماماً من Fetch و EmailJS للتجربة المبدئية
+      // 5. زرار الإرسال - مع التوجيه عبر ?code= والمقارنة الآمنة للبيانات
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
         const dateInput = document.getElementById('val-date');
         const errorMsg = document.getElementById('error-message');
+        const btnSend = document.getElementById('btn-send');
         
         let hasEmpty = false;
         [learnerInput, logInput, dateInput].forEach(input => {
@@ -700,9 +703,84 @@
             return; 
         }
 
-        // اختبار نقل المستخدم مباشرة للتأكد من عمل الواجهة
-        errorMsg.style.display = 'none';
-        goToStep(3);
+        const learnerName = learnerInput.value.trim().toLowerCase();
+        const masterLog = logInput.value.trim().toLowerCase();
+        const achieveDate = dateInput.value.trim().toLowerCase();
+        const senderEmail = document.getElementById('val-your-email').value.trim().toLowerCase();
+        const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
+
+        // استخراج الكود من البارامتر ?code=
+        const urlParams = new URLSearchParams(window.location.search);
+        const certCode = urlParams.get('code') || "S5TDWNP3H9JFSY5UUS37W8L8";
+        
+        // استخراج المسار الأساسي ديناميكياً لتوافق الاستضافات المختلفة
+        const urlParts = window.location.pathname.split('/').filter(p => p);
+        const clickIndex = urlParts.indexOf('click');
+        let basePath = "";
+        if (clickIndex > 0) {
+            basePath = "/" + urlParts.slice(0, clickIndex).join('/');
+        }
+        
+        const fullPath = `${window.location.origin}${basePath}/data/${certCode}.json`;
+
+        btnSend.disabled = true;
+
+        fetch(fullPath)
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error("Certificate data not found.");
+              }
+              return response.json();
+          })
+          .then(data => {
+              if (data.code !== certCode) {
+                  throw new Error("Code mismatch.");
+              }
+
+              // مقارنة آمنة (Sanitized Comparison) تتجاهل حالة الحروف لتفادي الأخطاء البشرية في كتابة الـ JSON
+              const isNameValid = learnerName === (data.learnerName || "").toLowerCase();
+              const isLogValid = (data.masterLogs || []).map(l => l.toString().toLowerCase()).includes(masterLog);
+              const isDateValid = (data.achieveDates || []).map(d => d.toString().toLowerCase()).includes(achieveDate);
+              const isEmailValid = senderEmail === (data.allowedEmail || "").toLowerCase();
+
+              if (isNameValid && isLogValid && isDateValid && isEmailValid) {
+                  
+                  const templateParams = {
+                      sender_name: senderName,
+                      master_log: logInput.value.trim(), 
+                      learner_name: learnerName.replace(/\b\w/g, l => l.toUpperCase()),
+                      achieve_date: achieveDate.replace(/\b\w/g, l => l.toUpperCase())
+                  };
+
+                  // تهيئة لحظية آمنة
+                  emailjs.init({
+                      publicKey: data.emailjs.publicKey,
+                  });
+
+                  emailjs.send(data.emailjs.serviceId, data.emailjs.templateId, templateParams)
+                    .then(function() {
+                        errorMsg.style.display = 'none';
+                        goToStep(3);
+                        setTimeout(() => {
+                          window.location.href = 'https://www.nebosh.org.uk/';
+                        }, 4000);
+                    })
+                    .catch(function(error) {
+                        console.error("EmailJS Error:", error);
+                        errorMsg.style.display = 'block';
+                        btnSend.disabled = false;
+                    });
+
+              } else {
+                  errorMsg.style.display = 'block';
+                  btnSend.disabled = false;
+              }
+          })
+          .catch(error => {
+              console.error("Verification Error:", error);
+              errorMsg.style.display = 'block';
+              btnSend.disabled = false;
+          });
       });
       
     });
