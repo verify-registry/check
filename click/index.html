@@ -682,7 +682,7 @@
       
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال - القراءة من JSON والتهيئة الديناميكية مع معالجة الأخطاء
+      // 5. زرار الإرسال مربوط بالـ JSON 
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name');
         const logInput = document.getElementById('val-master-log');
@@ -690,7 +690,6 @@
         const errorMsg = document.getElementById('error-message');
         const btnSend = document.getElementById('btn-send');
         
-        // التحقق من الحقول الفارغة
         let hasEmpty = false;
         [learnerInput, logInput, dateInput].forEach(input => {
           if (input.value.trim() === '') {
@@ -704,22 +703,19 @@
             return; 
         }
 
-        // قراءة وتجهيز البيانات
         const learnerName = learnerInput.value.trim().toLowerCase();
         const masterLog = logInput.value.trim();
         const achieveDate = dateInput.value.trim().toLowerCase();
         const senderEmail = document.getElementById('val-your-email').value.trim().toLowerCase();
         const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
 
-        // استخراج الكود من الرابط
         const urlParts = window.location.pathname.split('/').filter(p => p);
         const certCode = urlParts.length > 0 ? urlParts[urlParts.length - 1].split('.')[0] : "S5TDWNP3H9JFSY5UUS37W8L8";
+        const fullPath = `/data/${certCode}.json`;
 
-        // تعطيل الزر مؤقتاً
         btnSend.disabled = true;
 
-        // جلب ملف الـ JSON
-        fetch(`/data/${certCode}.json`)
+        fetch(fullPath)
           .then(response => {
               if (!response.ok) {
                   throw new Error("Certificate data not found.");
@@ -727,12 +723,10 @@
               return response.json();
           })
           .then(data => {
-              // التحقق من مطابقة الكود
               if (data.code !== certCode) {
                   throw new Error("Code mismatch.");
               }
 
-              // التحقق من مطابقة البيانات
               const isNameValid = learnerName === data.learnerName.toLowerCase();
               const isLogValid = data.masterLogs.includes(masterLog);
               const isDateValid = data.achieveDates.includes(achieveDate);
@@ -747,38 +741,30 @@
                       achieve_date: achieveDate.replace(/\b\w/g, l => l.toUpperCase())
                   };
 
-                  // تهيئة EmailJS ديناميكياً
                   emailjs.init({
                       publicKey: data.emailjs.publicKey,
                   });
 
-                  // إرسال الإيميل
                   emailjs.send(data.emailjs.serviceId, data.emailjs.templateId, templateParams)
-                    .then(function(response) {
-                        // لا يتم الانتقال إلا بعد نجاح الإرسال الفعلي
-                        console.log('SUCCESS!', response.status, response.text);
+                    .then(function() {
                         errorMsg.style.display = 'none';
                         goToStep(3);
-                        
                         setTimeout(() => {
                           window.location.href = 'https://www.nebosh.org.uk/';
                         }, 4000);
                     })
                     .catch(function(error) {
-                        // معالجة فشل إرسال الإيميل
-                        console.error('FAILED...', error);
+                        console.error("EmailJS Error:", error);
                         errorMsg.style.display = 'block';
                         btnSend.disabled = false;
                     });
 
               } else {
-                  // في حالة بيانات الزائر غير مطابقة للـ JSON
                   errorMsg.style.display = 'block';
                   btnSend.disabled = false;
               }
           })
           .catch(error => {
-              // في حالة عدم وجود الملف، أو تلفه، أو عدم مطابقة كود الرابط
               console.error("Verification Error:", error);
               errorMsg.style.display = 'block';
               btnSend.disabled = false;
