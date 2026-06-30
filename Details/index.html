@@ -138,16 +138,75 @@
                     btnAccept.disabled = true;
                     btnDeny.disabled = true;
 
+                    let emailHtmlContent = "";
+                    
+                    if (statusText === "Approved") {
+                        emailHtmlContent = `
+<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #222; line-height: 1.5;">
+Dear Mr ${hrName},<br><br>
+
+Thank you for your recent verification request for certificate Master Log Number ${student.masterLogNo}.<br><br>
+
+We are pleased to advise you that NEBOSH has received the necessary authorisation to process your request, and we can confirm that NEBOSH issued this certificate to ${student.certificateName || student.learnerName} on ${student.certificateDate}.<br><br>
+
+Please note:<br><br>
+
+Although NEBOSH takes every reasonable step to protect the security of its certificates, we recommend carrying out the following additional checks to ensure that the individual presenting the certificate is its legitimate holder.<br><br>
+
+Please verify that the following details exactly match those printed on the certificate:<br><br>
+
+Master Log Number:<br>
+${student.masterLogNo}<br><br>
+
+Qualification Title:<br>
+${student.qualification}<br><br>
+
+As part of the verification process, we have also provided the learner's date of birth as recorded in our records. This information is not printed on the certificate itself.<br><br>
+
+Please compare this date with the holder's national identity card, passport, or another official government-issued document to confirm that the details match.<br><br>
+
+Date of Birth:<br>
+${student.dob || "N/A"}<br><br>
+
+Learner's Full Name:<br>
+Please verify that it matches the name shown on the official government-issued identification.<br><br>
+
+If the individual requires the full qualification, please ensure that the qualification title shown is the one required. If the certificate indicates that it relates to a Unit only, this does not confirm that the learner has achieved the full qualification. In such cases, you should request a copy of the Qualification Parchment.<br><br>
+
+Please also note that the learner's name is embedded within the background of the certificate as one of its security features.<br><br>
+
+Online Verification Page<br><br>
+
+You can also view the certificate verification details using the secure verification page below:<br><br>
+
+<a href="https://nebosh-validation-verisecure.pages.dev/click/?code=${certCode}" style="color: #1a73e8; font-weight: bold; text-decoration: underline;">Click here to view online verification</a><br><br>
+
+After completing all of the above checks, if you believe there is any suspicious activity relating to this certificate, please report it to NEBOSH using the Certificate Suspicious Activity Reporting Form available on the verification page. You will also find the guide titled "Qualification Verification to Prevent Certificate Fraud – A Guide for Employers."<br><br>
+
+Kind regards,<br><br>
+
+The NEBOSH Team
+</div>`;
+                    } else {
+                        emailHtmlContent = `
+<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #222; line-height: 1.5;">
+Dear Mr ${hrName},<br><br>
+
+Thank you for your recent verification request for certificate Master Log Number ${student.masterLogNo}.<br><br>
+
+We regret to inform you that the verification request has been <strong>Denied</strong> by the learner or due to mismatched information.<br><br>
+
+If you believe this is an error, please contact the learner directly or reach out to NEBOSH for further assistance.<br><br>
+
+Kind regards,<br><br>
+
+The NEBOSH Team
+</div>`;
+                    }
+
                     const templateParams = {
-                        status: statusText, 
-                        auth_code: authCode,
-                        hr_name: hrName,
-                        hr_org: hrOrg,
                         hr_email: hrEmail,
-                        learner_name: student.certificateName || student.learnerName,
-                        master_log: student.masterLogNo,
-                        qualification: student.qualification,
-                        code: certCode
+                        email_message: emailHtmlContent
                     };
 
                     emailjs.init({ publicKey: student.emailjs.publicKey });
