@@ -1,14 +1,49 @@
 {
-  "code": "S5TDWNP3H9JFSY5UUS37W8L8",
-  "learnerName": "Hussein Hosny Mohamed Helal",
-  "certificateName": "Hussein Hosny Mohamed Helal",
-  "masterLogNo": "00695637/169716",
-  "certificateDate": "20/04/2026",
-  "qualification": "NEBOSH International General Certificate",
-  "allowedEmail": "hhu99008@gmail.com",
-  "emailjs": {
-    "publicKey": "Zhz732-Gx1x3X9sXj",
-    "serviceId": "service_uhrznpb",
-    "templateId": "template_vmh8dg2"
-  }
+  "students": [
+    {
+      "code": "S5TDWNP3H9JFSY5UUS37W8L8",
+      "learnerName": "Hussein Hosny Mohamed Helal",
+      "certificateName": "Hussein Hosny Mohamed Helal",
+      "masterLogs": [
+        "00695637/169716",
+        "00694979"
+      ],
+      "masterLogNo": "00695637/169716",
+      "achieveDates": [
+        "20/04/2026",
+        "20 apr 2026",
+        "20-04-2026"
+      ],
+      "certificateDate": "20/04/2026",
+      "qualification": "NEBOSH International General Certificate in Occupational Health and Safety",
+      "allowedEmail": "hhu99008@gmail.com",
+      "email": "hhu99008@gmail.com",
+      "emailjs": {
+        "publicKey": "Zhz732-Gx1x3X9sXj",
+        "serviceId": "service_uhrznpb",
+        "templateId": "template_vmh8dg2"
+      }
+    },
+    {
+      "code": "TEST_CODE_2",
+      "learnerName": "Ahmed Ali",
+      "certificateName": "Ahmed Ali",
+      "masterLogs": [
+        "12345678"
+      ],
+      "masterLogNo": "12345678",
+      "achieveDates": [
+        "15/05/2026"
+      ],
+      "certificateDate": "15/05/2026",
+      "qualification": "NEBOSH Health and Safety at Work Award",
+      "allowedEmail": "ahmed.ali@example.com",
+      "email": "ahmed.ali@example.com",
+      "emailjs": {
+        "publicKey": "Your_Second_Public_Key_Here",
+        "serviceId": "Your_Second_Service_Id_Here",
+        "templateId": "Your_Second_Template_Id_Here"
+      }
+    }
+  ]
 }
