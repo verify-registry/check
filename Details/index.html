@@ -204,8 +204,10 @@ The NEBOSH Team
 </div>`;
                     }
 
+                    // تجهيز المتغيرات للقالب الموحد لإرسال النتيجة للـ HR
                     const templateParams = {
-                        hr_email: hrEmail,
+                        to_email: hrEmail,
+                        subject: `NEBOSH Certificate Verification Status: ${statusText}`,
                         email_message: emailHtmlContent
                     };
 
