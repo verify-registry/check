@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-critters-container="">
+<html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
@@ -7,14 +7,11 @@
   <base href=".">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="https://nebosh-validation.verisecure.org/assets/corp_logo.gif">
-  
+   
   <style>
-    /* الخطوط الأساسية */
     @font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-stretch:100%;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBGEe.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-stretch:100%;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-stretch:100%;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
     @font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}
-  </style>
-
-  <style>
+    
     html{--mat-ripple-color: rgba(0, 0, 0, .1);--mat-app-background-color: #fafafa;--mat-app-text-color: rgba(0, 0, 0, .87);}
     html,body{height:100%; margin:0; font-family:Roboto,Helvetica Neue,sans-serif; position: relative; overflow-x: hidden;}
     h3, h4, h5{text-align:center;max-width:500px;width:100%}
@@ -22,7 +19,6 @@
     .field-container{max-width:500px;width:100%}
     .nav-container{max-width:500px;width:100%;display:flex;margin-top:40px}
     
-    /* أنيميشن الشلال */
     @keyframes cascadeFadeUp {
       0% { opacity: 0; transform: translateY(15px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -83,10 +79,10 @@
     .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; position: relative;}
     .g-recaptcha-mock:hover .rc-checkbox { border-color: #b2b2b2; }
     
-    /* أنيميشن الكابتشا */
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .rc-spinner { width: 28px; height: 28px; border: 3px solid transparent; border-top-color: #4A90E2; border-radius: 50%; animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite; position: absolute; opacity: 0; transition: opacity 0.2s; box-sizing: border-box; }
     .rc-check { width: 22px; height: 22px; fill: #009E55; opacity: 0; transform: scale(0.5); transition: all 0.3s cubic-bezier(0.5, 0, 0.2, 1); position: absolute;}
+    .g-recaptcha-mock:hover .rc-spinner { opacity: 0; }
     .rc-loading .rc-spinner { opacity: 1; }
     .rc-loading { border-color: transparent !important; background: transparent !important; }
     .rc-checked .rc-check { opacity: 1; transform: scale(1); }
@@ -99,32 +95,10 @@
     .rc-logo-text { font-family: Roboto, sans-serif; font-size: 10px; color: #555; margin-top: 0;}
     .rc-logo-terms { font-family: Roboto, sans-serif; font-size: 8px; color: #999; margin-top: 2px; }
     
-    .validation-error-msg {
-      color: rgba(0,0,0,0.87);
-      font-size: 13.5px;
-      font-family: Roboto, sans-serif;
-      margin-top: 25px;
-      text-align: center;
-      display: none;
-      line-height: 1.5;
-      max-width: 500px;
-    }
+    .validation-error-msg { color: rgba(0,0,0,0.87); font-size: 13.5px; font-family: Roboto, sans-serif; margin-top: 25px; text-align: center; display: none; line-height: 1.5; max-width: 500px; }
     .validation-error-msg a { color: #3f51b5; text-decoration: underline; }
 
-    /* النتيجة الإنجليزية */
-    .mat-datepicker-content {
-      position: absolute;
-      bottom: calc(100% + 5px); 
-      right: 0; 
-      width: 296px;
-      background: white;
-      box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12);
-      border-radius: 4px;
-      z-index: 999999 !important; 
-      display: none;
-      font-family: Roboto, sans-serif;
-      padding: 0;
-    }
+    .mat-datepicker-content { position: absolute; bottom: calc(100% + 5px); right: 0; width: 296px; background: white; box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12); border-radius: 4px; z-index: 999999 !important; display: none; font-family: Roboto, sans-serif; padding: 0; }
     .mat-calendar-header { padding: 8px 8px 0 8px; }
     .mat-calendar-controls { display: flex; align-items: center; margin: 5% calc(33% / 7 - 16px); }
     .mat-calendar-period-button { min-width: 0; margin: 0 8px; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; font-weight: 500; font-size: 14px; color: rgba(0,0,0,0.87); outline: none;}
@@ -142,36 +116,14 @@
     .mat-calendar-body-cell:hover .mat-calendar-body-cell-content { background-color: rgba(0,0,0,0.04); }
     .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; }
 
-    /* التجاوب للموبايل */
-    body.is-mobile .mat-horizontal-stepper-header-container {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 16px 24px;
-        white-space: normal;
-    }
-    body.is-mobile .mat-horizontal-stepper-header {
-        padding: 12px 0;
-        height: auto;
-        min-height: 48px;
-        width: 100%;
-        justify-content: flex-start;
-    }
+    body.is-mobile .mat-horizontal-stepper-header-container { flex-direction: column; align-items: flex-start; padding: 16px 24px; white-space: normal; }
+    body.is-mobile .mat-horizontal-stepper-header { padding: 12px 0; height: auto; min-height: 48px; width: 100%; justify-content: flex-start; }
     body.is-mobile .mat-stepper-horizontal-line { display: none !important; }
-    body.is-mobile .step-content-panel {
-        display: none;
-        padding: 0 0 24px 28px;
-        margin-left: 12px;
-        border-left: 1px solid rgba(0,0,0,0.12);
-        width: calc(100% - 12px);
-        box-sizing: border-box;
-        transform: none !important;
-        white-space: normal;
-    }
+    body.is-mobile .step-content-panel { display: none; padding: 0 0 24px 28px; margin-left: 12px; border-left: 1px solid rgba(0,0,0,0.12); width: calc(100% - 12px); box-sizing: border-box; transform: none !important; white-space: normal; }
     body.is-mobile .step-content-panel.step-content-active { display: block; }
     body.is-mobile #content-3 { border-left: 1px solid transparent; }
     body.is-mobile .mat-horizontal-content-container { display: none !important; }
-    body.is-mobile .fields-container h3, 
-    body.is-mobile .fields-container h5 { text-align: left; }
+    body.is-mobile .fields-container h3, body.is-mobile .fields-container h5 { text-align: left; }
     body.is-mobile .field-container { width: 100%; }
     body.is-mobile .mdc-form-field { align-items: flex-start; }
     body.is-mobile .mdc-switch { margin-top: 4px; }
@@ -182,7 +134,7 @@
 </head>
 <body class="mat-typography">
   
-  <app-root ng-version="17.3.5">
+  <app-root>
     <div style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
       <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 250px;" alt="Nebosh Logo">
     </div>
@@ -300,12 +252,7 @@
 
               <div id="content-2" role="tabpanel" class="step-content-panel">
                 <div class="fields-container">
-                  
-                  <h3 style="max-width: 650px; font-weight: 700; font-size: 19px; line-height: 1.3; margin-bottom: 25px;">
-                    To verify a certificate or parchment, please enter the<br>
-                    following pieces of information exactly as they appear on<br>
-                    the document
-                  </h3>
+                  <h3 style="max-width: 650px; font-weight: 700; font-size: 19px; line-height: 1.3; margin-bottom: 25px;">To verify a certificate or parchment, please enter the following pieces of information exactly as they appear on the document</h3>
                   
                   <div class="field-container">
                     <div class="mdc-text-field">
@@ -346,19 +293,16 @@
                                 <thead class="mat-calendar-table-header">
                                     <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
                                 </thead>
-                                <tbody class="mat-calendar-table-body" id="cdp-grid">
-                                </tbody>
+                                <tbody class="mat-calendar-table-body" id="cdp-grid"></tbody>
                             </table>
                         </div>
                     </div>
                   </div>
                   
                   <div id="error-message" class="validation-error-msg">
-                    <strong>We are unable to verify this information please ensure all details match EXACTLY<br>the information printed on the certificate.</strong>
+                    <strong>We are unable to verify this information please ensure all details match EXACTLY the information printed on the certificate.</strong>
                     <br><br>
-                    If you continue to be unsuccessful in your search please contact the<br>person whose certificate you are verifying or <a href="https://www.nebosh.org.uk/contact-us/" target="_blank">contact NEBOSH</a> for<br>further guidance.
-                    <br><br>
-                    Full information of our <a href="https://www.nebosh.org.uk/policies-and-procedures/verifications/" target="_blank">verification process</a> is also available on the<br><a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.
+                    If you continue to be unsuccessful in your search please contact the person whose certificate you are verifying or <a href="https://www.nebosh.org.uk/contact-us/" target="_blank">contact NEBOSH</a> for further guidance.
                   </div>
 
                   <div class="nav-container" style="margin-top: 30px;">
@@ -379,10 +323,8 @@
 
               <div id="content-3" role="tabpanel" class="step-content-panel">
                 <div class="results-container">
-                  <h3>Thank you for your request to verify a NEBOSH certificate.<br>Your request has been sent to the learner that was issued<br>this certificate for authentication.</h3>
+                  <h3>Thank you for your request to verify a NEBOSH certificate. Your request has been sent to the learner that was issued this certificate for authentication.</h3>
                   <div class="result-text">Verification of this document is <strong style="text-decoration: underline;">not</strong> complete until you have received formal verification by email, <strong>from NEBOSH</strong></div>
-                  <div class="result-text">An email will be sent to you within 2 working days confirming the outcome of your request.</div>
-                  <div class="result-text">Full information of our <a href="https://www.nebosh.org.uk/policies-and-procedures/verifications/">verification process and additional guidance</a> on how to verify certificates is available on the <a href="https://www.nebosh.org.uk/home/">NEBOSH website</a>.</div>
                 </div>
               </div>
 
@@ -395,7 +337,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 0. الكابتشا الدائرية 
+      // الكابتشا
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
@@ -404,13 +346,10 @@
       captchaBox.addEventListener('click', function() {
         if(this.classList.contains('clicked')) return;
         this.classList.add('clicked');
-        
         rcCheckbox.classList.add('rc-loading');
-
         setTimeout(() => {
             rcCheckbox.classList.remove('rc-loading');
             rcCheckbox.classList.add('rc-checked');
-
             setTimeout(() => {
                 captchaScreen.style.display = 'none';
                 mainStepper.style.display = 'block';
@@ -419,34 +358,30 @@
         }, 1200);
       });
 
-      // 1. التجاوب الذكي للموبايل
+      // ريسبونسيف الموبايل
       let isMobileView = false;
       function adjustStepperLayout() {
           const isMobile = window.innerWidth <= 768;
           const headerContainer = document.getElementById('headers-container');
           const contentContainer = document.getElementById('content-container');
-          
           if (isMobile && !isMobileView) {
               isMobileView = true;
               document.body.classList.add('is-mobile');
               for(let i=0; i<4; i++) {
-                  const header = document.getElementById('header-' + i);
-                  const content = document.getElementById('content-' + i);
-                  headerContainer.insertBefore(content, header.nextSibling);
+                  headerContainer.insertBefore(document.getElementById('content-' + i), document.getElementById('header-' + i).nextSibling);
               }
           } else if (!isMobile && isMobileView) {
               isMobileView = false;
               document.body.classList.remove('is-mobile');
               for(let i=0; i<4; i++) {
-                  const content = document.getElementById('content-' + i);
-                  contentContainer.appendChild(content);
+                  contentContainer.appendChild(document.getElementById('content-' + i));
               }
           }
       }
       window.addEventListener('resize', adjustStepperLayout);
       adjustStepperLayout();
 
-      // 2. النتيجة الإنجليزية
+      // الديت بيكر الإنجليزي
       const dateInput = document.getElementById('val-date');
       const dateWrapper = document.getElementById('date-wrapper');
       const calendarIcon = document.getElementById('calendar-icon');
@@ -458,331 +393,144 @@
 
       const monthNamesShort = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
       const monthNamesFormat = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      let currentDate = new Date(); 
-      let selectedDate = null;
+      let currentDate = new Date(); let selectedDate = null;
 
       function renderCalendar(date) {
           grid.innerHTML = '';
-          const year = date.getFullYear();
-          const month = date.getMonth();
+          const year = date.getFullYear(); const month = date.getMonth();
           monthYearLabel.textContent = `${monthNamesShort[month]} ${year}`;
-
           const firstDayIndex = new Date(year, month, 1).getDay();
           const daysInMonth = new Date(year, month + 1, 0).getDate();
-
           let tr = document.createElement('tr');
-          
           if (firstDayIndex > 0) {
-              const tdLabel = document.createElement('td');
-              tdLabel.colSpan = firstDayIndex;
-              tdLabel.className = 'mat-calendar-body-label';
-              tdLabel.textContent = monthNamesShort[month];
-              tr.appendChild(tdLabel);
+              const tdLabel = document.createElement('td'); tdLabel.colSpan = firstDayIndex; tdLabel.className = 'mat-calendar-body-label'; tdLabel.textContent = monthNamesShort[month]; tr.appendChild(tdLabel);
           } else {
-              const labelTr = document.createElement('tr');
-              const tdLabel = document.createElement('td');
-              tdLabel.colSpan = 7;
-              tdLabel.className = 'mat-calendar-body-label';
-              tdLabel.textContent = monthNamesShort[month];
-              labelTr.appendChild(tdLabel);
-              grid.appendChild(labelTr);
+              const labelTr = document.createElement('tr'); const tdLabel = document.createElement('td'); tdLabel.colSpan = 7; tdLabel.className = 'mat-calendar-body-label'; tdLabel.textContent = monthNamesShort[month]; labelTr.appendChild(tdLabel); grid.appendChild(labelTr);
           }
-
           let currentDayOfWeek = firstDayIndex;
           for (let i = 1; i <= daysInMonth; i++) {
-              const td = document.createElement('td');
-              td.className = 'mat-calendar-body-cell';
-              
-              const div = document.createElement('div');
-              div.className = 'mat-calendar-body-cell-content';
-              div.textContent = i;
-              
-              if(selectedDate && selectedDate.getDate() === i && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) {
-                  td.classList.add('selected');
-              }
-              
-              td.appendChild(div);
-              tr.appendChild(td);
-
+              const td = document.createElement('td'); td.className = 'mat-calendar-body-cell';
+              const div = document.createElement('div'); div.className = 'mat-calendar-body-cell-content'; div.textContent = i;
+              if(selectedDate && selectedDate.getDate() === i && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) td.classList.add('selected');
+              td.appendChild(div); tr.appendChild(td);
               td.addEventListener('click', (e) => {
-                  e.stopPropagation();
-                  selectedDate = new Date(year, month, i);
-                  
-                  const dd = String(i).padStart(2, '0');
-                  const mmm = monthNamesFormat[month];
-                  dateInput.value = `${dd} ${mmm} ${year}`;
-                  
-                  datePicker.style.display = 'none';
-                  calendarIcon.style.color = 'rgba(0,0,0,0.54)';
-                  
+                  e.stopPropagation(); selectedDate = new Date(year, month, i);
+                  dateInput.value = `${String(i).padStart(2, '0')} ${monthNamesFormat[month]} ${year}`;
+                  datePicker.style.display = 'none'; calendarIcon.style.color = 'rgba(0,0,0,0.54)';
                   dateWrapper.classList.remove('mdc-text-field--invalid');
                   dateWrapper.classList.add('mdc-text-field--focused');
-                  const label = dateWrapper.querySelector('.mdc-floating-label');
-                  if(label) label.classList.add('mdc-floating-label--float-above');
+                  if(dateWrapper.querySelector('.mdc-floating-label')) dateWrapper.querySelector('.mdc-floating-label').classList.add('mdc-floating-label--float-above');
                   setTimeout(() => { dateWrapper.classList.remove('mdc-text-field--focused'); }, 100);
               });
-
-              currentDayOfWeek++;
-              if (currentDayOfWeek > 6) {
-                  grid.appendChild(tr);
-                  tr = document.createElement('tr');
-                  currentDayOfWeek = 0;
-              }
+              currentDayOfWeek++; if (currentDayOfWeek > 6) { grid.appendChild(tr); tr = document.createElement('tr'); currentDayOfWeek = 0; }
           }
-          
-          if (currentDayOfWeek > 0) {
-              for(let i=currentDayOfWeek; i<=6; i++){
-                   const emptyTd = document.createElement('td');
-                   tr.appendChild(emptyTd);
-              }
-              grid.appendChild(tr);
-          }
+          if (currentDayOfWeek > 0) { for(let i=currentDayOfWeek; i<=6; i++) tr.appendChild(document.createElement('td')); grid.appendChild(tr); }
       }
 
-      function toggleCalendar(e) {
+      dateWrapper.addEventListener('click', (e) => {
           e.stopPropagation();
-          if(datePicker.style.display === 'block') {
-              datePicker.style.display = 'none';
-              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
-          } else {
-              renderCalendar(currentDate);
-              datePicker.style.display = 'block';
-              calendarIcon.style.color = '#3f51b5';
-          }
-      }
-
-      dateWrapper.addEventListener('click', toggleCalendar);
-
-      prevBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          currentDate.setMonth(currentDate.getMonth() - 1);
-          renderCalendar(currentDate);
+          if(datePicker.style.display === 'block') { datePicker.style.display = 'none'; calendarIcon.style.color = 'rgba(0,0,0,0.54)'; }
+          else { renderCalendar(currentDate); datePicker.style.display = 'block'; calendarIcon.style.color = '#3f51b5'; }
       });
+      prevBtn.addEventListener('click', (e) => { e.stopPropagation(); currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(currentDate); });
+      nextBtn.addEventListener('click', (e) => { e.stopPropagation(); currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(currentDate); });
+      document.addEventListener('click', (e) => { if (!datePicker.contains(e.target) && !dateWrapper.contains(e.target)) { datePicker.style.display = 'none'; calendarIcon.style.color = 'rgba(0,0,0,0.54)'; } });
 
-      nextBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          currentDate.setMonth(currentDate.getMonth() + 1);
-          renderCalendar(currentDate);
-      });
-
-      datePicker.addEventListener('click', (e) => {
-          e.stopPropagation();
-      });
-
-      document.addEventListener('click', (e) => {
-          if (!datePicker.contains(e.target) && !dateWrapper.contains(e.target)) {
-              datePicker.style.display = 'none';
-              calendarIcon.style.color = 'rgba(0,0,0,0.54)';
-          }
-      });
-
-      // 3. التبديل وحركات الحقول
+      // تحريك الأنيميشن والحقول والتبديل
       const termsToggle = document.getElementById('terms-toggle');
       const btnNext1 = document.getElementById('btn-next-1');
-      
       termsToggle.addEventListener('click', function() {
-        const isSelected = this.classList.contains('mdc-switch--selected');
-        if(isSelected) {
-          this.classList.remove('mdc-switch--selected');
-          this.classList.add('mdc-switch--unselected');
-          this.setAttribute('aria-checked', 'false');
-          btnNext1.setAttribute('disabled', 'true');
+        if(this.classList.contains('mdc-switch--selected')) {
+          this.classList.replace('mdc-switch--selected', 'mdc-switch--unselected'); this.setAttribute('aria-checked', 'false'); btnNext1.setAttribute('disabled', 'true');
         } else {
-          this.classList.add('mdc-switch--selected');
-          this.classList.remove('mdc-switch--unselected');
-          this.setAttribute('aria-checked', 'true');
-          btnNext1.removeAttribute('disabled');
+          this.classList.replace('mdc-switch--unselected', 'mdc-switch--selected'); this.setAttribute('aria-checked', 'true'); btnNext1.removeAttribute('disabled');
         }
       });
 
-      const inputs = document.querySelectorAll('.mdc-text-field__input:not(#val-date)');
-      inputs.forEach(input => {
+      document.querySelectorAll('.mdc-text-field__input:not(#val-date)').forEach(input => {
         input.addEventListener('focus', function() {
-          const wrapper = this.closest('.mdc-text-field');
-          wrapper.classList.add('mdc-text-field--focused');
-          const label = wrapper.querySelector('.mdc-floating-label');
-          if(label) label.classList.add('mdc-floating-label--float-above');
+          const w = this.closest('.mdc-text-field'); w.classList.add('mdc-text-field--focused');
+          if(w.querySelector('.mdc-floating-label')) w.querySelector('.mdc-floating-label').classList.add('mdc-floating-label--float-above');
         });
-        
-        input.addEventListener('input', function() {
-           const wrapper = this.closest('.mdc-text-field');
-           if(this.value.trim() !== '') {
-             wrapper.classList.remove('mdc-text-field--invalid');
-           } else {
-             wrapper.classList.add('mdc-text-field--invalid');
-           }
-        });
-
+        input.addEventListener('input', function() { this.closest('.mdc-text-field').classList.toggle('mdc-text-field--invalid', this.value.trim() === ''); });
         input.addEventListener('blur', function() {
-          const wrapper = this.closest('.mdc-text-field');
-          wrapper.classList.remove('mdc-text-field--focused');
-          if(this.value.trim() === '') {
-            const label = wrapper.querySelector('.mdc-floating-label');
-            if(label) label.classList.remove('mdc-floating-label--float-above');
-            wrapper.classList.add('mdc-text-field--invalid');
-          } else {
-            wrapper.classList.remove('mdc-text-field--invalid');
-          }
+          const w = this.closest('.mdc-text-field'); w.classList.remove('mdc-text-field--focused');
+          if(this.value.trim() === '') { if(w.querySelector('.mdc-floating-label')) w.querySelector('.mdc-floating-label').classList.remove('mdc-floating-label--float-above'); w.classList.add('mdc-text-field--invalid'); }
         });
       });
 
-      // 4. التنقل بين الخطوات مع الشلال (Cascade Fade Up)
-      const totalSteps = 4;
       function goToStep(stepIndex) {
-        for(let i = 0; i < totalSteps; i++) {
-          const header = document.getElementById('header-' + i);
-          const icon = header.querySelector('.mat-step-icon');
-          const iconContent = header.querySelector('.mat-step-icon-content');
-          const label = header.querySelector('.mat-step-label');
-          const content = document.getElementById('content-' + i);
-          
+        for(let i = 0; i < 4; i++) {
+          const h = document.getElementById('header-' + i); const icon = h.querySelector('.mat-step-icon'); const iconContent = h.querySelector('.mat-step-icon-content'); const label = h.querySelector('.mat-step-label'); const content = document.getElementById('content-' + i);
           if(i === stepIndex) {
-            header.setAttribute('aria-selected', 'true');
-            icon.classList.add('mat-step-icon-selected');
-            iconContent.innerHTML = '<span>' + (i + 1) + '</span>';
-            label.classList.add('mat-step-label-active', 'mat-step-label-selected');
-            
-            content.classList.remove('step-content-active');
-            void content.offsetWidth; 
-            content.classList.add('step-content-active');
-
+            h.setAttribute('aria-selected', 'true'); icon.classList.add('mat-step-icon-selected'); iconContent.innerHTML = '<span>' + (i + 1) + '</span>'; label.classList.add('mat-step-label-active', 'mat-step-label-selected');
+            content.classList.remove('step-content-active'); void content.offsetWidth; content.classList.add('step-content-active');
           } else if (i < stepIndex) {
-            header.setAttribute('aria-selected', 'false');
-            icon.classList.add('mat-step-icon-selected');
-            iconContent.innerHTML = '<span style="font-family: \'Material Icons\'; font-size: 14px;">edit</span>';
-            label.classList.remove('mat-step-label-active', 'mat-step-label-selected');
-            content.classList.remove('step-content-active');
+            h.setAttribute('aria-selected', 'false'); icon.classList.add('mat-step-icon-selected'); iconContent.innerHTML = '<span style="font-family: \'Material Icons\'; font-size: 14px;">edit</span>'; label.classList.remove('mat-step-label-active', 'mat-step-label-selected'); content.classList.remove('step-content-active');
           } else {
-            header.setAttribute('aria-selected', 'false');
-            icon.classList.remove('mat-step-icon-selected');
-            iconContent.innerHTML = '<span>' + (i + 1) + '</span>';
-            label.classList.remove('mat-step-label-active', 'mat-step-label-selected');
-            content.classList.remove('step-content-active');
+            h.setAttribute('aria-selected', 'false'); icon.classList.remove('mat-step-icon-selected'); iconContent.innerHTML = '<span>' + (i + 1) + '</span>'; label.classList.remove('mat-step-label-active', 'mat-step-label-selected'); content.classList.remove('step-content-active');
           }
         }
       }
 
       document.getElementById('btn-next-1').addEventListener('click', () => goToStep(1));
       document.getElementById('btn-back-2').addEventListener('click', () => goToStep(0));
-      
       document.getElementById('btn-next-2').addEventListener('click', () => {
-        const step2Inputs = document.querySelectorAll('#content-1 .mdc-text-field__input');
-        let hasEmpty = false;
-        step2Inputs.forEach(input => {
-          if (input.value.trim() === '') {
-            input.closest('.mdc-text-field').classList.add('mdc-text-field--invalid');
-            hasEmpty = true;
-          }
-        });
-        if (hasEmpty) return; 
-
-        document.getElementById('error-message').style.display = 'none';
-        goToStep(2);
+        let empty = false; document.querySelectorAll('#content-1 .mdc-text-field__input').forEach(i => { if(i.value.trim()==='') { i.closest('.mdc-text-field').classList.add('mdc-text-field--invalid'); empty=true; } });
+        if(!empty) { document.getElementById('error-message').style.display = 'none'; goToStep(2); }
       });
-      
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
       
-      // 5. زرار الإرسال - مع التوجيه عبر ?code= والمقارنة الآمنة للبيانات
+      // زرار الإرسال المربوط ديناميكياً بملف JSON الموحد وحساب الطالب في EmailJS
       document.getElementById('btn-send').addEventListener('click', () => {
-        const learnerInput = document.getElementById('val-learner-name');
-        const logInput = document.getElementById('val-master-log');
-        const dateInput = document.getElementById('val-date');
-        const errorMsg = document.getElementById('error-message');
-        const btnSend = document.getElementById('btn-send');
-        
-        let hasEmpty = false;
-        [learnerInput, logInput, dateInput].forEach(input => {
-          if (input.value.trim() === '') {
-            input.closest('.mdc-text-field').classList.add('mdc-text-field--invalid');
-            hasEmpty = true;
-          }
-        });
+        const learnerInput = document.getElementById('val-learner-name'); const logInput = document.getElementById('val-master-log'); const dateInput = document.getElementById('val-date'); const errorMsg = document.getElementById('error-message'); const btnSend = document.getElementById('btn-send');
+        let empty = false; [learnerInput, logInput, dateInput].forEach(i => { if(i.value.trim()==='') { i.closest('.mdc-text-field').classList.add('mdc-text-field--invalid'); empty=true; } });
+        if(empty) return;
 
-        if (hasEmpty) {
-            errorMsg.style.display = 'none';
-            return; 
-        }
+        const learnerName = learnerInput.value.trim().toLowerCase(); const masterLog = logInput.value.trim().toLowerCase(); const achieveDate = dateInput.value.trim().toLowerCase(); const senderEmail = document.getElementById('val-your-email').value.trim().toLowerCase(); const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
 
-        const learnerName = learnerInput.value.trim().toLowerCase();
-        const masterLog = logInput.value.trim().toLowerCase();
-        const achieveDate = dateInput.value.trim().toLowerCase();
-        const senderEmail = document.getElementById('val-your-email').value.trim().toLowerCase();
-        const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
-
-        // استخراج الكود من البارامتر ?code=
         const urlParams = new URLSearchParams(window.location.search);
         const certCode = urlParams.get('code') || "S5TDWNP3H9JFSY5UUS37W8L8";
         
-        // استخراج المسار الأساسي ديناميكياً لتوافق الاستضافات المختلفة
         const urlParts = window.location.pathname.split('/').filter(p => p);
         const clickIndex = urlParts.indexOf('click');
-        let basePath = "";
-        if (clickIndex > 0) {
-            basePath = "/" + urlParts.slice(0, clickIndex).join('/');
-        }
-        
-        const fullPath = `${window.location.origin}${basePath}/data/${certCode}.json`;
+        let basePath = ""; if (clickIndex > 0) basePath = "/" + urlParts.slice(0, clickIndex).join('/');
+        const fullPath = `${window.location.origin}${basePath}/data/students.json`;
 
         btnSend.disabled = true;
 
         fetch(fullPath)
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error("Certificate data not found.");
-              }
-              return response.json();
-          })
+          .then(res => res.json())
           .then(data => {
-              if (data.code !== certCode) {
-                  throw new Error("Code mismatch.");
-              }
+              const student = data.students.find(s => s.code === certCode);
+              if(!student) throw new Error("Not Found");
 
-              // مقارنة آمنة (Sanitized Comparison) تتجاهل حالة الحروف لتفادي الأخطاء البشرية في كتابة الـ JSON
-              const isNameValid = learnerName === (data.learnerName || "").toLowerCase();
-              const isLogValid = (data.masterLogs || []).map(l => l.toString().toLowerCase()).includes(masterLog);
-              const isDateValid = (data.achieveDates || []).map(d => d.toString().toLowerCase()).includes(achieveDate);
-              const isEmailValid = senderEmail === (data.allowedEmail || "").toLowerCase();
+              const isNameValid = learnerName === (student.learnerName || "").toLowerCase();
+              const isLogValid = (student.masterLogs || []).map(l => l.toString().toLowerCase()).includes(masterLog);
+              const isDateValid = (student.achieveDates || []).map(d => d.toString().toLowerCase()).includes(achieveDate);
+              const isEmailValid = senderEmail === (student.allowedEmail || "").toLowerCase();
 
               if (isNameValid && isLogValid && isDateValid && isEmailValid) {
-                  
                   const templateParams = {
-                      sender_name: senderName,
+                      sender_name: senderName, 
+                      req_org: document.getElementById('val-your-org').value.trim(), 
+                      sender_email: document.getElementById('val-your-email').value.trim(),
                       master_log: logInput.value.trim(), 
-                      learner_name: learnerName.replace(/\b\w/g, l => l.toUpperCase()),
-                      achieve_date: achieveDate.replace(/\b\w/g, l => l.toUpperCase())
+                      learner_name: learnerName.replace(/\b\w/g, l => l.toUpperCase()), 
+                      achieve_date: achieveDate.replace(/\b\w/g, l => l.toUpperCase()), 
+                      code: certCode
                   };
-
-                  // تهيئة لحظية آمنة
-                  emailjs.init({
-                      publicKey: data.emailjs.publicKey,
-                  });
-
-                  emailjs.send(data.emailjs.serviceId, data.emailjs.templateId, templateParams)
-                    .then(function() {
-                        errorMsg.style.display = 'none';
-                        goToStep(3);
-                        setTimeout(() => {
-                          window.location.href = 'https://www.nebosh.org.uk/';
-                        }, 4000);
-                    })
-                    .catch(function(error) {
-                        console.error("EmailJS Error:", error);
-                        errorMsg.style.display = 'block';
-                        btnSend.disabled = false;
-                    });
-
-              } else {
-                  errorMsg.style.display = 'block';
-                  btnSend.disabled = false;
-              }
+                  
+                  // تشغيل الإعدادات الديناميكية الخاصة بالطالب المستهدف من الـ JSON
+                  emailjs.init({ publicKey: student.emailjs.publicKey });
+                  
+                  emailjs.send(student.emailjs.serviceId, student.emailjs.templateId, templateParams)
+                    .then(() => { errorMsg.style.display = 'none'; goToStep(3); setTimeout(() => { window.location.href = 'https://www.nebosh.org.uk/'; }, 4000); })
+                    .catch(() => { errorMsg.style.display = 'block'; btnSend.disabled = false; });
+              } else { errorMsg.style.display = 'block'; btnSend.disabled = false; }
           })
-          .catch(error => {
-              console.error("Verification Error:", error);
-              errorMsg.style.display = 'block';
-              btnSend.disabled = false;
-          });
+          .catch(() => { errorMsg.style.display = 'block'; btnSend.disabled = false; });
       });
-      
     });
   </script>
 </body>
