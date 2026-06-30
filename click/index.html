@@ -508,9 +508,9 @@
               const isNameValid = learnerName === (student.learnerName || "").toLowerCase();
               const isLogValid = (student.masterLogs || []).map(l => l.toString().toLowerCase()).includes(masterLog);
               const isDateValid = (student.achieveDates || []).map(d => d.toString().toLowerCase()).includes(achieveDate);
-              const isEmailValid = senderEmail === (student.allowedEmail || "").toLowerCase();
 
-              if (isNameValid && isLogValid && isDateValid && isEmailValid) {
+              // تم إزالة شرط مطابقة الإيميل هنا
+              if (isNameValid && isLogValid && isDateValid) {
                   
                   // بناء رسالة الـ HTML الخاصة بتنبيه الطالب للذهاب لصفحة التفاصيل
                   const studentEmailHtml = `
