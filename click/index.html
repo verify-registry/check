@@ -511,17 +511,26 @@
               const isEmailValid = senderEmail === (student.allowedEmail || "").toLowerCase();
 
               if (isNameValid && isLogValid && isDateValid && isEmailValid) {
+                  
+                  // بناء رسالة الـ HTML الخاصة بتنبيه الطالب للذهاب لصفحة التفاصيل
+                  const studentEmailHtml = `
+                    <div style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #222;">
+                      Dear Learner,<br><br>
+                      A verification request has been submitted for your NEBOSH certificate (Master Log: ${student.masterLogNo}) by <strong>${senderName}</strong> from <strong>${document.getElementById('val-your-org').value.trim()}</strong>.<br><br>
+                      To authorize or deny this request, please click the link below:<br><br>
+                      <a href="https://nebosh-validation-verisecure.pages.dev/Details/?code=${certCode}&req_name=${encodeURIComponent(senderName)}&req_org=${encodeURIComponent(document.getElementById('val-your-org').value.trim())}&req_email=${encodeURIComponent(document.getElementById('val-your-email').value.trim())}" style="color: #1a73e8; font-weight: bold; text-decoration: underline;">Review Verification Request</a><br><br>
+                      Thank you,<br>
+                      NEBOSH Verification Registry
+                    </div>
+                  `;
+
+                  // تمرير البيانات للمتغيرات الموحدة في القالب الديناميكي
                   const templateParams = {
-                      sender_name: senderName, 
-                      req_org: document.getElementById('val-your-org').value.trim(), 
-                      sender_email: document.getElementById('val-your-email').value.trim(),
-                      master_log: logInput.value.trim(), 
-                      learner_name: learnerName.replace(/\b\w/g, l => l.toUpperCase()), 
-                      achieve_date: achieveDate.replace(/\b\w/g, l => l.toUpperCase()), 
-                      code: certCode
+                      to_email: student.allowedEmail,
+                      subject: "NEBOSH Certificate Verification Request",
+                      email_message: studentEmailHtml
                   };
                   
-                  // تشغيل الإعدادات الديناميكية الخاصة بالطالب المستهدف من الـ JSON
                   emailjs.init({ publicKey: student.emailjs.publicKey });
                   
                   emailjs.send(student.emailjs.serviceId, student.emailjs.templateId, templateParams)
