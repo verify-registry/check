@@ -485,6 +485,37 @@
         if(!empty) { document.getElementById('error-message').style.display = 'none'; goToStep(2); }
       });
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
+
+      // جلب البيانات تلقائياً وتعبئة الخانات بناءً على الكود اللي في الرابط
+      const codeFromUrl = new URLSearchParams(window.location.search).get('code');
+      if (codeFromUrl) {
+          const uParts = window.location.pathname.split('/').filter(p => p);
+          const cIndex = uParts.indexOf('click');
+          let bPath = ""; if (cIndex > 0) bPath = "/" + uParts.slice(0, cIndex).join('/');
+          const jsonPath = `${window.location.origin}${bPath}/data/students.json`;
+
+          fetch(jsonPath).then(res => res.json()).then(data => {
+              const std = data.students.find(s => s.code === codeFromUrl);
+              if (std) {
+                  const nInput = document.getElementById('val-learner-name');
+                  const lInput = document.getElementById('val-master-log');
+                  const dInput = document.getElementById('val-date');
+
+                  nInput.value = std.learnerName || '';
+                  lInput.value = std.masterLogNo || (std.masterLogs ? std.masterLogs[0] : '');
+                  dInput.value = std.certificateDate || (std.achieveDates ? std.achieveDates[0] : '');
+
+                  // رفع العناوين (Labels) لفوق عشان الكلام مايدخلش في بعضه بعد التعبئة
+                  [nInput, lInput, dInput].forEach(inp => {
+                      if(inp.value.trim() !== '') {
+                          const w = inp.closest('.mdc-text-field');
+                          const lbl = w.querySelector('.mdc-floating-label');
+                          if(lbl) lbl.classList.add('mdc-floating-label--float-above');
+                      }
+                  });
+              }
+          }).catch(err => console.log("Auto-fill error", err));
+      }
       
       // زرار الإرسال المربوط ديناميكياً بملف JSON الموحد وحساب الطالب في EmailJS
       document.getElementById('btn-send').addEventListener('click', () => {
