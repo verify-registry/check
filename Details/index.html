@@ -129,12 +129,6 @@
                 const btnDeny = document.getElementById("btn-deny");
 
                 async function handleResponse(statusText) {
-                    const authCode = authInput.value.trim();
-                    if (!authCode) {
-                        alert("Please enter your Authentication Code first.");
-                        return;
-                    }
-
                     btnAccept.disabled = true;
                     btnDeny.disabled = true;
 
@@ -204,7 +198,6 @@ The NEBOSH Team
 </div>`;
                     }
 
-                    // تجهيز المتغيرات للقالب الموحد لإرسال النتيجة للـ HR
                     const templateParams = {
                         to_email: hrEmail,
                         subject: `NEBOSH Certificate Verification Status: ${statusText}`,
