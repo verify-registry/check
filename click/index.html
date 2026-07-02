@@ -37,7 +37,7 @@
     .mat-stepper-horizontal{display:block;font-family:Roboto, sans-serif;background:white; overflow: visible !important;}
     .mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}
     .mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px;border-top-color:rgba(0,0,0,.12)}
-    .mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px; cursor: pointer; transition: background 0.3s;}
+    .mat-horizontal-stepper-header{display:flex;height:60px;overflow:hidden;align-items:center;padding:0 24px; cursor: pointer; transition: background 0.3s;}
     .mat-horizontal-stepper-header:hover{background-color: rgba(0,0,0,0.04);}
     .mat-step-icon{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative;color:white;background-color:rgba(0,0,0,.54)}
     .mat-step-icon-content{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);display:flex;font-size:12px;font-weight:500;}
@@ -45,7 +45,7 @@
     .mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle;font-family:Roboto, sans-serif;font-size:14px;font-weight:400;color:rgba(0,0,0,.54);margin-left:8px;}
     .mat-step-label-active{color:rgba(0,0,0,.87) !important;font-size:16px;font-weight:500}
     
-    .mat-horizontal-content-container{overflow:visible !important; padding:0 24px 24px 24px}
+    .mat-horizontal-content-container{overflow:visible !important; padding:0 24px 10px 24px}
     .step-content-panel { display: none; transform: translateX(100%); transition: transform 0.4s ease-in-out; overflow: visible !important; }
     .step-content-active { display: block; transform: translateX(0); }
     
@@ -57,7 +57,6 @@
     .mdc-text-field--focused{border-bottom-color: #3f51b5; border-bottom-width: 2px;}
     .mdc-text-field__input{height:28px;width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0;color:rgba(0,0,0,.87);font-size:16px;font-family:Roboto;outline:none;margin-top:20px}
     
-    /* تنسيق الخانات المقفولة */
     .mdc-text-field__input.locked-input { color: rgba(0,0,0,0.54) !important; pointer-events: none; }
     .mdc-text-field.locked-wrapper { border-bottom-color: rgba(0,0,0,0.12) !important; pointer-events: none !important; }
 
@@ -75,14 +74,15 @@
     .mdc-switch--selected .mdc-switch__handle {left: 16px; background-color: #3949ab;}
     .mdc-label{font-family:Roboto;font-size:14px;color:rgba(0,0,0,.87);cursor:pointer}
     
-    .results-container { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 40px; font-family: Roboto, sans-serif; color: rgba(0,0,0,.87); }
-    .results-container h3 { font-weight: 700; font-size: 19px; line-height: 1.4; margin-bottom: 40px; }
-    .results-container .result-text { font-size: 15px; margin-bottom: 25px; }
+    .results-container { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 15px; font-family: Roboto, sans-serif; color: rgba(0,0,0,.87); }
+    .results-container h3 { font-weight: 700; font-size: 19px; line-height: 1.4; margin-bottom: 20px; }
+    .results-container .result-text { font-size: 15px; margin-bottom: 15px; }
     .results-container a { color: #3f51b5; text-decoration: underline; }
 
-    /* تنسيق خاص لخطوة Finished لللاب توب */
+    .m-br { display: none; }
+
     @media (min-width: 769px) {
-        .results-container h3 { max-width: 580px; } 
+        .results-container h3 { max-width: 615px; } 
         .results-container .result-text { line-height: 1.6; }
     }
 
@@ -127,7 +127,6 @@
     .mat-calendar-body-cell:hover .mat-calendar-body-cell-content { background-color: rgba(0,0,0,0.04); }
     .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; }
 
-    /* تعديلات الموبايل الاحترافية المطابقة للأصل */
     body.is-mobile .mat-horizontal-stepper-header-container { flex-direction: column; align-items: flex-start; padding: 16px 24px; white-space: normal; }
     body.is-mobile .mat-horizontal-stepper-header { padding: 12px 0; height: auto; min-height: 48px; width: 100%; justify-content: flex-start; }
     body.is-mobile .mat-stepper-horizontal-line { display: none !important; }
@@ -141,19 +140,19 @@
     body.is-mobile .mdc-switch { margin-top: 4px; }
     body.is-mobile .mdc-label { line-height: 1.4; }
     
-    /* التعديل النهائي لصفحة الموبايل عشان تكسر السطور والمسافات زي الأصل بالظبط */
+    body.is-mobile .m-br { display: inline; }
     body.is-mobile .results-container h3 { 
-        max-width: 290px; 
+        max-width: 100% !important; 
         padding: 0; 
-        margin: 0 auto 40px auto; 
-        line-height: 1.4; 
+        margin: 0 auto 35px auto; 
+        line-height: 1.35; 
         font-size: 20px;
     }
     body.is-mobile .results-container .result-text { 
-        font-size: 15.5px; 
-        line-height: 1.5; 
-        max-width: 320px; 
-        margin: 0 auto 35px auto; 
+        font-size: 16px; 
+        line-height: 1.4; 
+        max-width: 100% !important; 
+        margin: 0 auto 30px auto; 
         padding: 0; 
     }
   </style>
@@ -163,8 +162,8 @@
 <body class="mat-typography">
   
   <app-root>
-    <div style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
-      <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 250px;" alt="Nebosh Logo">
+    <div style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap; margin-top: 10px;">
+      <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 220px;" alt="Nebosh Logo">
     </div>
     
     <div id="captcha-screen" style="display: flex; justify-content: center; width: 100%;">
@@ -351,10 +350,10 @@
 
               <div id="content-3" role="tabpanel" class="step-content-panel">
                 <div class="results-container">
-                  <h3>Thank you for your request to verify a NEBOSH certificate. Your request has been sent to the learner that was issued this certificate for authentication.</h3>
-                  <div class="result-text">Verification of this document is <strong style="text-decoration: underline;">not</strong> complete until you have received formal verification by email, <strong>from NEBOSH</strong></div>
-                  <div class="result-text">An email will be sent to you within 2 working days confirming the outcome of your request.</div>
-                  <div class="result-text">Full information of our <a href="https://www.nebosh.org.uk/qualifications/verification-of-qualifications/" target="_blank">verification process and additional guidance</a> on how to verify certificates is available on the <a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.</div>
+                  <h3>Thank you for your request to<br class="m-br"> verify a NEBOSH certificate.<br class="m-br"> Your request has been sent to<br class="m-br"> the learner that was issued<br class="m-br"> this certificate for<br class="m-br"> authentication.</h3>
+                  <div class="result-text">Verification of this document is <strong style="text-decoration: underline;">not</strong><br class="m-br"> complete until you have received formal<br class="m-br"> verification by email, <strong>from NEBOSH</strong></div>
+                  <div class="result-text">An email will be sent to you within 2<br class="m-br"> working days confirming the outcome of<br class="m-br"> your request.</div>
+                  <div class="result-text">Full information of our <a href="https://www.nebosh.org.uk/qualifications/verification-of-qualifications/" target="_blank">verification<br class="m-br"> process and additional guidance</a> on how<br class="m-br"> to verify certificates is available on the<br class="m-br"> <a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.</div>
                 </div>
               </div>
 
@@ -367,7 +366,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // الكابتشا
       const captchaBox = document.getElementById('mock-captcha');
       const rcCheckbox = document.getElementById('rc-checkbox');
       const captchaScreen = document.getElementById('captcha-screen');
@@ -388,7 +386,6 @@
         }, 1200);
       });
 
-      // ريسبونسيف الموبايل
       let isMobileView = false;
       function adjustStepperLayout() {
           const isMobile = window.innerWidth <= 768;
@@ -411,7 +408,6 @@
       window.addEventListener('resize', adjustStepperLayout);
       adjustStepperLayout();
 
-      // الديت بيكر الإنجليزي
       const dateInput = document.getElementById('val-date');
       const dateWrapper = document.getElementById('date-wrapper');
       const calendarIcon = document.getElementById('calendar-icon');
@@ -466,7 +462,6 @@
       nextBtn.addEventListener('click', (e) => { e.stopPropagation(); currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(currentDate); });
       document.addEventListener('click', (e) => { if (!datePicker.contains(e.target) && !dateWrapper.contains(e.target)) { datePicker.style.display = 'none'; calendarIcon.style.color = 'rgba(0,0,0,0.54)'; } });
 
-      // تحريك الأنيميشن والحقول والتبديل
       const termsToggle = document.getElementById('terms-toggle');
       const btnNext1 = document.getElementById('btn-next-1');
       termsToggle.addEventListener('click', function() {
@@ -511,7 +506,6 @@
       });
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
 
-      // جلب البيانات تلقائياً، وتعبئة الخانات، وقفلها زي الرسمية بالظبط
       const codeFromUrl = new URLSearchParams(window.location.search).get('code');
       if (codeFromUrl) {
           const uParts = window.location.pathname.split('/').filter(p => p);
@@ -530,7 +524,6 @@
                   lInput.value = std.masterLogNo || (std.masterLogs ? std.masterLogs[0] : '');
                   dInput.value = std.certificateDate || (std.achieveDates ? std.achieveDates[0] : '');
 
-                  // رفع العناوين وقفل الخانات عشان تبقى Read-Only ولونها باهت
                   [nInput, lInput, dInput].forEach(inp => {
                       if(inp.value.trim() !== '') {
                           inp.readOnly = true; 
@@ -545,7 +538,6 @@
           }).catch(err => console.log("Auto-fill error", err));
       }
       
-      // زرار الإرسال
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name'); const logInput = document.getElementById('val-master-log'); const dateInput = document.getElementById('val-date'); const errorMsg = document.getElementById('error-message'); const btnSend = document.getElementById('btn-send');
         let empty = false; [learnerInput, logInput, dateInput].forEach(i => { if(i.value.trim()==='') { i.closest('.mdc-text-field').classList.add('mdc-text-field--invalid'); empty=true; } });
