@@ -82,7 +82,7 @@
 
     /* تنسيق خاص لخطوة Finished لللاب توب */
     @media (min-width: 769px) {
-        .results-container h3 { max-width: 580px; } /* يكسر السطر زي الأصلي بالظبط */
+        .results-container h3 { max-width: 580px; } 
         .results-container .result-text { line-height: 1.6; }
     }
 
@@ -141,19 +141,20 @@
     body.is-mobile .mdc-switch { margin-top: 4px; }
     body.is-mobile .mdc-label { line-height: 1.4; }
     
-    /* تنسيقات الموبايل للصفحة الأخيرة */
+    /* التعديل النهائي لصفحة الموبايل عشان تكسر السطور والمسافات زي الأصل بالظبط */
     body.is-mobile .results-container h3 { 
-        max-width: 300px; /* تكسير السطر في الموبايل زي الأصل */
+        max-width: 290px; 
         padding: 0; 
-        margin: 0 auto 30px auto; 
-        line-height: 1.3; 
+        margin: 0 auto 40px auto; 
+        line-height: 1.4; 
         font-size: 20px;
     }
     body.is-mobile .results-container .result-text { 
-        font-size: 16px; 
-        line-height: 2.6; /* مسافات ضخمة بين السطور زي الأصلي */
-        margin-bottom: 25px; 
-        padding: 0 10px; 
+        font-size: 15.5px; 
+        line-height: 1.5; 
+        max-width: 320px; 
+        margin: 0 auto 35px auto; 
+        padding: 0; 
     }
   </style>
   
