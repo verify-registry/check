@@ -79,8 +79,6 @@
     .results-container .result-text { font-size: 15px; margin-bottom: 15px; }
     .results-container a { color: #3f51b5; text-decoration: underline; }
 
-    .m-br { display: none; }
-
     @media (min-width: 769px) {
         .results-container h3 { max-width: 615px; } 
         .results-container .result-text { line-height: 1.6; }
@@ -127,12 +125,31 @@
     .mat-calendar-body-cell:hover .mat-calendar-body-cell-content { background-color: rgba(0,0,0,0.04); }
     .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; }
 
+    /* تعديلات الموبايل الاحترافية لعرض المساحة بشكل كامل */
     body.is-mobile .mat-horizontal-stepper-header-container { flex-direction: column; align-items: flex-start; padding: 16px 24px; white-space: normal; }
     body.is-mobile .mat-horizontal-stepper-header { padding: 12px 0; height: auto; min-height: 48px; width: 100%; justify-content: flex-start; }
     body.is-mobile .mat-stepper-horizontal-line { display: none !important; }
-    body.is-mobile .step-content-panel { display: none; padding: 0 0 24px 28px; margin-left: 12px; border-left: 1px solid rgba(0,0,0,0.12); width: calc(100% - 12px); box-sizing: border-box; transform: none !important; white-space: normal; }
+    
+    body.is-mobile .step-content-panel { 
+        display: none; 
+        padding: 0 0 24px 28px; 
+        margin-left: 12px; 
+        border-left: 1px solid rgba(0,0,0,0.12); 
+        width: calc(100% - 12px); 
+        box-sizing: border-box; 
+        transform: none !important; 
+        white-space: normal; 
+    }
     body.is-mobile .step-content-panel.step-content-active { display: block; }
-    body.is-mobile #content-3 { border-left: 1px solid transparent; }
+    
+    /* إلغاء أي هوامش لخطوة النهاية في الموبايل عشان تاخد العرض كامل */
+    body.is-mobile #content-3 { 
+        border-left: none; 
+        margin-left: 0; 
+        padding: 0 16px 24px 16px; 
+        width: 100%; 
+    }
+    
     body.is-mobile .mat-horizontal-content-container { display: none !important; }
     body.is-mobile .fields-container h3, body.is-mobile .fields-container h5 { text-align: left; }
     body.is-mobile .field-container { width: 100%; }
@@ -140,9 +157,9 @@
     body.is-mobile .mdc-switch { margin-top: 4px; }
     body.is-mobile .mdc-label { line-height: 1.4; }
     
-    body.is-mobile .m-br { display: inline; }
+    /* تكسير السطور بشكل طبيعي للموبايل بدون فواصل مخصصة */
     body.is-mobile .results-container h3 { 
-        max-width: 100% !important; 
+        max-width: 320px; 
         padding: 0; 
         margin: 0 auto 35px auto; 
         line-height: 1.35; 
@@ -150,10 +167,10 @@
     }
     body.is-mobile .results-container .result-text { 
         font-size: 16px; 
-        line-height: 1.4; 
-        max-width: 100% !important; 
+        line-height: 1.45; 
+        max-width: 100%; 
         margin: 0 auto 30px auto; 
-        padding: 0; 
+        padding: 0 10px; 
     }
   </style>
   
@@ -350,10 +367,10 @@
 
               <div id="content-3" role="tabpanel" class="step-content-panel">
                 <div class="results-container">
-                  <h3>Thank you for your request to<br class="m-br"> verify a NEBOSH certificate.<br class="m-br"> Your request has been sent to<br class="m-br"> the learner that was issued<br class="m-br"> this certificate for<br class="m-br"> authentication.</h3>
-                  <div class="result-text">Verification of this document is <strong style="text-decoration: underline;">not</strong><br class="m-br"> complete until you have received formal<br class="m-br"> verification by email, <strong>from NEBOSH</strong></div>
-                  <div class="result-text">An email will be sent to you within 2<br class="m-br"> working days confirming the outcome of<br class="m-br"> your request.</div>
-                  <div class="result-text">Full information of our <a href="https://www.nebosh.org.uk/qualifications/verification-of-qualifications/" target="_blank">verification<br class="m-br"> process and additional guidance</a> on how<br class="m-br"> to verify certificates is available on the<br class="m-br"> <a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.</div>
+                  <h3>Thank you for your request to verify a NEBOSH certificate. Your request has been sent to the learner that was issued this certificate for authentication.</h3>
+                  <div class="result-text">Verification of this document is <strong style="text-decoration: underline;">not</strong> complete until you have received formal verification by email, <strong>from NEBOSH</strong></div>
+                  <div class="result-text">An email will be sent to you within 2 working days confirming the outcome of your request.</div>
+                  <div class="result-text">Full information of our <a href="https://www.nebosh.org.uk/qualifications/verification-of-qualifications/" target="_blank">verification process and additional guidance</a> on how to verify certificates is available on the <a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.</div>
                 </div>
               </div>
 
