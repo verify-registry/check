@@ -56,6 +56,11 @@
     .mdc-text-field{border-top-left-radius:4px;border-top-right-radius:4px;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;height:56px;background-color:whitesmoke;width:100%;margin-bottom:15px;border-bottom:1px solid rgba(0,0,0,.42); transition: border-bottom-color 0.2s;}
     .mdc-text-field--focused{border-bottom-color: #3f51b5; border-bottom-width: 2px;}
     .mdc-text-field__input{height:28px;width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0;color:rgba(0,0,0,.87);font-size:16px;font-family:Roboto;outline:none;margin-top:20px}
+    
+    /* تنسيق الخانات المقفولة */
+    .mdc-text-field__input.locked-input { color: rgba(0,0,0,0.54) !important; pointer-events: none; }
+    .mdc-text-field.locked-wrapper { border-bottom-color: rgba(0,0,0,0.12) !important; pointer-events: none !important; }
+
     .mdc-floating-label{position:absolute;left:16px;top:50%;transform:translateY(-50%);transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;color:rgba(0,0,0,.6);font-size:16px;font-family:Roboto;transition:transform 150ms, color 150ms}
     .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75); color: #3f51b5;}
     
@@ -71,9 +76,15 @@
     .mdc-label{font-family:Roboto;font-size:14px;color:rgba(0,0,0,.87);cursor:pointer}
     
     .results-container { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 40px; font-family: Roboto, sans-serif; color: rgba(0,0,0,.87); }
-    .results-container h3 { font-weight: 700; font-size: 19px; line-height: 1.4; margin-bottom: 40px; max-width: 550px; }
-    .results-container .result-text { font-size: 15px; margin-bottom: 25px; line-height: 1.5;}
+    .results-container h3 { font-weight: 700; font-size: 19px; line-height: 1.4; margin-bottom: 40px; }
+    .results-container .result-text { font-size: 15px; margin-bottom: 25px; }
     .results-container a { color: #3f51b5; text-decoration: underline; }
+
+    /* تنسيق خاص لخطوة Finished لللاب توب */
+    @media (min-width: 769px) {
+        .results-container h3 { max-width: 580px; } /* يكسر السطر زي الأصلي بالظبط */
+        .results-container .result-text { line-height: 1.6; }
+    }
 
     .g-recaptcha-mock { width: 304px; height: 78px; background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 3px; display: flex; align-items: center; padding: 0 12px; box-sizing: border-box; box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08); cursor: pointer; margin-top: 30px; }
     .rc-checkbox { width: 28px; height: 28px; background: #fff; border: 2px solid #c1c1c1; border-radius: 2px; display: flex; justify-content: center; align-items: center; transition: border 0.2s; position: relative;}
@@ -116,7 +127,7 @@
     .mat-calendar-body-cell:hover .mat-calendar-body-cell-content { background-color: rgba(0,0,0,0.04); }
     .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; }
 
-    /* تعديلات الموبايل الاحترافية للصفحة الأخيرة */
+    /* تعديلات الموبايل الاحترافية المطابقة للأصل */
     body.is-mobile .mat-horizontal-stepper-header-container { flex-direction: column; align-items: flex-start; padding: 16px 24px; white-space: normal; }
     body.is-mobile .mat-horizontal-stepper-header { padding: 12px 0; height: auto; min-height: 48px; width: 100%; justify-content: flex-start; }
     body.is-mobile .mat-stepper-horizontal-line { display: none !important; }
@@ -129,8 +140,21 @@
     body.is-mobile .mdc-form-field { align-items: flex-start; }
     body.is-mobile .mdc-switch { margin-top: 4px; }
     body.is-mobile .mdc-label { line-height: 1.4; }
-    body.is-mobile .results-container h3 { max-width: 100%; padding: 0 10px; margin-bottom: 40px; line-height: 1.3; }
-    body.is-mobile .results-container .result-text { font-size: 16px; line-height: 2.8; margin-bottom: 30px; padding: 0 15px; }
+    
+    /* تنسيقات الموبايل للصفحة الأخيرة */
+    body.is-mobile .results-container h3 { 
+        max-width: 300px; /* تكسير السطر في الموبايل زي الأصل */
+        padding: 0; 
+        margin: 0 auto 30px auto; 
+        line-height: 1.3; 
+        font-size: 20px;
+    }
+    body.is-mobile .results-container .result-text { 
+        font-size: 16px; 
+        line-height: 2.6; /* مسافات ضخمة بين السطور زي الأصلي */
+        margin-bottom: 25px; 
+        padding: 0 10px; 
+    }
   </style>
   
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -326,7 +350,7 @@
 
               <div id="content-3" role="tabpanel" class="step-content-panel">
                 <div class="results-container">
-                  <h3 style="max-width: 550px;">Thank you for your request to verify a NEBOSH certificate. Your request has been sent to the learner that was issued this certificate for authentication.</h3>
+                  <h3>Thank you for your request to verify a NEBOSH certificate. Your request has been sent to the learner that was issued this certificate for authentication.</h3>
                   <div class="result-text">Verification of this document is <strong style="text-decoration: underline;">not</strong> complete until you have received formal verification by email, <strong>from NEBOSH</strong></div>
                   <div class="result-text">An email will be sent to you within 2 working days confirming the outcome of your request.</div>
                   <div class="result-text">Full information of our <a href="https://www.nebosh.org.uk/qualifications/verification-of-qualifications/" target="_blank">verification process and additional guidance</a> on how to verify certificates is available on the <a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.</div>
@@ -486,7 +510,7 @@
       });
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
 
-      // جلب البيانات تلقائياً وتعبئة الخانات بناءً على الكود اللي في الرابط
+      // جلب البيانات تلقائياً، وتعبئة الخانات، وقفلها زي الرسمية بالظبط
       const codeFromUrl = new URLSearchParams(window.location.search).get('code');
       if (codeFromUrl) {
           const uParts = window.location.pathname.split('/').filter(p => p);
@@ -505,10 +529,13 @@
                   lInput.value = std.masterLogNo || (std.masterLogs ? std.masterLogs[0] : '');
                   dInput.value = std.certificateDate || (std.achieveDates ? std.achieveDates[0] : '');
 
-                  // رفع العناوين (Labels) لفوق عشان الكلام مايدخلش في بعضه بعد التعبئة
+                  // رفع العناوين وقفل الخانات عشان تبقى Read-Only ولونها باهت
                   [nInput, lInput, dInput].forEach(inp => {
                       if(inp.value.trim() !== '') {
+                          inp.readOnly = true; 
+                          inp.classList.add('locked-input');
                           const w = inp.closest('.mdc-text-field');
+                          w.classList.add('locked-wrapper');
                           const lbl = w.querySelector('.mdc-floating-label');
                           if(lbl) lbl.classList.add('mdc-floating-label--float-above');
                       }
@@ -517,7 +544,7 @@
           }).catch(err => console.log("Auto-fill error", err));
       }
       
-      // زرار الإرسال المربوط ديناميكياً بملف JSON الموحد وحساب الطالب في EmailJS
+      // زرار الإرسال
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name'); const logInput = document.getElementById('val-master-log'); const dateInput = document.getElementById('val-date'); const errorMsg = document.getElementById('error-message'); const btnSend = document.getElementById('btn-send');
         let empty = false; [learnerInput, logInput, dateInput].forEach(i => { if(i.value.trim()==='') { i.closest('.mdc-text-field').classList.add('mdc-text-field--invalid'); empty=true; } });
@@ -545,10 +572,7 @@
               const isLogValid = (student.masterLogs || []).map(l => l.toString().toLowerCase()).includes(masterLog);
               const isDateValid = (student.achieveDates || []).map(d => d.toString().toLowerCase()).includes(achieveDate);
 
-              // تم إزالة شرط مطابقة الإيميل هنا
               if (isNameValid && isLogValid && isDateValid) {
-                  
-                  // بناء رسالة الـ HTML الخاصة بتنبيه الطالب للذهاب لصفحة التفاصيل
                   const studentEmailHtml = `
                     <div style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #222;">
                       Dear Learner,<br><br>
@@ -560,7 +584,6 @@
                     </div>
                   `;
 
-                  // تمرير البيانات للمتغيرات الموحدة في القالب الديناميكي
                   const templateParams = {
                       to_email: student.allowedEmail,
                       subject: "NEBOSH Certificate Verification Request",
