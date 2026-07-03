@@ -24,6 +24,30 @@
         "serviceId": "service_uhrznpb",
         "templateId": "template_vmh8dg2"
       }
+    },
+    {
+      "code": "X9KPLMQ2R4TVSY7UUS37W8L8",
+      "learnerName": "Sherif Sabry Helmy Mohamed",
+      "certificateName": "Sherif Sabry Helmy Mohamed",
+      "masterLogs": [
+        "00695857/131506"
+      ],
+      "masterLogNo": "00695857/131506",
+      "achieveDates": [
+        "07/04/2026",
+        "07 Apr 2026",
+        "07-04-2026"
+      ],
+      "certificateDate": "07/04/2026",
+      "qualification": "NEBOSH International General Certificate in Occupational Health and Safety",
+      "allowedEmail": "sherifmalek069@gmail.com",
+      "email": "sherifmalek069@gmail.com",
+      "dob": "",
+      "emailjs": {
+        "publicKey": "qRoYoETVPLQpT2DQ7",
+        "serviceId": "service_q0q242d",
+        "templateId": "template_ej0exz7"
+      }
     }
   ]
 }
