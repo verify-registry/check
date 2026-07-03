@@ -14,58 +14,58 @@
     @font-face{font-family:'Roboto';font-style:normal;font-weight:500;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');}
     @font-face{font-family:'Roboto';font-style:normal;font-weight:700;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');}
     
-    body { margin: 0; font-family: Roboto, sans-serif; background-color: #fafafa; color: rgba(0,0,0,.87); padding-bottom: 50px; overflow-x: hidden; }
+    body { margin: 0; font-family: Roboto, sans-serif; background-color: #fafafa; color: rgba(0,0,0,.87); padding-bottom: 60px; overflow-x: hidden; }
     
-    .logo-container { width: 100%; display: flex; justify-content: center; margin-top: 15px; margin-bottom: 30px; }
-    .logo-container img { width: 190px; } /* تصغير اللوجو ليطابق الأصل */
+    .logo-container { width: 100%; display: flex; justify-content: center; margin-top: 20px; margin-bottom: 40px; }
+    .logo-container img { width: 250px; } /* الحجم الأصلي الكبير */
 
     /* الحاويات الأساسية للشاشات الكبيرة والصغيرة */
-    .details-wrapper { max-width: 1000px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; flex-wrap: wrap; }
+    .details-wrapper { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; flex-wrap: wrap; }
     .column { width: 48%; }
     
     @media (max-width: 768px) {
         .details-wrapper { flex-direction: column; padding: 0 16px; }
-        .column { width: 100%; margin-bottom: 25px; }
+        .column { width: 100%; margin-bottom: 30px; }
     }
 
-    h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; margin-top: 0; }
+    h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; margin-top: 0; color: #000; }
 
-    .detail-row { display: flex; margin-bottom: 12px; font-size: 14px; align-items: flex-start;}
-    .detail-label { font-weight: 700; width: 165px; flex-shrink: 0; }
+    .detail-row { display: flex; margin-bottom: 15px; font-size: 15px; align-items: flex-start;}
+    .detail-label { font-weight: 700; width: 190px; flex-shrink: 0; color: #000; }
     .detail-value { flex-grow: 1; word-break: break-word; line-height: 1.4; color: #222;}
     
     /* المربع البنفسجي */
-    .auth-panel-wrapper { width: 100%; display: flex; justify-content: center; margin-top: 25px; }
-    .auth-panel { background-color: #e8eaf6; border-radius: 8px; padding: 30px 40px; text-align: center; max-width: 530px; width: 100%; box-sizing: border-box; }
-    .auth-text { font-size: 14.5px; font-weight: 700; line-height: 1.6; margin-bottom: 25px; color: #000; }
+    .auth-panel-wrapper { width: 100%; display: flex; justify-content: center; margin-top: 35px; }
+    .auth-panel { background-color: #e8eaf6; border-radius: 8px; padding: 30px 40px; text-align: center; max-width: 700px; width: 100%; box-sizing: border-box; }
+    .auth-text { font-size: 16px; font-weight: 700; line-height: 1.6; margin-bottom: 25px; color: #000; }
     
     /* منطقة الـ Input والزراير */
-    .controls-wrapper { display: flex; justify-content: center; align-items: center; margin-top: 25px; max-width: 530px; margin-left: auto; margin-right: auto; gap: 15px; }
+    .controls-wrapper { display: flex; justify-content: center; align-items: center; margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto; gap: 20px; }
     
-    .input-box { background-color: whitesmoke; border-bottom: 1px solid rgba(0,0,0,.42); height: 45px; display: flex; align-items: center; padding: 0 16px; border-radius: 4px 4px 0 0; width: 220px; transition: border-bottom-color 0.2s;}
+    .input-box { background-color: whitesmoke; border-bottom: 1px solid rgba(0,0,0,.42); height: 50px; display: flex; align-items: center; padding: 0 16px; border-radius: 4px 4px 0 0; width: 300px; transition: border-bottom-color 0.2s;}
     .input-box:focus-within { border-bottom: 2px solid #3f51b5; padding-bottom: -1px;}
-    .input-box input { border: none; background: transparent; outline: none; font-size: 14px; font-family: Roboto; width: 100%; color: rgba(0,0,0,.87); }
+    .input-box input { border: none; background: transparent; outline: none; font-size: 15px; font-family: Roboto; width: 100%; color: rgba(0,0,0,.87); }
     .input-box input::placeholder { color: rgba(0,0,0,0.54); }
     
-    .btn-group { display: flex; gap: 10px; }
-    .btn { height: 36px; padding: 0 16px; border: none; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; background-color: #e0e0e0; color: rgba(0,0,0,.87); transition: background-color 0.2s; box-shadow: 0px 3px 1px -2px rgba(0,0,0,.2), 0px 2px 2px 0px rgba(0,0,0,.14), 0px 1px 5px 0px rgba(0,0,0,.12);}
+    .btn-group { display: flex; gap: 12px; }
+    .btn { height: 40px; padding: 0 20px; border: none; border-radius: 4px; font-size: 15px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; background-color: #e0e0e0; color: rgba(0,0,0,.87); transition: background-color 0.2s; box-shadow: 0px 3px 1px -2px rgba(0,0,0,.2), 0px 2px 2px 0px rgba(0,0,0,.14), 0px 1px 5px 0px rgba(0,0,0,.12);}
     .btn:hover { background-color: #d5d5d5; }
     .btn:disabled { background-color: rgba(0,0,0,.12); color: rgba(0,0,0,.38); box-shadow: none; cursor: default; }
     
-    .icon { font-size: 18px; margin-right: 6px; font-weight: bold; }
+    .icon { font-size: 18px; margin-right: 8px; font-weight: bold; }
     .icon-deny { color: #f44336; }
     .icon-accept { color: #4caf50; }
 
     /* ريسبونسيف للموبايل فقط */
     @media (max-width: 768px) {
-        .logo-container img { width: 180px; }
-        .auth-panel { padding: 25px 20px; border-radius: 12px;}
-        .auth-text { font-size: 14px; line-height: 1.5; }
+        .logo-container img { width: 200px; }
+        .auth-panel { padding: 25px 20px; border-radius: 12px; max-width: 90%; }
+        .auth-text { font-size: 15px; line-height: 1.5; }
         .controls-wrapper { flex-direction: column; width: 100%; padding: 0 16px; box-sizing: border-box; }
         .input-box { width: 100%; box-sizing: border-box; height: 50px; }
-        .btn-group { width: 100%; justify-content: space-between; margin-top: 10px;}
-        .btn { flex: 1; height: 42px; }
-        .detail-label { width: 140px; }
+        .btn-group { width: 100%; justify-content: space-between; margin-top: 15px;}
+        .btn { flex: 1; height: 45px; font-size: 16px; }
+        .detail-label { width: 150px; }
     }
   </style>
 
@@ -120,7 +120,6 @@
       const reqOrg = urlParams.get('req_org') || 'N/A';
       const reqEmail = urlParams.get('req_email') || 'N/A';
 
-      // وضع تاريخ ووقت الطلب الحالي
       const now = new Date();
       const dd = String(now.getDate()).padStart(2, '0');
       const mm = String(now.getMonth() + 1).padStart(2, '0');
@@ -147,7 +146,6 @@
                   document.getElementById('val-qual').innerText = std.qualification;
                   document.getElementById('val-log').innerText = std.masterLogNo;
 
-                  // تفعيل أزرار الإرسال
                   setupButtons(std, reqEmail);
               } else {
                   alert("Student not found!");
@@ -166,7 +164,6 @@
 
               btnAccept.disabled = true; btnDeny.disabled = true;
 
-              // محاكاة إرسال النتيجة للـ HR عبر الإيميل
               emailjs.init({ publicKey: studentData.emailjs.publicKey });
 
               const hrMessage = `
