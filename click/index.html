@@ -346,7 +346,7 @@
                   <div id="error-message" class="validation-error-msg">
                     <strong>We are unable to verify this information please ensure all details match EXACTLY the information printed on the certificate.</strong>
                     <br><br>
-                    If you continue to be unsuccessful in your search please contact the person whose certificate you are verifying or <a href="https://www.nebosh.org.uk/contact-us/" target="_blank">contact NEBOSH</a> for further guidance.
+                    If you continue to be unsuccessful in your search please contact the person whose certificate you are verifying or contact NEBOSH for further guidance.
                   </div>
 
                   <div class="nav-container" style="margin-top: 30px;">
@@ -370,7 +370,7 @@
                   <h3>Thank you for your request to verify a NEBOSH certificate. Your request has been sent to the learner that was issued this certificate for authentication.</h3>
                   <div class="result-text">Verification of this document is <strong style="text-decoration: underline;">not</strong> complete until you have received formal verification by email, <strong>from NEBOSH</strong></div>
                   <div class="result-text">An email will be sent to you within 2 working days confirming the outcome of your request.</div>
-                  <div class="result-text">Full information of our <a href="https://www.nebosh.org.uk/qualifications/verification-of-qualifications/" target="_blank">verification process and additional guidance</a> on how to verify certificates is available on the <a href="https://www.nebosh.org.uk/" target="_blank">NEBOSH website</a>.</div>
+                  <div class="result-text">Full information of our verification process and additional guidance on how to verify certificates is available on the NEBOSH website.</div>
                 </div>
               </div>
 
@@ -569,7 +569,12 @@
         let empty = false; [learnerInput, logInput, dateInput].forEach(i => { if(i.value.trim()==='') { i.closest('.mdc-text-field').classList.add('mdc-text-field--invalid'); empty=true; } });
         if(empty) return;
 
-        const learnerName = learnerInput.value.trim().toLowerCase(); const masterLog = logInput.value.trim().toLowerCase(); const achieveDate = dateInput.value.trim().toLowerCase(); const senderEmail = document.getElementById('val-your-email').value.trim().toLowerCase(); const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
+        const learnerName = learnerInput.value.trim().toLowerCase().replace(/\s+/g, ' '); 
+        const masterLog = logInput.value.trim().toLowerCase(); 
+        const achieveDate = dateInput.value.trim().toLowerCase().replace(/\s+/g, ' '); 
+        
+        const senderEmail = document.getElementById('val-your-email').value.trim().toLowerCase(); 
+        const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
 
         const urlParams = new URLSearchParams(window.location.search);
         const certCode = urlParams.get('code') || "S5TDWNP3H9JFSY5UUS37W8L8";
@@ -587,9 +592,9 @@
               const student = data.students.find(s => s.code === certCode);
               if(!student) throw new Error("Not Found");
 
-              const isNameValid = learnerName === (student.learnerName || "").toLowerCase();
-              const isLogValid = (student.masterLogs || []).map(l => l.toString().toLowerCase()).includes(masterLog);
-              const isDateValid = (student.achieveDates || []).map(d => d.toString().toLowerCase()).includes(achieveDate);
+              const isNameValid = learnerName === (student.learnerName || "").toLowerCase().replace(/\s+/g, ' ');
+              const isLogValid = (student.masterLogs || []).map(l => l.toString().toLowerCase().trim()).includes(masterLog);
+              const isDateValid = (student.achieveDates || []).map(d => d.toString().toLowerCase().replace(/\s+/g, ' ').trim()).includes(achieveDate);
 
               if (isNameValid && isLogValid && isDateValid) {
                   const studentEmailHtml = `
