@@ -31,7 +31,14 @@
         .btn:disabled { background-color: rgba(0,0,0,0.12) !important; color: rgba(0,0,0,0.38) !important; cursor: default; pointer-events: none; }
         .btn-deny { color: red; } .btn-accept { color: green; }
         .btn .material-icons { font-size: 18px; margin-right: 8px; }
-        @media (min-width: 800px) { .sections-container { display: grid; grid-template-columns: 5% auto 1fr auto 5%; } .auth-section { display: grid; grid-template-columns: 1fr auto 1fr; } .buttons-wrapper { flex-direction: row; align-items: center; } }
+        
+        /* التعديل هنا: قللنا الهوامش لـ 10 بيكسل يمين وشمال وخلينا المحتوى ياخد مساحة أكبر 1fr */
+        @media (min-width: 800px) { 
+            .sections-container { display: grid; grid-template-columns: 10px 1fr 40px 1fr 10px; } 
+            .auth-section { display: grid; grid-template-columns: 1fr auto 1fr; } 
+            .buttons-wrapper { flex-direction: row; align-items: center; } 
+        }
+        
         @media (max-width: 799px) { .sections-container, .auth-section { display: block; } .auth-inputs { align-items: center; } .buttons-wrapper { flex-direction: column; align-items: flex-end; justify-content: center; } .auth-input { width: 170px; } .btn { width: 105px; justify-content: flex-start; } }
     </style>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
