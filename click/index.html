@@ -229,7 +229,7 @@
                 <div class="fields-container">
                   <h3>IMPORTANT, PLEASE READ BEFORE CONTINUING</h3>
                   <h5 style="text-align: left;"> NEBOSH takes the security of personal data and NEBOSH certificates extremely seriously. As part of the verification process, NEBOSH will email the learner that was originally issued this certificate to authenticate your request. </h5>
-                  <h5 style="text-align: left;"> To allow the learner to identify who is requesting information relating to them, your name and organisation will be provided to the learner to allow them to authorise your request. </h5>
+                  <h5 style="text-align: left;"> To allow the learner to identify who is requesting information relating to them, your name and organisation will be provided to the learner to authorise your request. </h5>
                   <h5 style="text-align: left;"> Your email address will be used by NEBOSH to confirm the outcome of your request within 2 working days of submission. </h5>
                   <h5 style="text-align: left;"><strong>Please note: </strong>The outcome of this request will be recorded and held by NEBOSH for monitoring purposes. This includes your name, organisation and email address. Please tick the box below to confirm your acceptance or contact NEBOSH </h5>
                   
@@ -388,19 +388,28 @@
       const captchaScreen = document.getElementById('captcha-screen');
       const mainStepper = document.getElementById('main-stepper');
 
+      // الكابتشا
       captchaBox.addEventListener('click', function() {
         if(this.classList.contains('clicked')) return;
         this.classList.add('clicked');
-        rcCheckbox.classList.add('rc-loading');
+        
+        // تأخير بسيط جداً قبل ما يبدأ يلف عشان يبان ضغطة حقيقية
         setTimeout(() => {
-            rcCheckbox.classList.remove('rc-loading');
-            rcCheckbox.classList.add('rc-checked');
+            rcCheckbox.classList.add('rc-loading');
+            
+            // وقت الفحص: هيلف لمدة 2.5 ثانية عشان يبان واقعي
             setTimeout(() => {
-                captchaScreen.style.display = 'none';
-                mainStepper.style.display = 'block';
-                adjustStepperLayout();
-            }, 800);
-        }, 1200);
+                rcCheckbox.classList.remove('rc-loading');
+                rcCheckbox.classList.add('rc-checked');
+                
+                // يستنى ثانية بعد ما يدي علامة صح وبعدين يفتح الخطوات
+                setTimeout(() => {
+                    captchaScreen.style.display = 'none';
+                    mainStepper.style.display = 'block';
+                    adjustStepperLayout();
+                }, 1000);
+            }, 2500); 
+        }, 200);
       });
 
       let isMobileView = false;
