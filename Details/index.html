@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* Base Styles */
+        /* Base & Reset */
         body { 
             font-family: 'Roboto', Helvetica Neue, sans-serif; 
             margin: 0; 
@@ -31,13 +31,13 @@
         }
         .logo-wrapper img { width: 220px; }
 
-        /* Main Content Layout */
+        /* Main Content Structure */
         .sections-container { 
             display: flex; 
             flex-direction: row; 
             justify-content: center; 
-            gap: 60px; 
-            max-width: 1000px; 
+            gap: 70px; /* Replicates the exact distance between the two main columns */
+            max-width: 1050px; /* Constrains the width so it doesn't stretch infinitely */
             margin: 0 auto 50px auto; 
             padding: 0 20px; 
         }
@@ -46,27 +46,27 @@
             max-width: 480px; 
         }
         .fields-container h3 { 
-            font-size: 18px; 
+            font-size: 19px; 
             font-weight: 700; 
             margin: 0 0 18px 0; 
             color: #000; 
         }
         
-        /* Inner Data Grids */
+        /* Precise 2-Column Grid for Data Points */
         .field-container { 
             display: grid; 
-            grid-template-columns: 210px 1fr; 
+            grid-template-columns: 210px 1fr; /* Fixed width for labels ensures perfect vertical alignment */
             row-gap: 14px; 
             font-size: 15px; 
             align-items: start;
         }
-        /* Requester Details column needs a narrower label space */
+        /* The right column has shorter labels, so we adjust its specific grid */
         .fields-container:nth-child(2) .field-container {
             grid-template-columns: 120px 1fr;
         }
         .field-label { font-weight: 700; }
 
-        /* Authentication Section */
+        /* Authentication Section Structure */
         .auth-section { 
             display: flex; 
             flex-direction: column; 
@@ -76,13 +76,13 @@
             margin-bottom: 50px; 
         }
         .auth-container { 
-            max-width: 650px; 
+            max-width: 680px; /* Widened to match the proportions in the screenshot */
             width: 100%; 
         }
 
-        /* Purple Notification Box */
+        /* Purple Instruction Panel */
         .highlighted { 
-            background-color: #ececfa; /* Matched perfectly to original screenshot */
+            background-color: #ececfa; 
             border-radius: 12px; 
             padding: 24px 30px; 
             text-align: center; 
@@ -91,16 +91,16 @@
         }
         .highlighted h4 { 
             margin: 0 0 16px 0; 
-            font-size: 15px; 
+            font-size: 15.5px; 
             font-weight: 700; 
             line-height: 1.5;
         }
         .highlighted h4:last-child { margin: 0; }
 
-        /* Input & Buttons Form Row */
+        /* Inputs & Buttons Layout */
         .auth-inputs { 
             display: flex; 
-            justify-content: space-between; 
+            justify-content: space-between; /* Automatically pushes input left and buttons right */
             align-items: center; 
             width: 100%; 
         }
@@ -115,7 +115,7 @@
             font-family: inherit; 
             color: rgba(0, 0, 0, 0.87); 
             outline: none; 
-            width: 260px; 
+            width: 270px; 
         }
         .auth-input:focus { border-bottom: 2px solid #3f51b5; }
         
@@ -149,7 +149,7 @@
         .btn-accept { color: #2e7d32; }
         .btn .material-icons { font-size: 18px; margin-right: 8px; }
 
-        /* Responsive Breakpoints */
+        /* Desktop to Mobile Responsiveness */
         @media (max-width: 850px) { 
             .sections-container { 
                 flex-direction: column; 
@@ -160,9 +160,10 @@
             .auth-inputs { 
                 flex-direction: column; 
                 gap: 20px; 
+                align-items: stretch;
             } 
             .auth-input { width: 100%; } 
-            .buttons-wrapper { width: 100%; justify-content: flex-end; } 
+            .buttons-wrapper { justify-content: flex-end; } 
         }
     </style>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -347,6 +348,7 @@ The NEBOSH Team
                 btnDeny.addEventListener("click", () => handleResponse("Denied"));
 
             } catch (error) {
+                /* JS catch block HTML updated to match the new layout structure */
                 if (document.getElementById("main-content")) document.getElementById("main-content").innerHTML = `<div class="fields-container" style="align-items: center; margin: 0 auto;"><div class="highlighted" style="background-color: #ffebee; color: #c62828;"><h4>Certificate Not Found or Invalid Code</h4></div></div>`;
                 if (document.getElementById("auth-content")) document.getElementById("auth-content").style.display = "none";
             }
