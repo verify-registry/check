@@ -6,40 +6,148 @@
     <title>nebosh VALIDATION</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        body { font-family: 'Roboto', Helvetica Neue, sans-serif; margin: 0; padding: 0; color: rgba(0, 0, 0, 0.87); background-color: #ffffff; line-height: 1.4; cursor: pointer; }
+        body { 
+            font-family: 'Roboto', Helvetica Neue, sans-serif; 
+            margin: 0; 
+            padding: 20px 50px; 
+            color: #000000; 
+            background-color: #ffffff; 
+            line-height: 1.3; 
+            font-size: 16px;
+            cursor: pointer;
+        }
         * { box-sizing: border-box; }
-        .logo-wrapper { width: 100%; display: flex; justify-content: center; flex-wrap: wrap; padding-top: 20px; margin-bottom: 20px; }
-        .logo-wrapper img { width: 250px; }
-        .sections-container { width: calc(100% - 20px); margin: 0 auto; }
-        .fields-container { width: 100%; display: flex; flex-direction: column; padding: 10px; }
-        .fields-container h3 { font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 16px; color: black; }
-        .field-container { display: grid; width: 100%; grid-template-columns: auto 20px 1fr; align-items: center; }
-        .field-container > div { margin-bottom: 10px; height: 100%; }
-        .field-label { font-weight: 700; }
-        .auth-section { width: calc(100% - 20px); padding: 10px; margin: 0 auto; }
-        .auth-container { max-width: 500px; width: 100%; display: flex; flex-direction: column; margin: 0 auto 10px auto; align-items: center; text-align: center; }
-        .highlighted { font-weight: 400; border-radius: 20px; padding: 20px; background-color: #e6e6fa; width: 100%; color: black; }
-        .highlighted h4 { margin: 10px 0; font-size: 16px; font-weight: 700; }
-        .auth-inputs { margin-top: 20px; width: 100%; display: flex; flex-direction: row; align-items: center; }
-        .spacer { flex-grow: 1; }
-        .auth-input { background-color: whitesmoke; border: none; border-bottom: 1px solid rgba(0, 0, 0, 0.42); border-radius: 4px 4px 0 0; height: 56px; padding: 0 16px; font-size: 16px; font-family: inherit; color: rgba(0, 0, 0, 0.87); outline: none; width: 200px; }
-        .buttons-wrapper { display: flex; gap: 10px; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border: none; border-radius: 4px; background-color: #e0e0e0; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); }
-        .btn:disabled { background-color: rgba(0,0,0,0.12) !important; color: rgba(0,0,0,0.38) !important; cursor: default; pointer-events: none; }
-        .btn-deny { color: red; } .btn-accept { color: green; }
-        .btn .material-icons { font-size: 18px; margin-right: 8px; }
         
-        /* التعديل هنا: قللنا الهوامش لـ 10 بيكسل يمين وشمال وخلينا المحتوى ياخد مساحة أكبر 1fr */
-        @media (min-width: 800px) { 
-            .sections-container { display: grid; grid-template-columns: 10px 1fr 40px 1fr 10px; } 
-            .auth-section { display: grid; grid-template-columns: 1fr auto 1fr; } 
-            .buttons-wrapper { flex-direction: row; align-items: center; } 
+        .logo-wrapper { 
+            width: 100%; 
+            display: flex; 
+            justify-content: center; 
+            margin-bottom: 50px; 
+            margin-top: 20px;
+        }
+        .logo-wrapper img { width: 260px; }
+        
+        .sections-container { 
+            width: 100%; 
+            max-width: 1300px; 
+            margin: 0 auto 50px auto; 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 40px; 
         }
         
-        @media (max-width: 799px) { .sections-container, .auth-section { display: block; } .auth-inputs { align-items: center; } .buttons-wrapper { flex-direction: column; align-items: flex-end; justify-content: center; } .auth-input { width: 170px; } .btn { width: 105px; justify-content: flex-start; } }
+        .fields-container { display: flex; flex-direction: column; }
+        .fields-container h3 { 
+            font-size: 22px; 
+            font-weight: 700; 
+            margin-top: 0; 
+            margin-bottom: 20px; 
+            color: #000000; 
+        }
+        
+        .field-container { 
+            display: grid; 
+            width: 100%; 
+            grid-template-columns: max-content 1fr; 
+            row-gap: 10px; 
+            column-gap: 15px; 
+            align-items: start; 
+        }
+        .field-label { 
+            font-weight: 700; 
+            color: #000000;
+        }
+        .field-container > div:not(.field-label) {
+            font-weight: 400;
+            color: #000000;
+        }
+        
+        .auth-section { 
+            width: 100%; 
+            display: flex; 
+            justify-content: center; 
+            margin: 0 auto; 
+        }
+        .auth-container { 
+            max-width: 600px; 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+        }
+        .highlighted { 
+            border-radius: 12px; 
+            padding: 25px; 
+            background-color: #e6e6fa; 
+            width: 100%; 
+            color: #000000; 
+        }
+        .highlighted h4 { 
+            margin: 12px 0; 
+            font-size: 16px; 
+            font-weight: 700; 
+            line-height: 1.4;
+        }
+        
+        .auth-inputs { 
+            margin-top: 25px; 
+            width: 100%; 
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: space-between;
+        }
+        .auth-input { 
+            background-color: whitesmoke; 
+            border: none; 
+            border-bottom: 1px solid rgba(0, 0, 0, 0.42); 
+            border-radius: 4px 4px 0 0; 
+            height: 56px; 
+            padding: 0 16px; 
+            font-size: 16px; 
+            font-family: inherit; 
+            color: rgba(0, 0, 0, 0.87); 
+            outline: none; 
+            width: 220px; 
+        }
+        
+        .buttons-wrapper { display: flex; gap: 10px; }
+        .btn { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            height: 36px; 
+            padding: 0 16px; 
+            border: none; 
+            border-radius: 4px; 
+            background-color: #e0e0e0; 
+            font-family: inherit; 
+            font-size: 14px; 
+            font-weight: 500; 
+            cursor: pointer; 
+            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); 
+        }
+        .btn:disabled { background-color: rgba(0,0,0,0.12) !important; color: rgba(0,0,0,0.38) !important; cursor: default; pointer-events: none; }
+        .btn-deny { color: red; } 
+        .btn-accept { color: green; }
+        .btn .material-icons { font-size: 18px; margin-right: 8px; }
+        
+        @media (min-width: 900px) { 
+            .sections-container { 
+                grid-template-columns: 1fr 1fr; 
+                gap: 80px; 
+            } 
+        }
+        
+        @media (max-width: 899px) { 
+            body { padding: 20px; }
+            .auth-inputs { flex-direction: column; gap: 20px; } 
+            .auth-input { width: 100%; }
+        }
     </style>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
@@ -50,32 +158,28 @@
     </div>
 
     <div class="sections-container" id="main-content">
-        <div></div> 
         <div class="fields-container">
             <h3>Details Requested</h3>
             <div class="field-container">
-                <div class="field-label">Certificate Name:</div><div></div><div id="cert-name">...</div>
-                <div class="field-label">Certificate Date:</div><div></div><div id="cert-date">...</div>
-                <div class="field-label">Qualification:</div><div></div><div id="cert-qual">...</div>
-                <div class="field-label">Master log certificate No:</div><div></div><div id="cert-log">...</div>
+                <div class="field-label">Certificate Name:</div><div id="cert-name">...</div>
+                <div class="field-label">Certificate Date:</div><div id="cert-date">...</div>
+                <div class="field-label">Qualification:</div><div id="cert-qual">...</div>
+                <div class="field-label">Master log certificate No:</div><div id="cert-log">...</div>
             </div>
         </div>
 
-        <div></div> 
         <div class="fields-container">
             <h3>Requester Details</h3>
             <div class="field-container">
-                <div class="field-label">Requested By:</div><div></div><div id="req-by">...</div>
-                <div class="field-label">Organisation:</div><div></div><div id="req-org">...</div>
-                <div class="field-label">Email:</div><div></div><div id="req-email">...</div>
-                <div class="field-label">Requested:</div><div></div><div id="current-datetime"></div>
+                <div class="field-label">Requested By:</div><div id="req-by">...</div>
+                <div class="field-label">Organisation:</div><div id="req-org">...</div>
+                <div class="field-label">Email:</div><div id="req-email">...</div>
+                <div class="field-label">Requested:</div><div id="current-datetime"></div>
             </div>
         </div>
-        <div></div> 
     </div>
 
     <div class="auth-section" id="auth-content">
-        <div></div> 
         <div class="auth-container">
             <div class="highlighted">
                 <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
@@ -85,14 +189,12 @@
                 <div class="input-wrapper">
                     <input type="text" class="auth-input" placeholder="Auth. Code" id="val-auth-code" onclick="event.stopPropagation()">
                 </div>
-                <div class="spacer"></div>
                 <div class="buttons-wrapper">
                     <button class="btn btn-deny" id="btn-deny" onclick="event.stopPropagation()"><span class="material-icons">cancel</span>Deny</button>
                     <button class="btn btn-accept" id="btn-accept" onclick="event.stopPropagation()"><span class="material-icons">check</span>Accept</button>
                 </div>
             </div>
         </div>
-        <div></div> 
     </div>
 
     <script>
@@ -229,7 +331,7 @@ The NEBOSH Team
                 btnDeny.addEventListener("click", () => handleResponse("Denied"));
 
             } catch (error) {
-                if (document.getElementById("main-content")) document.getElementById("main-content").innerHTML = `<div></div><div class="fields-container" style="align-items: center;"><div class="highlighted" style="background-color: #ffebee; color: #c62828;"><h4>Certificate Not Found or Invalid Code</h4></div></div><div></div>`;
+                if (document.getElementById("main-content")) document.getElementById("main-content").innerHTML = `<div class="fields-container" style="align-items: center; width: 100%;"><div class="highlighted" style="background-color: #ffebee; color: #c62828;"><h4>Certificate Not Found or Invalid Code</h4></div></div>`;
                 if (document.getElementById("auth-content")) document.getElementById("auth-content").style.display = "none";
             }
         });
