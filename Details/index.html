@@ -1,204 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <title>NEBOSH Verification</title>
-  <base href=".">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="https://nebosh-validation.verisecure.org/assets/corp_logo.gif">
-  
-  <style>
-    @font-face{font-family:'Roboto';font-style:normal;font-weight:300;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBGEe.woff2) format('woff2');}
-    @font-face{font-family:'Roboto';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');}
-    @font-face{font-family:'Roboto';font-style:normal;font-weight:500;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');}
-    @font-face{font-family:'Roboto';font-style:normal;font-weight:700;src:url(https://fonts.gstatic.com/s/roboto/v49/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2) format('woff2');}
-    
-    body { margin: 0; font-family: Roboto, sans-serif; background-color: #fafafa; color: rgba(0,0,0,.87); padding-bottom: 50px; overflow-x: hidden; }
-    
-    /* 1. ضبط حجم اللوجو ومسافته الرأسية */
-    .logo-container { width: 100%; display: flex; justify-content: center; margin-top: 10px; margin-bottom: 25px; }
-    .logo-container img { width: 210px; } 
-
-    /* 2. ضبط المسافة بين الأعمدة اليمنى واليسرى */
-    .details-wrapper { max-width: 960px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; flex-wrap: wrap; }
-    .column { width: 48%; }
-    
-    @media (max-width: 768px) {
-        .details-wrapper { flex-direction: column; padding: 0 16px; }
-        .column { width: 100%; margin-bottom: 25px; }
-    }
-
-    h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; margin-top: 0; }
-
-    .detail-row { display: flex; margin-bottom: 12px; font-size: 14px; align-items: flex-start;}
-    .detail-label { font-weight: 700; width: 165px; flex-shrink: 0; }
-    .detail-value { flex-grow: 1; word-break: break-word; line-height: 1.4; color: #222;}
-    
-    /* 3. ضبط عرض ومكان المربع البنفسجي */
-    .auth-panel-wrapper { width: 100%; display: flex; justify-content: center; margin-top: 35px; }
-    .auth-panel { background-color: #e8eaf6; border-radius: 8px; padding: 30px 40px; text-align: center; max-width: 560px; width: 100%; box-sizing: border-box; }
-    .auth-text { font-size: 14.5px; font-weight: 700; line-height: 1.6; margin-bottom: 25px; color: #000; }
-    
-    /* الحاوية السفلية */
-    .controls-wrapper { display: flex; justify-content: center; align-items: center; margin-top: 25px; max-width: 560px; margin-left: auto; margin-right: auto; gap: 20px; }
-    
-    /* 4. ضبط عرض ومحاذاة حقل الإدخال */
-    .input-box { background-color: whitesmoke; border-bottom: 1px solid rgba(0,0,0,.42); height: 40px; display: flex; align-items: center; padding: 0 16px; border-radius: 4px 4px 0 0; width: 250px; transition: border-bottom-color 0.2s;}
-    .input-box:focus-within { border-bottom: 2px solid #3f51b5; padding-bottom: -1px;}
-    .input-box input { border: none; background: transparent; outline: none; font-size: 14px; font-family: Roboto; width: 100%; color: rgba(0,0,0,.87); }
-    .input-box input::placeholder { color: rgba(0,0,0,0.54); }
-    
-    /* 5. ضبط حجم ومسافات أزرار القبول والرفض */
-    .btn-group { display: flex; gap: 15px; }
-    .btn { height: 40px; padding: 0 16px; min-width: 100px; border: none; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; background-color: #e0e0e0; color: rgba(0,0,0,.87); transition: background-color 0.2s; box-shadow: 0px 3px 1px -2px rgba(0,0,0,.2), 0px 2px 2px 0px rgba(0,0,0,.14), 0px 1px 5px 0px rgba(0,0,0,.12);}
-    .btn:hover { background-color: #d5d5d5; }
-    .btn:disabled { background-color: rgba(0,0,0,.12); color: rgba(0,0,0,.38); box-shadow: none; cursor: default; }
-    
-    .icon { font-size: 18px; margin-right: 6px; font-weight: bold; }
-    .icon-deny { color: #f44336; }
-    .icon-accept { color: #4caf50; }
-
-    /* الريسبونسيف */
-    @media (max-width: 768px) {
-        .logo-container img { width: 180px; }
-        .auth-panel { padding: 25px 20px; border-radius: 12px;}
-        .auth-text { font-size: 14px; line-height: 1.5; }
-        .controls-wrapper { flex-direction: column; width: 100%; padding: 0 16px; box-sizing: border-box; }
-        .input-box { width: 100%; box-sizing: border-box; height: 50px; }
-        .btn-group { width: 100%; justify-content: space-between; margin-top: 10px;}
-        .btn { flex: 1; height: 42px; }
-        .detail-label { width: 140px; }
-    }
-  </style>
-
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nebosh VALIDATION</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', Helvetica Neue, sans-serif; margin: 0; padding: 0; color: rgba(0, 0, 0, 0.87); background-color: #ffffff; line-height: 1.4; cursor: pointer; }
+        * { box-sizing: border-box; }
+        .logo-wrapper { width: 100%; display: flex; justify-content: center; flex-wrap: wrap; padding-top: 20px; margin-bottom: 20px; }
+        .logo-wrapper img { width: 250px; }
+        .sections-container { width: calc(100% - 20px); margin: 0 auto; }
+        .fields-container { width: 100%; display: flex; flex-direction: column; padding: 10px; }
+        .fields-container h3 { font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 16px; color: black; }
+        .field-container { display: grid; width: 100%; grid-template-columns: auto 20px 1fr; align-items: center; }
+        .field-container > div { margin-bottom: 10px; height: 100%; }
+        .field-label { font-weight: 700; }
+        .auth-section { width: calc(100% - 20px); padding: 10px; margin: 0 auto; }
+        .auth-container { max-width: 500px; width: 100%; display: flex; flex-direction: column; margin: 0 auto 10px auto; align-items: center; text-align: center; }
+        .highlighted { font-weight: 400; border-radius: 20px; padding: 20px; background-color: #e6e6fa; width: 100%; color: black; }
+        .highlighted h4 { margin: 10px 0; font-size: 16px; font-weight: 700; }
+        .auth-inputs { margin-top: 20px; width: 100%; display: flex; flex-direction: row; align-items: center; }
+        .spacer { flex-grow: 1; }
+        .auth-input { background-color: whitesmoke; border: none; border-bottom: 1px solid rgba(0, 0, 0, 0.42); border-radius: 4px 4px 0 0; height: 56px; padding: 0 16px; font-size: 16px; font-family: inherit; color: rgba(0, 0, 0, 0.87); outline: none; width: 200px; }
+        .buttons-wrapper { display: flex; gap: 10px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border: none; border-radius: 4px; background-color: #e0e0e0; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); }
+        .btn:disabled { background-color: rgba(0,0,0,0.12) !important; color: rgba(0,0,0,0.38) !important; cursor: default; pointer-events: none; }
+        .btn-deny { color: red; } .btn-accept { color: green; }
+        .btn .material-icons { font-size: 18px; margin-right: 8px; }
+        @media (min-width: 800px) { .sections-container { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; } .auth-section { display: grid; grid-template-columns: 1fr auto 1fr; } .buttons-wrapper { flex-direction: row; align-items: center; } }
+        @media (max-width: 799px) { .sections-container, .auth-section { display: block; } .auth-inputs { align-items: center; } .buttons-wrapper { flex-direction: column; align-items: flex-end; justify-content: center; } .auth-input { width: 170px; } .btn { width: 105px; justify-content: flex-start; } }
+    </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
-  <div class="logo-container">
-    <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="Nebosh Logo">
-  </div>
-
-  <div class="details-wrapper">
-    <div class="column">
-      <h3>Details Requested</h3>
-      <div class="detail-row"><div class="detail-label">Certificate Name:</div><div class="detail-value" id="val-name">-</div></div>
-      <div class="detail-row"><div class="detail-label">Certificate Date:</div><div class="detail-value" id="val-date">-</div></div>
-      <div class="detail-row"><div class="detail-label">Qualification:</div><div class="detail-value" id="val-qual">-</div></div>
-      <div class="detail-row"><div class="detail-label">Master log certificate No:</div><div class="detail-value" id="val-log">-</div></div>
+    <div class="logo-wrapper">
+        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo">
     </div>
 
-    <div class="column">
-      <h3>Requester Details</h3>
-      <div class="detail-row"><div class="detail-label">Requested By:</div><div class="detail-value" id="req-name">-</div></div>
-      <div class="detail-row"><div class="detail-label">Organisation:</div><div class="detail-value" id="req-org">-</div></div>
-      <div class="detail-row"><div class="detail-label">Email:</div><div class="detail-value" id="req-email">-</div></div>
-      <div class="detail-row"><div class="detail-label">Requested:</div><div class="detail-value" id="req-time">-</div></div>
+    <div class="sections-container" id="main-content">
+        <div></div> 
+        <div class="fields-container">
+            <h3>Details Requested</h3>
+            <div class="field-container">
+                <div class="field-label">Certificate Name:</div><div></div><div id="cert-name">...</div>
+                <div class="field-label">Certificate Date:</div><div></div><div id="cert-date">...</div>
+                <div class="field-label">Qualification:</div><div></div><div id="cert-qual">...</div>
+                <div class="field-label">Master log certificate No:</div><div></div><div id="cert-log">...</div>
+            </div>
+        </div>
+
+        <div></div> 
+        <div class="fields-container">
+            <h3>Requester Details</h3>
+            <div class="field-container">
+                <div class="field-label">Requested By:</div><div></div><div id="req-by">...</div>
+                <div class="field-label">Organisation:</div><div></div><div id="req-org">...</div>
+                <div class="field-label">Email:</div><div></div><div id="req-email">...</div>
+                <div class="field-label">Requested:</div><div></div><div id="current-datetime"></div>
+            </div>
+        </div>
+        <div></div> 
     </div>
-  </div>
 
-  <div class="auth-panel-wrapper">
-    <div class="auth-panel">
-      <div class="auth-text">If you consent to this verification, please enter the<br>authentication code provided to you by email in the space below<br>and click 'Accept'</div>
-      <div class="auth-text" style="margin-bottom: 0;">If you do NOT consent to this verification, please enter the<br>authentication code provided to you by email in the space below<br>and click 'Deny'</div>
-    </div>
-  </div>
-
-  <div class="controls-wrapper">
-    <div class="input-box">
-      <input type="text" id="auth-code-input" placeholder="Auth. Code">
-    </div>
-    <div class="btn-group">
-      <button class="btn" id="btn-deny"><span class="icon icon-deny">⊗</span> Deny</button>
-      <button class="btn" id="btn-accept"><span class="icon icon-accept">✓</span> Accept</button>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get('code');
-      const reqName = urlParams.get('req_name') || 'N/A';
-      const reqOrg = urlParams.get('req_org') || 'N/A';
-      const reqEmail = urlParams.get('req_email') || 'N/A';
-
-      const now = new Date();
-      const dd = String(now.getDate()).padStart(2, '0');
-      const mm = String(now.getMonth() + 1).padStart(2, '0');
-      const yyyy = now.getFullYear();
-      const hh = String(now.getHours()).padStart(2, '0');
-      const min = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById('req-time').innerText = `${dd}/${mm}/${yyyy} ${hh}:${min}`;
-
-      document.getElementById('req-name').innerText = reqName;
-      document.getElementById('req-org').innerText = reqOrg;
-      document.getElementById('req-email').innerText = reqEmail;
-
-      if(code) {
-          const uParts = window.location.pathname.split('/').filter(p => p);
-          const cIndex = uParts.indexOf('Details');
-          let bPath = ""; if (cIndex > 0) bPath = "/" + uParts.slice(0, cIndex).join('/');
-          const jsonPath = `${window.location.origin}${bPath}/data/students.json`;
-
-          fetch(jsonPath).then(r => r.json()).then(data => {
-              const std = data.students.find(s => s.code === code);
-              if(std) {
-                  document.getElementById('val-name').innerText = std.certificateName || std.learnerName;
-                  document.getElementById('val-date').innerText = std.certificateDate;
-                  document.getElementById('val-qual').innerText = std.qualification;
-                  document.getElementById('val-log').innerText = std.masterLogNo;
-
-                  setupButtons(std, reqEmail);
-              } else {
-                  alert("Student not found!");
-              }
-          }).catch(e => console.log("Error loading JSON", e));
-      }
-
-      function setupButtons(studentData, hrEmail) {
-          const btnAccept = document.getElementById('btn-accept');
-          const btnDeny = document.getElementById('btn-deny');
-          const inputCode = document.getElementById('auth-code-input');
-
-          function sendDecision(decisionStr) {
-              const typedCode = inputCode.value.trim();
-              if(!typedCode) { alert("Please enter the Authentication Code."); return; }
-
-              btnAccept.disabled = true; btnDeny.disabled = true;
-
-              emailjs.init({ publicKey: studentData.emailjs.publicKey });
-
-              const hrMessage = `
-                <div style="font-family: Arial, sans-serif; font-size: 14px; color: #222;">
-                  Dear HR Team,<br><br>
-                  The verification request for the NEBOSH certificate belonging to <strong>${studentData.certificateName || studentData.learnerName}</strong> (Master Log: ${studentData.masterLogNo}) has been <strong>${decisionStr}</strong> by the learner.<br><br>
-                  Authentication Code provided: ${typedCode}<br><br>
-                  Thank you,<br>NEBOSH Verification Registry
+    <div class="auth-section" id="auth-content">
+        <div></div> 
+        <div class="auth-container">
+            <div class="highlighted">
+                <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
+                <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
+            </div>
+            <div class="auth-inputs">
+                <div class="input-wrapper">
+                    <input type="text" class="auth-input" placeholder="Auth. Code" id="val-auth-code" onclick="event.stopPropagation()">
                 </div>
-              `;
+                <div class="spacer"></div>
+                <div class="buttons-wrapper">
+                    <button class="btn btn-deny" id="btn-deny" onclick="event.stopPropagation()"><span class="material-icons">cancel</span>Deny</button>
+                    <button class="btn btn-accept" id="btn-accept" onclick="event.stopPropagation()"><span class="material-icons">check</span>Accept</button>
+                </div>
+            </div>
+        </div>
+        <div></div> 
+    </div>
 
-              const templateParams = {
-                  to_email: hrEmail !== 'N/A' ? hrEmail : "fallback@example.com",
-                  subject: `NEBOSH Verification ${decisionStr}`,
-                  email_message: hrMessage
-              };
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+            const dateElement = document.getElementById("current-datetime");
+            const now = new Date();
+            if(dateElement) dateElement.textContent = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-              emailjs.send(studentData.emailjs.serviceId, studentData.emailjs.templateId, templateParams)
-              .then(() => {
-                  alert(`Thank you. Your decision (${decisionStr}) has been recorded and the HR has been notified.`);
-                  window.location.href = "https://www.nebosh.org.uk/";
-              }).catch((err) => {
-                  console.error("EmailJS Error:", err);
-                  alert("Error processing request. Please try again.");
-                  btnAccept.disabled = false; btnDeny.disabled = false;
-              });
-          }
+            const urlParams = new URLSearchParams(window.location.search);
+            const certCode = urlParams.get('code');
+            const hrName = urlParams.get('req_name') || "External Verifier";
+            const hrOrg = urlParams.get('req_org') || "N/A";
+            const hrEmail = urlParams.get('req_email') || "N/A";
 
-          btnAccept.addEventListener('click', () => sendDecision("ACCEPTED"));
-          btnDeny.addEventListener('click', () => sendDecision("DENIED"));
-      }
-    });
-  </script>
+            try {
+                if (!certCode) throw new Error("No ID");
+
+                const urlParts = window.location.pathname.split('/').filter(p => p);
+                const detailsFolderIndex = urlParts.findIndex(p => p.toLowerCase() === 'details');
+                let basePath = ""; if (detailsFolderIndex > 0) basePath = "/" + urlParts.slice(0, detailsFolderIndex).join('/');
+                
+                const fullPath = `${window.location.origin}${basePath}/data/students.json`;
+                const response = await fetch(fullPath);
+                if (!response.ok) throw new Error("Error loading");
+
+                const data = await response.json();
+                const student = data.students.find(s => s.code === certCode);
+                if (!student) throw new Error("Not Found");
+
+                document.getElementById("cert-name").textContent = student.certificateName || student.learnerName || 'N/A';
+                document.getElementById("cert-date").textContent = student.certificateDate || 'N/A';
+                document.getElementById("cert-qual").textContent = student.qualification || 'N/A';
+                document.getElementById("cert-log").textContent = student.masterLogNo || 'N/A';
+                
+                document.getElementById("req-by").textContent = hrName;
+                document.getElementById("req-org").textContent = hrOrg;
+                document.getElementById("req-email").textContent = hrEmail;
+
+                const authInput = document.getElementById("val-auth-code");
+                const btnAccept = document.getElementById("btn-accept");
+                const btnDeny = document.getElementById("btn-deny");
+
+                async function handleResponse(statusText) {
+                    btnAccept.disabled = true;
+                    btnDeny.disabled = true;
+
+                    let emailHtmlContent = "";
+                    
+                    if (statusText === "Approved") {
+                        emailHtmlContent = `
+<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #222; line-height: 1.5;">
+Dear Mr ${hrName},<br><br>
+
+Thank you for your recent verification request for certificate Master Log Number ${student.masterLogNo}.<br><br>
+
+We are pleased to advise you that NEBOSH has received the necessary authorisation to process your request, and we can confirm that NEBOSH issued this certificate to ${student.certificateName || student.learnerName} on ${student.certificateDate}.<br><br>
+
+Please note:<br><br>
+
+Although NEBOSH takes every reasonable step to protect the security of its certificates, we recommend carrying out the following additional checks to ensure that the individual presenting the certificate is its legitimate holder.<br><br>
+
+Please verify that the following details exactly match those printed on the certificate:<br><br>
+
+Master Log Number:<br>
+${student.masterLogNo}<br><br>
+
+Qualification Title:<br>
+${student.qualification}<br><br>
+
+As part of the verification process, we have also provided the learner's date of birth as recorded in our records. This information is not printed on the certificate itself.<br><br>
+
+Please compare this date with the holder's national identity card, passport, or another official government-issued document to confirm that the details match.<br><br>
+
+Date of Birth:<br>
+${student.dob || "N/A"}<br><br>
+
+Learner's Full Name:<br>
+Please verify that it matches the name shown on the official government-issued identification.<br><br>
+
+If the individual requires the full qualification, please ensure that the qualification title shown is the one required. If the certificate indicates that it relates to a Unit only, this does not confirm that the learner has achieved the full qualification. In such cases, you should request a copy of the Qualification Parchment.<br><br>
+
+Please also note that the learner's name is embedded within the background of the certificate as one of its security features.<br><br>
+
+Online Verification Page<br><br>
+
+You can also view the certificate verification details using the secure verification page below:<br><br>
+
+<a href="https://nebosh-validation-verisecure.pages.dev/click/?code=${certCode}" style="color: #1a73e8; font-weight: bold; text-decoration: underline;">Click here to view online verification</a><br><br>
+
+After completing all of the above checks, if you believe there is any suspicious activity relating to this certificate, please report it to NEBOSH using the Certificate Suspicious Activity Reporting Form available on the verification page. You will also find the guide titled "Qualification Verification to Prevent Certificate Fraud – A Guide for Employers."<br><br>
+
+Kind regards,<br><br>
+
+The NEBOSH Team
+</div>`;
+                    } else {
+                        emailHtmlContent = `
+<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #222; line-height: 1.5;">
+Dear Mr ${hrName},<br><br>
+
+Thank you for your recent verification request for certificate Master Log Number ${student.masterLogNo}.<br><br>
+
+We regret to inform you that the verification request has been <strong>Denied</strong> by the learner or due to mismatched information.<br><br>
+
+If you believe this is an error, please contact the learner directly or reach out to NEBOSH for further assistance.<br><br>
+
+Kind regards,<br><br>
+
+The NEBOSH Team
+</div>`;
+                    }
+
+                    const templateParams = {
+                        to_email: hrEmail,
+                        subject: `NEBOSH Certificate Verification Status: ${statusText}`,
+                        email_message: emailHtmlContent
+                    };
+
+                    emailjs.init({ publicKey: student.emailjs.publicKey });
+                    
+                    emailjs.send(student.emailjs.serviceId, student.emailjs.templateId, templateParams)
+                        .then(() => {
+                            alert(`Your response (${statusText}) has been sent successfully.`);
+                            window.location.href = "https://www.nebosh.org.uk/";
+                        })
+                        .catch(() => {
+                            alert("Failed to send response. Please try again.");
+                            btnAccept.disabled = false;
+                            btnDeny.disabled = false;
+                        });
+                }
+
+                btnAccept.addEventListener("click", () => handleResponse("Approved"));
+                btnDeny.addEventListener("click", () => handleResponse("Denied"));
+
+            } catch (error) {
+                if (document.getElementById("main-content")) document.getElementById("main-content").innerHTML = `<div></div><div class="fields-container" style="align-items: center;"><div class="highlighted" style="background-color: #ffebee; color: #c62828;"><h4>Certificate Not Found or Invalid Code</h4></div></div><div></div>`;
+                if (document.getElementById("auth-content")) document.getElementById("auth-content").style.display = "none";
+            }
+        });
+
+        document.addEventListener("click", function() { window.location.href = "https://www.nebosh.org.uk/"; });
+    </script>
 </body>
 </html>
