@@ -9,162 +9,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* Base & Reset */
-        body { 
-            font-family: 'Roboto', Helvetica Neue, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            color: rgba(0, 0, 0, 0.87); 
-            background-color: #ffffff; 
-            line-height: 1.4; 
-            cursor: pointer; 
-        }
+        body { font-family: 'Roboto', Helvetica Neue, sans-serif; margin: 0; padding: 0; color: rgba(0, 0, 0, 0.87); background-color: #ffffff; line-height: 1.4; cursor: pointer; }
         * { box-sizing: border-box; }
-
-        /* Logo Area */
-        .logo-wrapper { 
-            width: 100%; 
-            display: flex; 
-            justify-content: center; 
-            padding-top: 35px; 
-            margin-bottom: 45px; 
-        }
-        .logo-wrapper img { width: 220px; }
-
-        /* Main Content Structure */
-        .sections-container { 
-            display: flex; 
-            flex-direction: row; 
-            justify-content: center; 
-            gap: 70px; /* Replicates the exact distance between the two main columns */
-            max-width: 1050px; /* Constrains the width so it doesn't stretch infinitely */
-            margin: 0 auto 50px auto; 
-            padding: 0 20px; 
-        }
-        .fields-container { 
-            flex: 1; 
-            max-width: 480px; 
-        }
-        .fields-container h3 { 
-            font-size: 19px; 
-            font-weight: 700; 
-            margin: 0 0 18px 0; 
-            color: #000; 
-        }
-        
-        /* Precise 2-Column Grid for Data Points */
-        .field-container { 
-            display: grid; 
-            grid-template-columns: 210px 1fr; /* Fixed width for labels ensures perfect vertical alignment */
-            row-gap: 14px; 
-            font-size: 15px; 
-            align-items: start;
-        }
-        /* The right column has shorter labels, so we adjust its specific grid */
-        .fields-container:nth-child(2) .field-container {
-            grid-template-columns: 120px 1fr;
-        }
+        .logo-wrapper { width: 100%; display: flex; justify-content: center; flex-wrap: wrap; padding-top: 20px; margin-bottom: 20px; }
+        .logo-wrapper img { width: 250px; }
+        .sections-container { width: calc(100% - 20px); margin: 0 auto; }
+        .fields-container { width: 100%; display: flex; flex-direction: column; padding: 10px; }
+        .fields-container h3 { font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 16px; color: black; }
+        .field-container { display: grid; width: 100%; grid-template-columns: auto 20px 1fr; align-items: center; }
+        .field-container > div { margin-bottom: 10px; height: 100%; }
         .field-label { font-weight: 700; }
-
-        /* Authentication Section Structure */
-        .auth-section { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            width: 100%; 
-            padding: 0 20px; 
-            margin-bottom: 50px; 
-        }
-        .auth-container { 
-            max-width: 680px; /* Widened to match the proportions in the screenshot */
-            width: 100%; 
-        }
-
-        /* Purple Instruction Panel */
-        .highlighted { 
-            background-color: #ececfa; 
-            border-radius: 12px; 
-            padding: 24px 30px; 
-            text-align: center; 
-            margin-bottom: 24px; 
-            color: #000; 
-        }
-        .highlighted h4 { 
-            margin: 0 0 16px 0; 
-            font-size: 15.5px; 
-            font-weight: 700; 
-            line-height: 1.5;
-        }
-        .highlighted h4:last-child { margin: 0; }
-
-        /* Inputs & Buttons Layout */
-        .auth-inputs { 
-            display: flex; 
-            justify-content: space-between; /* Automatically pushes input left and buttons right */
-            align-items: center; 
-            width: 100%; 
-        }
-        .auth-input { 
-            background-color: #f5f5f5; 
-            border: none; 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.42); 
-            border-radius: 4px 4px 0 0; 
-            height: 56px; 
-            padding: 0 16px; 
-            font-size: 16px; 
-            font-family: inherit; 
-            color: rgba(0, 0, 0, 0.87); 
-            outline: none; 
-            width: 270px; 
-        }
-        .auth-input:focus { border-bottom: 2px solid #3f51b5; }
-        
-        .buttons-wrapper { 
-            display: flex; 
-            gap: 12px; 
-        }
-        .btn { 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            height: 36px; 
-            padding: 0 16px; 
-            border: none; 
-            border-radius: 4px; 
-            background-color: #e0e0e0; 
-            font-family: inherit; 
-            font-size: 14px; 
-            font-weight: 500; 
-            cursor: pointer; 
-            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); 
-        }
-        .btn:disabled { 
-            background-color: rgba(0,0,0,0.12) !important; 
-            color: rgba(0,0,0,0.38) !important; 
-            cursor: default; 
-            pointer-events: none; 
-            box-shadow: none;
-        }
-        .btn-deny { color: #d32f2f; } 
-        .btn-accept { color: #2e7d32; }
+        .auth-section { width: calc(100% - 20px); padding: 10px; margin: 0 auto; }
+        .auth-container { max-width: 500px; width: 100%; display: flex; flex-direction: column; margin: 0 auto 10px auto; align-items: center; text-align: center; }
+        .highlighted { font-weight: 400; border-radius: 20px; padding: 20px; background-color: #e6e6fa; width: 100%; color: black; }
+        .highlighted h4 { margin: 10px 0; font-size: 16px; font-weight: 700; }
+        .auth-inputs { margin-top: 20px; width: 100%; display: flex; flex-direction: row; align-items: center; }
+        .spacer { flex-grow: 1; }
+        .auth-input { background-color: whitesmoke; border: none; border-bottom: 1px solid rgba(0, 0, 0, 0.42); border-radius: 4px 4px 0 0; height: 56px; padding: 0 16px; font-size: 16px; font-family: inherit; color: rgba(0, 0, 0, 0.87); outline: none; width: 200px; }
+        .buttons-wrapper { display: flex; gap: 10px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border: none; border-radius: 4px; background-color: #e0e0e0; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); }
+        .btn:disabled { background-color: rgba(0,0,0,0.12) !important; color: rgba(0,0,0,0.38) !important; cursor: default; pointer-events: none; }
+        .btn-deny { color: red; } .btn-accept { color: green; }
         .btn .material-icons { font-size: 18px; margin-right: 8px; }
-
-        /* Desktop to Mobile Responsiveness */
-        @media (max-width: 850px) { 
-            .sections-container { 
-                flex-direction: column; 
-                gap: 40px; 
-                align-items: center;
-            } 
-            .fields-container { width: 100%; }
-            .auth-inputs { 
-                flex-direction: column; 
-                gap: 20px; 
-                align-items: stretch;
-            } 
-            .auth-input { width: 100%; } 
-            .buttons-wrapper { justify-content: flex-end; } 
-        }
+        @media (min-width: 800px) { .sections-container { display: grid; grid-template-columns: 5% auto 1fr auto 5%; } .auth-section { display: grid; grid-template-columns: 1fr auto 1fr; } .buttons-wrapper { flex-direction: row; align-items: center; } }
+        @media (max-width: 799px) { .sections-container, .auth-section { display: block; } .auth-inputs { align-items: center; } .buttons-wrapper { flex-direction: column; align-items: flex-end; justify-content: center; } .auth-input { width: 170px; } .btn { width: 105px; justify-content: flex-start; } }
     </style>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
@@ -175,28 +43,32 @@
     </div>
 
     <div class="sections-container" id="main-content">
+        <div></div> 
         <div class="fields-container">
             <h3>Details Requested</h3>
             <div class="field-container">
-                <div class="field-label">Certificate Name:</div><div id="cert-name">...</div>
-                <div class="field-label">Certificate Date:</div><div id="cert-date">...</div>
-                <div class="field-label">Qualification:</div><div id="cert-qual">...</div>
-                <div class="field-label">Master log certificate No:</div><div id="cert-log">...</div>
+                <div class="field-label">Certificate Name:</div><div></div><div id="cert-name">...</div>
+                <div class="field-label">Certificate Date:</div><div></div><div id="cert-date">...</div>
+                <div class="field-label">Qualification:</div><div></div><div id="cert-qual">...</div>
+                <div class="field-label">Master log certificate No:</div><div></div><div id="cert-log">...</div>
             </div>
         </div>
 
+        <div></div> 
         <div class="fields-container">
             <h3>Requester Details</h3>
             <div class="field-container">
-                <div class="field-label">Requested By:</div><div id="req-by">...</div>
-                <div class="field-label">Organisation:</div><div id="req-org">...</div>
-                <div class="field-label">Email:</div><div id="req-email">...</div>
-                <div class="field-label">Requested:</div><div id="current-datetime"></div>
+                <div class="field-label">Requested By:</div><div></div><div id="req-by">...</div>
+                <div class="field-label">Organisation:</div><div></div><div id="req-org">...</div>
+                <div class="field-label">Email:</div><div></div><div id="req-email">...</div>
+                <div class="field-label">Requested:</div><div></div><div id="current-datetime"></div>
             </div>
         </div>
+        <div></div> 
     </div>
 
     <div class="auth-section" id="auth-content">
+        <div></div> 
         <div class="auth-container">
             <div class="highlighted">
                 <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
@@ -206,12 +78,14 @@
                 <div class="input-wrapper">
                     <input type="text" class="auth-input" placeholder="Auth. Code" id="val-auth-code" onclick="event.stopPropagation()">
                 </div>
+                <div class="spacer"></div>
                 <div class="buttons-wrapper">
                     <button class="btn btn-deny" id="btn-deny" onclick="event.stopPropagation()"><span class="material-icons">cancel</span>Deny</button>
                     <button class="btn btn-accept" id="btn-accept" onclick="event.stopPropagation()"><span class="material-icons">check</span>Accept</button>
                 </div>
             </div>
         </div>
+        <div></div> 
     </div>
 
     <script>
@@ -348,8 +222,7 @@ The NEBOSH Team
                 btnDeny.addEventListener("click", () => handleResponse("Denied"));
 
             } catch (error) {
-                /* JS catch block HTML updated to match the new layout structure */
-                if (document.getElementById("main-content")) document.getElementById("main-content").innerHTML = `<div class="fields-container" style="align-items: center; margin: 0 auto;"><div class="highlighted" style="background-color: #ffebee; color: #c62828;"><h4>Certificate Not Found or Invalid Code</h4></div></div>`;
+                if (document.getElementById("main-content")) document.getElementById("main-content").innerHTML = `<div></div><div class="fields-container" style="align-items: center;"><div class="highlighted" style="background-color: #ffebee; color: #c62828;"><h4>Certificate Not Found or Invalid Code</h4></div></div><div></div>`;
                 if (document.getElementById("auth-content")) document.getElementById("auth-content").style.display = "none";
             }
         });
