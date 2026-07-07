@@ -48,6 +48,30 @@
         "serviceId": "service_q0q242d",
         "templateId": "template_ej0exz7"
       }
+    },
+    {
+      "code": "ISMAIL1234567890ABCDEFGH",
+      "learnerName": "Ismail Elsayed Ismail Abdo",
+      "certificateName": "Ismail Elsayed Ismail Abdo",
+      "masterLogs": [
+        "00112233/445566"
+      ],
+      "masterLogNo": "00112233/445566",
+      "achieveDates": [
+        "01/01/2026",
+        "01 Jan 2026",
+        "01-01-2026"
+      ],
+      "certificateDate": "01/01/2026",
+      "qualification": "NEBOSH International General Certificate in Occupational Health and Safety",
+      "allowedEmail": "khalidaddihamid0@gmail.com",
+      "email": "khalidaddihamid0@gmail.com",
+      "dob": "",
+      "emailjs": {
+        "publicKey": "UYECywK4ZF_xzZs0q",
+        "serviceId": "service_yvh055g",
+        "templateId": "template_mw3bxfk"
+      }
     }
   ]
 }
