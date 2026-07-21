@@ -108,14 +108,12 @@
             try {
                 if (!certCode) throw new Error("No ID");
 
-                // التعديل هنا لمسار فولدر details
-                const urlParts = window.location.pathname.split('/').filter(p => p);
-                const detailsFolderIndex = urlParts.findIndex(p => p.toLowerCase() === 'details');
-                let basePath = ""; if (detailsFolderIndex > 0) basePath = "/" + urlParts.slice(0, detailsFolderIndex).join('/');
-                
-                const fullPath = `${window.location.origin}${basePath}/data/students.json`;
-                const response = await fetch(fullPath);
-                if (!response.ok) throw new Error("Error loading");
+                // تثبيت مسار الـ JSON عشان يقرأ بدون أخطاء
+                let response = await fetch('/check/data/students.json?v=' + new Date().getTime(), { cache: 'no-store' });
+                if (!response.ok) {
+                    response = await fetch('/data/students.json?v=' + new Date().getTime(), { cache: 'no-store' });
+                }
+                if (!response.ok) throw new Error("Error loading data");
 
                 const data = await response.json();
                 const student = data.students.find(s => s.code === certCode);
