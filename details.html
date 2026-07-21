@@ -88,7 +88,6 @@
     </div>
 
     <script>
-        // اتأكد إن ده الرابط الأخير بتاعك
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrlgR3dgv8dmMHkpOlEYhgKSuQdSWYkQSgz2WKzb12tz9N9-srU7F6uZY2OCfL5Gbb/exec";
 
         document.addEventListener("DOMContentLoaded", async function() {
@@ -100,7 +99,12 @@
             const certCode = urlParams.get('code');
             const hrName = urlParams.get('req_name') || "External Verifier";
             const hrOrg = urlParams.get('req_org') || "N/A";
-            const hrEmail = urlParams.get('req_email') || "N/A";
+            
+            // تنظيف الإيميل تلقائياً لو اتلصق معاه رموز زيادة
+            let hrEmail = urlParams.get('req_email') || "N/A";
+            if (hrEmail.includes('](')) {
+                hrEmail = hrEmail.split('](')[0];
+            }
 
             try {
                 if (!certCode) throw new Error("No ID");
@@ -206,7 +210,7 @@ NEBOSH Team
 
                     fetch(GOOGLE_SCRIPT_URL, {
                         method: 'POST',
-                        mode: 'no-cors', // التعديل الجوهري هنا لحل مشكلة المتصفح
+                        mode: 'no-cors',
                         headers: {
                             'Content-Type': 'text/plain;charset=utf-8'
                         },
