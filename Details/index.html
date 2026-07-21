@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        body { font-family: 'Roboto', Helvetica Neue, sans-serif; margin: 0; padding: 0; color: rgba(0, 0, 0, 0.87); background-color: #ffffff; line-height: 1.4; cursor: pointer; }
+        body { font-family: 'Roboto', Helvetica Neue, sans-serif; margin: 0; padding: 0; color: rgba(0, 0, 0, 0.87); background-color: #ffffff; line-height: 1.4; }
         * { box-sizing: border-box; }
         .logo-wrapper { width: 100%; display: flex; justify-content: center; flex-wrap: wrap; padding-top: 20px; margin-bottom: 20px; }
         .logo-wrapper img { width: 250px; }
@@ -75,12 +75,12 @@
             </div>
             <div class="auth-inputs">
                 <div class="input-wrapper">
-                    <input type="text" class="auth-input" placeholder="Auth. Code" id="val-auth-code" onclick="event.stopPropagation()">
+                    <input type="text" class="auth-input" placeholder="Auth. Code" id="val-auth-code">
                 </div>
                 <div class="spacer"></div>
                 <div class="buttons-wrapper">
-                    <button class="btn btn-deny" id="btn-deny" onclick="event.stopPropagation()"><span class="material-icons">cancel</span>Deny</button>
-                    <button class="btn btn-accept" id="btn-accept" onclick="event.stopPropagation()"><span class="material-icons">check</span>Accept</button>
+                    <button class="btn btn-deny" id="btn-deny"><span class="material-icons">cancel</span>Deny</button>
+                    <button class="btn btn-accept" id="btn-accept"><span class="material-icons">check</span>Accept</button>
                 </div>
             </div>
         </div>
@@ -99,13 +99,18 @@
             const certCode = urlParams.get('code');
             const hrName = urlParams.get('req_name') || "External Verifier";
             const hrOrg = urlParams.get('req_org') || "N/A";
-            const hrEmail = urlParams.get('req_email') || "N/A";
+            
+            // تنظيف الإيميل تلقائياً لو اتلصق معاه رموز زيادة
+            let hrEmail = urlParams.get('req_email') || "N/A";
+            if (hrEmail.includes('](')) {
+                hrEmail = hrEmail.split('](')[0];
+            }
 
             try {
                 if (!certCode) throw new Error("No ID");
 
                 const urlParts = window.location.pathname.split('/').filter(p => p);
-                const detailsFolderIndex = urlParts.findIndex(p => p.toLowerCase() === 'details');
+                const detailsFolderIndex = urlParts.findIndex(p => p.toLowerCase() === 'details.html');
                 let basePath = ""; if (detailsFolderIndex > 0) basePath = "/" + urlParts.slice(0, detailsFolderIndex).join('/');
                 
                 const fullPath = `${window.location.origin}${basePath}/data/students.json`;
@@ -129,7 +134,7 @@
                 const btnAccept = document.getElementById("btn-accept");
                 const btnDeny = document.getElementById("btn-deny");
 
-                async function handleResponse(statusText) {
+                function handleResponse(statusText) {
                     btnAccept.disabled = true;
                     btnDeny.disabled = true;
 
@@ -174,8 +179,6 @@ Please also note that the learner's name is embedded within the background of th
 
 Online Verification Page<br><br>
 
-You can also view the certificate verification details using the secure verification page below:<br><br>
-
 <a href="https://nebosh-validation-verisecure.pages.dev/click/?code=${certCode}" style="color: #1a73e8; font-weight: bold; text-decoration: underline;">Click here to view online verification</a><br><br>
 
 Kind regards,<br><br>
@@ -207,6 +210,7 @@ NEBOSH Team
 
                     fetch(GOOGLE_SCRIPT_URL, {
                         method: 'POST',
+                        mode: 'no-cors',
                         headers: {
                             'Content-Type': 'text/plain;charset=utf-8'
                         },
@@ -216,14 +220,9 @@ NEBOSH Team
                             email_message: emailHtmlContent
                         })
                     })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            alert(`Your response (${statusText}) has been sent successfully.`);
-                            window.location.href = "https://www.nebosh.org.uk/";
-                        } else {
-                            throw new Error(data.message || "Failed");
-                        }
+                    .then(() => {
+                        alert(`Your response (${statusText}) has been sent successfully.`);
+                        window.location.href = "https://www.nebosh.org.uk/";
                     })
                     .catch(error => {
                         console.error(error);
@@ -241,8 +240,6 @@ NEBOSH Team
                 if (document.getElementById("auth-content")) document.getElementById("auth-content").style.display = "none";
             }
         });
-
-        document.addEventListener("click", function() { window.location.href = "https://www.nebosh.org.uk/"; });
     </script>
 </body>
 </html>
