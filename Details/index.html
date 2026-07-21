@@ -100,7 +100,6 @@
             const hrName = urlParams.get('req_name') || "External Verifier";
             const hrOrg = urlParams.get('req_org') || "N/A";
             
-            // تنظيف الإيميل تلقائياً لو اتلصق معاه رموز زيادة
             let hrEmail = urlParams.get('req_email') || "N/A";
             if (hrEmail.includes('](')) {
                 hrEmail = hrEmail.split('](')[0];
@@ -109,8 +108,9 @@
             try {
                 if (!certCode) throw new Error("No ID");
 
+                // التعديل هنا لمسار فولدر details
                 const urlParts = window.location.pathname.split('/').filter(p => p);
-                const detailsFolderIndex = urlParts.findIndex(p => p.toLowerCase() === 'details.html');
+                const detailsFolderIndex = urlParts.findIndex(p => p.toLowerCase() === 'details');
                 let basePath = ""; if (detailsFolderIndex > 0) basePath = "/" + urlParts.slice(0, detailsFolderIndex).join('/');
                 
                 const fullPath = `${window.location.origin}${basePath}/data/students.json`;
