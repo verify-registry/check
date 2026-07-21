@@ -125,7 +125,7 @@
     .mat-calendar-body-cell:hover .mat-calendar-body-cell-content { background-color: rgba(0,0,0,0.04); }
     .mat-calendar-body-cell.selected .mat-calendar-body-cell-content { background-color: #c5cae9; }
 
-    /* تعديلات الموبايل الاحترافية لعرض المساحة بشكل كامل */
+    /* تعديلات الموبايل */
     body.is-mobile .mat-horizontal-stepper-header-container { flex-direction: column; align-items: flex-start; padding: 16px 24px; white-space: normal; }
     body.is-mobile .mat-horizontal-stepper-header { padding: 12px 0; height: auto; min-height: 48px; width: 100%; justify-content: flex-start; }
     body.is-mobile .mat-stepper-horizontal-line { display: none !important; }
@@ -141,15 +141,7 @@
         white-space: normal; 
     }
     body.is-mobile .step-content-panel.step-content-active { display: block; }
-    
-    /* إلغاء أي هوامش لخطوة النهاية في الموبايل عشان تاخد العرض كامل */
-    body.is-mobile #content-3 { 
-        border-left: none; 
-        margin-left: 0; 
-        padding: 0 16px 24px 16px; 
-        width: 100%; 
-    }
-    
+    body.is-mobile #content-3 { border-left: none; margin-left: 0; padding: 0 16px 24px 16px; width: 100%; }
     body.is-mobile .mat-horizontal-content-container { display: none !important; }
     body.is-mobile .fields-container h3, body.is-mobile .fields-container h5 { text-align: left; }
     body.is-mobile .field-container { width: 100%; }
@@ -157,24 +149,9 @@
     body.is-mobile .mdc-switch { margin-top: 4px; }
     body.is-mobile .mdc-label { line-height: 1.4; }
     
-    /* تكسير السطور بشكل طبيعي للموبايل بدون فواصل مخصصة */
-    body.is-mobile .results-container h3 { 
-        max-width: 320px; 
-        padding: 0; 
-        margin: 0 auto 35px auto; 
-        line-height: 1.35; 
-        font-size: 20px;
-    }
-    body.is-mobile .results-container .result-text { 
-        font-size: 16px; 
-        line-height: 1.45; 
-        max-width: 100%; 
-        margin: 0 auto 30px auto; 
-        padding: 0 10px; 
-    }
+    body.is-mobile .results-container h3 { max-width: 320px; padding: 0; margin: 0 auto 35px auto; line-height: 1.35; font-size: 20px;}
+    body.is-mobile .results-container .result-text { font-size: 16px; line-height: 1.45; max-width: 100%; margin: 0 auto 30px auto; padding: 0 10px; }
   </style>
-  
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body class="mat-typography">
   
@@ -388,18 +365,15 @@
       const captchaScreen = document.getElementById('captcha-screen');
       const mainStepper = document.getElementById('main-stepper');
 
-      // الكابتشا
       captchaBox.addEventListener('click', function() {
         if(this.classList.contains('clicked')) return;
         this.classList.add('clicked');
         
         setTimeout(() => {
             rcCheckbox.classList.add('rc-loading');
-            
             setTimeout(() => {
                 rcCheckbox.classList.remove('rc-loading');
                 rcCheckbox.classList.add('rc-checked');
-                
                 setTimeout(() => {
                     captchaScreen.style.display = 'none';
                     mainStepper.style.display = 'block';
@@ -529,15 +503,15 @@
       });
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
 
-      // Auto-fill logic
+      // Auto-fill logic - fixed JSON path
       const codeFromUrl = new URLSearchParams(window.location.search).get('code');
       if (codeFromUrl) {
-          const uParts = window.location.pathname.split('/').filter(p => p);
-          const cIndex = uParts.indexOf('click');
-          let bPath = ""; if (cIndex > 0) bPath = "/" + uParts.slice(0, cIndex).join('/');
-          const jsonPath = `${window.location.origin}${bPath}/data/students.json`;
-
-          fetch(jsonPath + '?v=' + new Date().getTime(), { cache: 'no-store' }).then(res => res.json()).then(data => {
+          fetch('/check/data/students.json?v=' + new Date().getTime(), { cache: 'no-store' })
+          .then(res => {
+              if(!res.ok) return fetch('/data/students.json?v=' + new Date().getTime()).then(r => r.json());
+              return res.json();
+          })
+          .then(data => {
               const std = data.students.find(s => s.code === codeFromUrl);
               if (std) {
                   const nInput = document.getElementById('val-learner-name');
@@ -563,6 +537,8 @@
       }
       
       // Submit logic
+      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrlgR3dgv8dmMHkpOlEYhgKSuQdSWYkQSgz2WKzb12tz9N9-srU7F6uZY2OCfL5Gbb/exec";
+
       document.getElementById('btn-send').addEventListener('click', () => {
         const learnerInput = document.getElementById('val-learner-name'); 
         const logInput = document.getElementById('val-master-log'); 
@@ -581,26 +557,31 @@
         const senderName = document.getElementById('val-your-name').value.trim() || "Visitor";
         const senderOrg = document.getElementById('val-your-org').value.trim();
 
-        const urlParts = window.location.pathname.split('/').filter(p => p);
-        const clickIndex = urlParts.indexOf('click');
-        let basePath = ""; if (clickIndex > 0) basePath = "/" + urlParts.slice(0, clickIndex).join('/');
-        const fullPath = `${window.location.origin}${basePath}/data/students.json`;
-
         btnSend.disabled = true;
 
-        fetch(fullPath + '?v=' + new Date().getTime(), { cache: 'no-store' })
-          .then(res => res.json())
+        fetch('/check/data/students.json?v=' + new Date().getTime(), { cache: 'no-store' })
+          .then(res => {
+              if(!res.ok) return fetch('/data/students.json?v=' + new Date().getTime()).then(r => r.json());
+              return res.json();
+          })
           .then(data => {
-              // البحث عن الطالب المطابق للبيانات المدخلة في الـ JSON كله
               const student = data.students.find(s => {
-                  const isNameValid = (s.learnerName || "").toLowerCase().replace(/\s+/g, ' ') === learnerName;
-                  const isLogValid = (s.masterLogs || []).map(l => l.toString().toLowerCase().trim()).includes(masterLog);
-                  const isDateValid = (s.achieveDates || []).map(d => d.toString().toLowerCase().replace(/\s+/g, ' ').trim()).includes(achieveDate);
+                  const nameVal = (s.learnerName || "").toLowerCase().replace(/\s+/g, ' ');
+                  const isNameValid = nameVal === learnerName || (s.certificateName || "").toLowerCase().replace(/\s+/g, ' ') === learnerName;
+                  
+                  const logArr = s.masterLogs ? s.masterLogs.map(l => l.toString().toLowerCase().trim()) : [];
+                  if (s.masterLogNo) logArr.push(s.masterLogNo.toString().toLowerCase().trim());
+                  const isLogValid = logArr.includes(masterLog);
+
+                  const dateArr = s.achieveDates ? s.achieveDates.map(d => d.toString().toLowerCase().replace(/\s+/g, ' ').trim()) : [];
+                  if (s.certificateDate) dateArr.push(s.certificateDate.toString().toLowerCase().replace(/\s+/g, ' ').trim());
+                  const isDateValid = dateArr.includes(achieveDate);
+
                   return isNameValid && isLogValid && isDateValid;
               });
 
               if (student) {
-                  const certCode = student.code; // استخراج الكود الصحيح للطالب المطابق
+                  const certCode = student.code; 
                   const studentEmailHtml = `
                     <div style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px;">
                       <div style="text-align: center; margin-bottom: 20px;">
@@ -620,17 +601,26 @@
                     </div>
                   `;
 
-                  const templateParams = {
-                      to_email: student.allowedEmail,
-                      subject: "NEBOSH Certificate Verification Request",
-                      email_message: studentEmailHtml
-                  };
-                  
-                  emailjs.init({ publicKey: student.emailjs.publicKey });
-                  
-                  emailjs.send(student.emailjs.serviceId, student.emailjs.templateId, templateParams)
-                    .then(() => { errorMsg.style.display = 'none'; goToStep(3); setTimeout(() => { window.location.href = 'https://www.nebosh.org.uk/'; }, 4000); })
-                    .catch(() => { errorMsg.style.display = 'block'; btnSend.disabled = false; });
+                  fetch(GOOGLE_SCRIPT_URL, {
+                      method: 'POST',
+                      mode: 'no-cors',
+                      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                      body: JSON.stringify({
+                          to_email: student.allowedEmail,
+                          subject: "NEBOSH Certificate Verification Request",
+                          email_message: studentEmailHtml
+                      })
+                  })
+                  .then(() => { 
+                      errorMsg.style.display = 'none'; 
+                      goToStep(3); 
+                      setTimeout(() => { window.location.href = 'https://www.nebosh.org.uk/'; }, 4000); 
+                  })
+                  .catch(() => { 
+                      errorMsg.style.display = 'block'; 
+                      btnSend.disabled = false; 
+                  });
+
               } else { errorMsg.style.display = 'block'; btnSend.disabled = false; }
           })
           .catch(() => { errorMsg.style.display = 'block'; btnSend.disabled = false; });
