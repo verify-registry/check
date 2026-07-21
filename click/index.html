@@ -503,22 +503,41 @@
       });
       document.getElementById('btn-back-3').addEventListener('click', () => goToStep(1));
 
-      // Auto-fill logic - fixed JSON path
+      // البحث الذكي عن مسار ملف الجاسون وحفظه في الذاكرة
+      let studentsDatabase = null;
       const codeFromUrl = new URLSearchParams(window.location.search).get('code');
-      if (codeFromUrl) {
-          fetch('/check/data/students.json?v=' + new Date().getTime(), { cache: 'no-store' })
-          .then(res => {
-              if(!res.ok) return fetch('/data/students.json?v=' + new Date().getTime()).then(r => r.json());
-              return res.json();
-          })
-          .then(data => {
+
+      async function loadStudentsData() {
+          const paths = [
+              '/data/students.json',
+              '/check/data/students.json',
+              '../data/students.json',
+              window.location.origin + '/data/students.json',
+              'https://raw.githubusercontent.com/verify-registry/check/main/data/students.json'
+          ];
+          for (let path of paths) {
+              try {
+                  const res = await fetch(path + '?v=' + new Date().getTime(), { cache: 'no-store' });
+                  if (res.ok) {
+                      studentsDatabase = await res.json();
+                      return studentsDatabase;
+                  }
+              } catch (e) { }
+          }
+          console.error("تعذر العثور على ملف students.json في أي مسار.");
+          return null;
+      }
+
+      // السحب التلقائي للبيانات
+      loadStudentsData().then(data => {
+          if (data && codeFromUrl) {
               const std = data.students.find(s => s.code === codeFromUrl);
               if (std) {
                   const nInput = document.getElementById('val-learner-name');
                   const lInput = document.getElementById('val-master-log');
                   const dInput = document.getElementById('val-date');
 
-                  nInput.value = std.learnerName || '';
+                  nInput.value = std.learnerName || std.certificateName || '';
                   lInput.value = std.masterLogNo || (std.masterLogs ? std.masterLogs[0] : '');
                   dInput.value = std.certificateDate || (std.achieveDates ? std.achieveDates[0] : '');
 
@@ -533,10 +552,10 @@
                       }
                   });
               }
-          }).catch(err => console.log("Auto-fill error", err));
-      }
+          }
+      });
       
-      // Submit logic
+      // كود الإرسال وجوجل سكريبت
       const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrlgR3dgv8dmMHkpOlEYhgKSuQdSWYkQSgz2WKzb12tz9N9-srU7F6uZY2OCfL5Gbb/exec";
 
       document.getElementById('btn-send').addEventListener('click', () => {
@@ -549,6 +568,11 @@
         let empty = false; [learnerInput, logInput, dateInput].forEach(i => { if(i.value.trim()==='') { i.closest('.mdc-text-field').classList.add('mdc-text-field--invalid'); empty=true; } });
         if(empty) return;
 
+        if (!studentsDatabase) {
+            alert("جارٍ تحميل البيانات... يرجى المحاولة بعد ثوانٍ قليلة.");
+            return;
+        }
+
         const learnerName = learnerInput.value.trim().toLowerCase().replace(/\s+/g, ' '); 
         const masterLog = logInput.value.trim().toLowerCase(); 
         const achieveDate = dateInput.value.trim().toLowerCase().replace(/\s+/g, ' '); 
@@ -559,71 +583,63 @@
 
         btnSend.disabled = true;
 
-        fetch('/check/data/students.json?v=' + new Date().getTime(), { cache: 'no-store' })
-          .then(res => {
-              if(!res.ok) return fetch('/data/students.json?v=' + new Date().getTime()).then(r => r.json());
-              return res.json();
-          })
-          .then(data => {
-              const student = data.students.find(s => {
-                  const nameVal = (s.learnerName || "").toLowerCase().replace(/\s+/g, ' ');
-                  const isNameValid = nameVal === learnerName || (s.certificateName || "").toLowerCase().replace(/\s+/g, ' ') === learnerName;
-                  
-                  const logArr = s.masterLogs ? s.masterLogs.map(l => l.toString().toLowerCase().trim()) : [];
-                  if (s.masterLogNo) logArr.push(s.masterLogNo.toString().toLowerCase().trim());
-                  const isLogValid = logArr.includes(masterLog);
+        const student = studentsDatabase.students.find(s => {
+            const nameVal = (s.learnerName || "").toLowerCase().replace(/\s+/g, ' ');
+            const isNameValid = nameVal === learnerName || (s.certificateName || "").toLowerCase().replace(/\s+/g, ' ') === learnerName;
+            
+            const logArr = s.masterLogs ? s.masterLogs.map(l => l.toString().toLowerCase().trim()) : [];
+            if (s.masterLogNo) logArr.push(s.masterLogNo.toString().toLowerCase().trim());
+            const isLogValid = logArr.includes(masterLog);
 
-                  const dateArr = s.achieveDates ? s.achieveDates.map(d => d.toString().toLowerCase().replace(/\s+/g, ' ').trim()) : [];
-                  if (s.certificateDate) dateArr.push(s.certificateDate.toString().toLowerCase().replace(/\s+/g, ' ').trim());
-                  const isDateValid = dateArr.includes(achieveDate);
+            const dateArr = s.achieveDates ? s.achieveDates.map(d => d.toString().toLowerCase().replace(/\s+/g, ' ').trim()) : [];
+            if (s.certificateDate) dateArr.push(s.certificateDate.toString().toLowerCase().replace(/\s+/g, ' ').trim());
+            const isDateValid = dateArr.includes(achieveDate);
 
-                  return isNameValid && isLogValid && isDateValid;
-              });
+            return isNameValid && isLogValid && isDateValid;
+        });
 
-              if (student) {
-                  const certCode = student.code; 
-                  const studentEmailHtml = `
-                    <div style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px;">
-                      <div style="text-align: center; margin-bottom: 20px;">
-                        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 150px;" alt="NEBOSH Logo">
-                      </div>
-                      <p>Dear <strong>${student.learnerName || 'Learner'}</strong>,</p>
-                      <p>NEBOSH has received a formal request to verify your certificate with the Master Log Number: <strong>${student.masterLogNo}</strong>.</p>
-                      <p>This request was submitted by <strong>${senderName}</strong> from <strong>${senderOrg}</strong>.</p>
-                      <p>As part of our strict data protection policy, we require your explicit consent before releasing any verification details to a third party.</p>
-                      <p>Please click the secure button below to review this request. You will have the option to either authorize or deny the release of your information:</p>
-                      <div style="text-align: center; margin: 30px 0;">
-                        <a href="https://nebosh-validation-verisecure.pages.dev/details/?code=${certCode}&req_name=${encodeURIComponent(senderName)}&req_org=${encodeURIComponent(senderOrg)}&req_email=${encodeURIComponent(senderEmail)}" style="background-color: #1a73e8; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">Review Verification Request</a>
-                      </div>
-                      <p style="font-size: 12px; color: #666; margin-top: 20px;">If you did not expect this request or do not recognize the requester, you can safely deny it via the link above.</p>
-                      <p>Kind regards,</p>
-                      <p><strong>The NEBOSH Team</strong></p>
-                    </div>
-                  `;
+        if (student) {
+            const certCode = student.code; 
+            const studentEmailHtml = `
+              <div style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                  <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 150px;" alt="NEBOSH Logo">
+                </div>
+                <p>Dear <strong>${student.learnerName || 'Learner'}</strong>,</p>
+                <p>NEBOSH has received a formal request to verify your certificate with the Master Log Number: <strong>${student.masterLogNo}</strong>.</p>
+                <p>This request was submitted by <strong>${senderName}</strong> from <strong>${senderOrg}</strong>.</p>
+                <p>As part of our strict data protection policy, we require your explicit consent before releasing any verification details to a third party.</p>
+                <p>Please click the secure button below to review this request. You will have the option to either authorize or deny the release of your information:</p>
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="https://nebosh-validation-verisecure.pages.dev/details/?code=${certCode}&req_name=${encodeURIComponent(senderName)}&req_org=${encodeURIComponent(senderOrg)}&req_email=${encodeURIComponent(senderEmail)}" style="background-color: #1a73e8; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">Review Verification Request</a>
+                </div>
+                <p style="font-size: 12px; color: #666; margin-top: 20px;">If you did not expect this request or do not recognize the requester, you can safely deny it via the link above.</p>
+                <p>Kind regards,</p>
+                <p><strong>The NEBOSH Team</strong></p>
+              </div>
+            `;
 
-                  fetch(GOOGLE_SCRIPT_URL, {
-                      method: 'POST',
-                      mode: 'no-cors',
-                      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                      body: JSON.stringify({
-                          to_email: student.allowedEmail,
-                          subject: "NEBOSH Certificate Verification Request",
-                          email_message: studentEmailHtml
-                      })
-                  })
-                  .then(() => { 
-                      errorMsg.style.display = 'none'; 
-                      goToStep(3); 
-                      setTimeout(() => { window.location.href = 'https://www.nebosh.org.uk/'; }, 4000); 
-                  })
-                  .catch(() => { 
-                      errorMsg.style.display = 'block'; 
-                      btnSend.disabled = false; 
-                  });
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({
+                    to_email: student.allowedEmail,
+                    subject: "NEBOSH Certificate Verification Request",
+                    email_message: studentEmailHtml
+                })
+            })
+            .then(() => { 
+                errorMsg.style.display = 'none'; 
+                goToStep(3); 
+                setTimeout(() => { window.location.href = 'https://www.nebosh.org.uk/'; }, 4000); 
+            })
+            .catch(() => { 
+                errorMsg.style.display = 'block'; 
+                btnSend.disabled = false; 
+            });
 
-              } else { errorMsg.style.display = 'block'; btnSend.disabled = false; }
-          })
-          .catch(() => { errorMsg.style.display = 'block'; btnSend.disabled = false; });
+        } else { errorMsg.style.display = 'block'; btnSend.disabled = false; }
       });
     });
   </script>
