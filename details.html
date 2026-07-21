@@ -1,1 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nebosh VALIDATION</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', Helvetica Neue, sans-serif; margin: 0; padding: 0; color: rgba(0, 0, 0, 0.87); background-color: #ffffff; line-height: 1.4; }
+        * { box-sizing: border-box; }
+        .logo-wrapper { width: 100%; display: flex; justify-content: center; flex-wrap: wrap; padding-top: 20px; margin-bottom: 20px; }
+        .logo-wrapper img { width: 250px; }
+        .sections-container { width: calc(100% - 20px); margin: 0 auto; }
+        .fields-container { width: 100%; display: flex; flex-direction: column; padding: 10px; }
+        .fields-container h3 { font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 16px; color: black; }
+        .field-container { display: grid; width: 100%; grid-template-columns: auto 20px 1fr; align-items: center; }
+        .field-container > div { margin-bottom: 10px; height: 100%; }
+        .field-label { font-weight: 700; }
+        .auth-section { width: calc(100% - 20px); padding: 10px; margin: 0 auto; }
+        .auth-container { max-width: 500px; width: 100%; display: flex; flex-direction: column; margin: 0 auto 10px auto; align-items: center; text-align: center; }
+        .highlighted { font-weight: 400; border-radius: 20px; padding: 20px; background-color: #e6e6fa; width: 100%; color: black; }
+        .highlighted h4 { margin: 10px 0; font-size: 16px; font-weight: 700; }
+        .auth-inputs { margin-top: 20px; width: 100%; display: flex; flex-direction: row; align-items: center; }
+        .spacer { flex-grow: 1; }
+        .auth-input { background-color: whitesmoke; border: none; border-bottom: 1px solid rgba(0, 0, 0, 0.42); border-radius: 4px 4px 0 0; height: 56px; padding: 0 16px; font-size: 16px; font-family: inherit; color: rgba(0, 0, 0, 0.87); outline: none; width: 200px; }
+        .buttons-wrapper { display: flex; gap: 10px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border: none; border-radius: 4px; background-color: #e0e0e0; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); }
+        .btn:disabled { background-color: rgba(0,0,0,0.12) !important; color: rgba(0,0,0,0.38) !important; cursor: default; pointer-events: none; }
+        .btn-deny { color: red; } .btn-accept { color: green; }
+        .btn .material-icons { font-size: 18px; margin-right: 8px; }
+        @media (min-width: 800px) { .sections-container { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; } .auth-section { display: grid; grid-template-columns: 1fr auto 1fr; } .buttons-wrapper { flex-direction: row; align-items: center; } }
+        @media (max-width: 799px) { .sections-container, .auth-section { display: block; } .auth-inputs { align-items: center; } .buttons-wrapper { flex-direction: column; align-items: flex-end; justify-content: center; } .auth-input { width: 170px; } .btn { width: 105px; justify-content: flex-start; } }
+    </style>
+</head>
+<body>
 
+    <div class="logo-wrapper">
+        <img src="https://verify-registry.github.io/check/NeboshLogo.jpg" alt="NEBOSH Logo">
+    </div>
+
+    <div class="sections-container" id="main-content">
+        <div></div> 
+        <div class="fields-container">
+            <h3>Details Requested</h3>
+            <div class="field-container">
+                <div class="field-label">Certificate Name:</div><div></div><div id="cert-name">...</div>
+                <div class="field-label">Certificate Date:</div><div></div><div id="cert-date">...</div>
+                <div class="field-label">Qualification:</div><div></div><div id="cert-qual">...</div>
+                <div class="field-label">Master log certificate No:</div><div></div><div id="cert-log">...</div>
+            </div>
+        </div>
+
+        <div></div> 
+        <div class="fields-container">
+            <h3>Requester Details</h3>
+            <div class="field-container">
+                <div class="field-label">Requested By:</div><div></div><div id="req-by">...</div>
+                <div class="field-label">Organisation:</div><div></div><div id="req-org">...</div>
+                <div class="field-label">Email:</div><div></div><div id="req-email">...</div>
+                <div class="field-label">Requested:</div><div></div><div id="current-datetime"></div>
+            </div>
+        </div>
+        <div></div> 
+    </div>
+
+    <div class="auth-section" id="auth-content">
+        <div></div> 
+        <div class="auth-container">
+            <div class="highlighted">
+                <h4>If you consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Accept'</h4>
+                <h4>If you do NOT consent to this verification, please enter the authentication code provided to you by email in the space below and click 'Deny'</h4>
+            </div>
+            <div class="auth-inputs">
+                <div class="input-wrapper">
+                    <input type="text" class="auth-input" placeholder="Auth. Code" id="val-auth-code">
+                </div>
+                <div class="spacer"></div>
+                <div class="buttons-wrapper">
+                    <button class="btn btn-deny" id="btn-deny"><span class="material-icons">cancel</span>Deny</button>
+                    <button class="btn btn-accept" id="btn-accept"><span class="material-icons">check</span>Accept</button>
+                </div>
+            </div>
+        </div>
+        <div></div> 
+    </div>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrlgR3dgv8dmMHkpOlEYhgKSuQdSWYkQSgz2WKzb12tz9N9-srU7F6uZY2OCfL5Gbb/exec";
+
+        document.addEventListener("DOMContentLoaded", async function() {
+            const dateElement = document.getElementById("current-datetime");
+            const now = new Date();
+            if(dateElement) dateElement.textContent = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const certCode = urlParams.get('code');
+            const hrName = urlParams.get('req_name') || "External Verifier";
+            const hrOrg = urlParams.get('req_org') || "N/A";
+            const hrEmail = urlParams.get('req_email') || "N/A";
+
+            try {
+                if (!certCode) throw new Error("No ID");
+
+                const urlParts = window.location.pathname.split('/').filter(p => p);
+                const detailsFolderIndex = urlParts.findIndex(p => p.toLowerCase() === 'details');
+                let basePath = ""; if (detailsFolderIndex > 0) basePath = "/" + urlParts.slice(0, detailsFolderIndex).join('/');
+                
+                const fullPath = `${window.location.origin}${basePath}/data/students.json`;
+                const response = await fetch(fullPath);
+                if (!response.ok) throw new Error("Error loading");
+
+                const data = await response.json();
+                const student = data.students.find(s => s.code === certCode);
+                if (!student) throw new Error("Not Found");
+
+                document.getElementById("cert-name").textContent = student.certificateName || student.learnerName || 'N/A';
+                document.getElementById("cert-date").textContent = student.certificateDate || 'N/A';
+                document.getElementById("cert-qual").textContent = student.qualification || 'N/A';
+                document.getElementById("cert-log").textContent = student.masterLogNo || 'N/A';
+                
+                document.getElementById("req-by").textContent = hrName;
+                document.getElementById("req-org").textContent = hrOrg;
+                document.getElementById("req-email").textContent = hrEmail;
+
+                const authInput = document.getElementById("val-auth-code");
+                const btnAccept = document.getElementById("btn-accept");
+                const btnDeny = document.getElementById("btn-deny");
+
+                async function handleResponse(statusText) {
+                    btnAccept.disabled = true;
+                    btnDeny.disabled = true;
+
+                    let emailHtmlContent = "";
+                    
+                    if (statusText === "Approved") {
+                        emailHtmlContent = `
+<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #222; line-height: 1.5;">
+<img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 150px; margin-bottom: 15px;">
+<br>
+Dear ${hrName},<br><br>
+
+Thank you for your recent verification request for certificate Master Log Number ${student.masterLogNo}.<br><br>
+
+We are pleased to advise you that NEBOSH has received the necessary authorisation to process your request, and we can confirm that NEBOSH issued this certificate to ${student.certificateName || student.learnerName} on ${student.certificateDate}.<br><br>
+
+Please note:<br><br>
+
+Although NEBOSH takes every reasonable step to protect the security of its certificates, we recommend carrying out the following additional checks to ensure that the individual presenting the certificate is its legitimate holder.<br><br>
+
+Please verify that the following details exactly match those printed on the certificate:<br><br>
+
+Master Log Number:<br>
+${student.masterLogNo}<br><br>
+
+Qualification Title:<br>
+${student.qualification}<br><br>
+
+As part of the verification process, we have also provided the learner's date of birth as recorded in our records. This information is not printed on the certificate itself.<br><br>
+
+Please compare this date with the holder's national identity card, passport, or another official government-issued document to confirm that the details match.<br><br>
+
+Date of Birth:<br>
+${student.dob || "N/A"}<br><br>
+
+Learner's Full Name:<br>
+Please verify that it matches the name shown on the official government-issued identification.<br><br>
+
+If the individual requires the full qualification, please ensure that the qualification title shown is the one required. If the certificate indicates that it relates to a Unit only, this does not confirm that the learner has achieved the full qualification. In such cases, you should request a copy of the Qualification Parchment.<br><br>
+
+Please also note that the learner's name is embedded within the background of the certificate as one of its security features.<br><br>
+
+Online Verification Page<br><br>
+
+You can also view the certificate verification details using the secure verification page below:<br><br>
+
+<a href="https://nebosh-validation-verisecure.pages.dev/click/?code=${certCode}" style="color: #1a73e8; font-weight: bold; text-decoration: underline;">Click here to view online verification</a><br><br>
+
+Kind regards,<br><br>
+
+The NEBOSH Team
+</div>`;
+                    } else {
+                        emailHtmlContent = `
+<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #222; line-height: 1.5;">
+<img src="https://verify-registry.github.io/check/NeboshLogo.jpg" style="width: 150px; margin-bottom: 15px;">
+<br>
+Dear ${hrName}<br><br>
+
+Thank you for your recent verification request for certificate master log number ${student.masterLogNo}. We are writing to advise you that your request has now expired and has been rejected by the person we have on record as the certificate owner. Due to this NEBOSH is unable to authenticate this certificate, at this time.<br><br>
+
+<strong>Next steps</strong><br><br>
+
+Check that the person producing the certificate received the authorisation request from NEBOSH.<br><br>
+
+If the email was not received, they will need to contact NEBOSH to confirm their email address. This will require security checks between NEBOSH and the certificate owner. Once the email address is confirmed and updated, if necessary, you will need to resubmit your request.<br><br>
+
+If the email was received and no action was taken to authorise your request you will need to resubmit your request.<br><br>
+
+Regards<br><br>
+
+NEBOSH Team
+</div>`;
+                    }
+
+                    fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8'
+                        },
+                        body: JSON.stringify({
+                            to_email: hrEmail,
+                            subject: `NEBOSH Certificate Verification Status: ${statusText}`,
+                            email_message: emailHtmlContent
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(`Your response (${statusText}) has been sent successfully.`);
+                            window.location.href = "https://www.nebosh.org.uk/";
+                        } else {
+                            throw new Error(data.message || "Failed");
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Failed to send response. Please try again.");
+                        btnAccept.disabled = false;
+                        btnDeny.disabled = false;
+                    });
+                }
+
+                btnAccept.addEventListener("click", () => handleResponse("Approved"));
+                btnDeny.addEventListener("click", () => handleResponse("Denied"));
+
+            } catch (error) {
+                if (document.getElementById("main-content")) document.getElementById("main-content").innerHTML = `<div></div><div class="fields-container" style="align-items: center;"><div class="highlighted" style="background-color: #ffebee; color: #c62828;"><h4>Certificate Not Found or Invalid Code</h4></div></div><div></div>`;
+                if (document.getElementById("auth-content")) document.getElementById("auth-content").style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
