@@ -78,7 +78,7 @@
       "dob": ""
     },
     {
-      "code": "Q7mK29xR4vL8pT6zN3wC5",
+      "code": "J1V5K3P6L0N9T2F8R2X9M4Q7",
       "learnerName": "Ahmed Wageh Ibrahim Moawad Elgabaly",
       "certificateName": "Ahmed Wageh Ibrahim Moawad Elgabaly",
       "masterLogs": [
@@ -94,6 +94,44 @@
       "qualification": "NEBOSH International General Certificate in Occupational Health and Safety",
       "allowedEmail": "ahmedwageh5454@gmail.com",
       "email": "ahmedwageh5454@gmail.com",
+      "dob": ""
+    },
+    {
+      "code": "P0N6T9W3Z3M7Q1V9K4X8J2L5",
+      "learnerName": "Mohammed Ibrahim Zakarya Alshenawy",
+      "certificateName": "Mohammed Ibrahim Zakarya Alshenawy",
+      "masterLogs": [
+        "00695637/169426"
+      ],
+      "masterLogNo": "00695637/169426",
+      "achieveDates": [
+        "01/10/2026",
+        "01 Oct 2026",
+        "01-10-2026"
+      ],
+      "certificateDate": "01/10/2026",
+      "qualification": "NEBOSH International General Certificate in Occupational Health and Safety",
+      "allowedEmail": "mohamedalshenawy20@gmail.com",
+      "email": "mohamedalshenawy20@gmail.com",
+      "dob": ""
+    },
+    {
+      "code": "W9R2V9K2X7M4Q1J8L5P3N0T6",
+      "learnerName": "Roshdy Shaaban Ahmed Tawfik",
+      "certificateName": "Roshdy Shaaban Ahmed Tawfik",
+      "masterLogs": [
+        "00695637/169426"
+      ],
+      "masterLogNo": "00695637/169426",
+      "achieveDates": [
+        "01/10/2026",
+        "01 Oct 2026",
+        "01-10-2026"
+      ],
+      "certificateDate": "01/10/2026",
+      "qualification": "NEBOSH International General Certificate in Occupational Health and Safety",
+      "allowedEmail": "roshdyroshdyshaban@gmail.com",
+      "email": "roshdyroshdyshaban@gmail.com",
       "dob": ""
     }
   ]
