@@ -108,7 +108,6 @@
             try {
                 if (!certCode) throw new Error("No ID");
 
-                // تثبيت مسار الـ JSON عشان يقرأ بدون أخطاء
                 let response = await fetch('/check/data/students.json?v=' + new Date().getTime(), { cache: 'no-store' });
                 if (!response.ok) {
                     response = await fetch('/data/students.json?v=' + new Date().getTime(), { cache: 'no-store' });
